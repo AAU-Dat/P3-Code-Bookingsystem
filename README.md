@@ -18,7 +18,7 @@
 2. Select the "Clone a reposity"
 In the "Reposity location", enter the Github URL. In this case it is:
 ```shell
-https://github.com/AAU-Dat/P3-code.git
+https://github.com/AAU-Dat/P3-Code-Bookingsystem.git
 ```
 and select "Clone"
 
