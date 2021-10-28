@@ -1,0 +1,30 @@
+﻿<h3>Kalender</h3>
+
+
+<h3>
+    @Months [DateTime.Month]
+</h3>
+
+
+<table>
+    
+    <tr>
+        @foreach (var Day in WeekDays)
+        {
+            @Day
+        }
+    </tr>
+    <tr>
+    </tr>
+</table>
+
+
+
+@code {
+
+    public string[] WeekDays = { "mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag", "søndag" };
+    public string[] Months = { "Januar", "Februar", "Marts", "April", "Juni", "Juli", "August", "September", "Oktober", "November", "December" };
+
+    
+    DateTime 
+}
