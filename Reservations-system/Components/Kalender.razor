@@ -2,29 +2,46 @@
 
 
 <h3>
-    @Months [DateTime.Month]
+    
+    @Months[DateNow.Month - 1]
+
 </h3>
 
 
-<table>
-    
-    <tr>
-        @foreach (var Day in WeekDays)
-        {
-            @Day
-        }
-    </tr>
-    <tr>
-    </tr>
+<table border="1">
+    <thead>
+        <tr>
+            @foreach (var Day in WeekDays)
+            {
+
+                <th>@Day</th>
+
+            }
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @for (int i = 0; i < 42; i++)
+            {
+                DateTime date = startDate.AddDays(i);
+                if (i % 7 == 0 && i > 0)
+                {
+                    @:</tr><tr>                   
+                }
+                <td>@date.Day</td>
+            }
+        </tr>
+    </tbody>
 </table>
 
 
 
-@code {
+    @code {
 
-    public string[] WeekDays = { "mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag", "søndag" };
-    public string[] Months = { "Januar", "Februar", "Marts", "April", "Juni", "Juli", "August", "September", "Oktober", "November", "December" };
+        public string[] WeekDays = { "mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag", "søndag" };
+        public string[] Months = { "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December" };
 
-    
-    DateTime 
-}
+        public static DateTime DateNow = DateTime.Now;
+        public static DateTime firstDayOfTheMonth = new DateTime(DateNow.Year, DateNow.Month, 1);
+        public DateTime startDate = firstDayOfTheMonth.AddDays(-(int)firstDayOfTheMonth.DayOfWeek + 1);
+    }
