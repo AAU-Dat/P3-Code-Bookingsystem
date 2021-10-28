@@ -1,3 +1,28 @@
-﻿@code {
+﻿
+@code{
+    /*
+       name: Raymond Kacso
+       The component is used to store data about reservations
+    */
+    public class Reservation
+    {
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime FinishDate { get; set; }
+
+        public string Name { get; set; }
+     
+        public string TelefonNumber { get; set; }
+
+        public string Mail { get; set; }
+
+        public string AccountNumber { get; set; }
+
+        public bool Cleaning { get; set; }
+        
+        public bool IsAccepted { get; set; }
+
+    }
 
 }
