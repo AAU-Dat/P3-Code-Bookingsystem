@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Discord post action step
         id: discord
-        uses: AAU-Dat/scrummaster-discord@v2.0
+        uses: AAU-Dat/automate-team-responsibilities@v2.0
         with:
           team: '["Andreas", "Daniel", "Elias", "Lars", "Oliver", "Raymond", "Tobias"]'
           responsibilities: '[{"name": "Scrum Master", "random": false}, {"name": "Second Scrum Master", "random": true}, {"name": "Cake", "random": false}, {"name": "Fruit", "random": false}, {"name": "Drinks", "random": false}]'
