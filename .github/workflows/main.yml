@@ -1,4 +1,4 @@
-name: Determine scrum masters for the week
+name: Determine responsibilities for the week
 
 on:
   workflow_dispatch:
