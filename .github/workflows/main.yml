@@ -3,7 +3,7 @@ name: Determine scrum masters for the week
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 6 * * 1"
+    - cron: "0 6 * * 6"
 
 jobs:
   post-to-Discord:
@@ -14,5 +14,5 @@ jobs:
         uses: AAU-Dat/scrummaster-discord@v2.0
         with:
           team: '["Andreas", "Daniel", "Elias", "Lars", "Oliver", "Raymond", "Tobias"]'
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          responsibilities: '[{"name": "Scrum Master", "random": false}, {"name": "Second Scrum Master", "random": true}, {"name": "Cake", "random": false}, {"name": "Fruit", "random": false}, {"name": "Drinks", "random": false}]'
+          discord-webhook: ${{ secrets.DISCORD_WEBHOOK }}
