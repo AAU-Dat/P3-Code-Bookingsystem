@@ -1,0 +1,13 @@
+﻿<button class="@Css" @onclick="@Onclick">"@Title</button>
+
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> Onclick { get; set; }
+
+    [Parameter]
+    public string Css { get; set; }
+}
