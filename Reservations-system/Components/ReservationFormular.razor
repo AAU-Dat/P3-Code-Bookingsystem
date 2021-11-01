@@ -1,0 +1,100 @@
+﻿
+<h3>Book en reservation!</h3>
+<EditForm Model="@currentReservation">
+
+    <div class="form-group">
+        <label for="fornavn">Fornavn</label>
+        <InputText placeholder="Fornavn" @bind-Value="currentReservation.FirstName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="efternavn">Efternavn</label>
+        <InputText placeholder="Efternavn" @bind-Value="currentReservation.LastName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="telefonnummer">Telefonnummer</label>
+        <InputText placeholder="telefonnummer" @bind-Value="currentReservation.PhoneNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="mail">Mail</label>
+        <InputText placeholder="mail" @bind-Value="currentReservation.Mail" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="startDato">StartDato</label>
+        <InputDate placeholder="StartDato" @bind-Value="currentReservation.StartDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="finishDato">FinishDato</label>
+        <InputDate placeholder="FinishDato" @bind-Value="currentReservation.FinishDate" class="form-control" />
+    </div>
+
+
+
+    <div class="form-group">
+        <label for="accountNumber">Kontonummer</label>
+        <InputText placeholder="xx xx xx xx xx" @bind-Value="currentReservation.AccountNumber" class="form-control" />
+
+        <label for="registerNumber"> Registreringnummer</label>
+        <InputText placeholder="xxxx" @bind-Value="currentReservation.RegistrationNumber" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="otherStuff">Spørgsmål eller andre kommentarer</label>
+        <InputTextArea placeholder=". . ." @bind-Value="currentReservation.OtherInfo" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="cleaning">Rengøring</label>
+        <InputCheckbox @bind-Value="currentReservation.Cleaning" @onclick="ChangeStateCleaning" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+        <label for="permission">Jeg er over 18 år</label>
+        <InputCheckbox @bind-Value="currentReservation.IsOver18" @onclick="ChangeStateAge" />
+    </div>
+
+    <button type="submit" @onclick="ShowData" class="btn btn-primary">Submit bro</button>
+</EditForm>
+
+@code {
+
+    Reservation currentReservation = new Reservation();
+
+    public void ShowData()
+    {
+        Console.WriteLine(currentReservation.FirstName);
+        Console.WriteLine(currentReservation.LastName);
+        Console.WriteLine(currentReservation.Cleaning);
+
+    }
+    public void ChangeStateCleaning()
+    {
+        currentReservation.Cleaning = !currentReservation.Cleaning;
+    }
+    public void ChangeStateAge()
+    {
+        currentReservation.IsOver18 = !currentReservation.IsOver18;
+    }
+
+    /*
+    public class Reservation
+    {
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime FinishDate { get; set; }
+
+
+
+        public string AccountNumber { get; set; }
+
+        public bool Cleaning { get; set; }
+
+
+        public bool IsOver18 { get; set; }
+
+    }*/
+
+}
