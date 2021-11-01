@@ -1,7 +1,12 @@
 ﻿
+
+@using System.ComponentModel.DataAnnotations;
+@inject NavigationManager NavigationManager
+
 <h3>Book en reservation!</h3>
 <EditForm Model="@currentReservation">
-
+    <DataAnnotationsValidator />
+    <ValidationSummary />
     <div class="form-group">
         <label for="fornavn">Fornavn</label>
         <InputText placeholder="Fornavn" @bind-Value="currentReservation.FirstName" class="form-control" />
@@ -28,8 +33,6 @@
         <label for="finishDato">FinishDato</label>
         <InputDate placeholder="FinishDato" @bind-Value="currentReservation.FinishDate" class="form-control" />
     </div>
-
-
 
     <div class="form-group">
         <label for="accountNumber">Kontonummer</label>
@@ -64,10 +67,11 @@
 
     public void ShowData()
     {
+
         Console.WriteLine(currentReservation.FirstName);
         Console.WriteLine(currentReservation.LastName);
         Console.WriteLine(currentReservation.Cleaning);
-
+        //NavigationManager.NavigateTo("/betal-depositum");
     }
     public void ChangeStateCleaning()
     {
@@ -77,24 +81,4 @@
     {
         currentReservation.IsOver18 = !currentReservation.IsOver18;
     }
-
-    /*
-    public class Reservation
-    {
-
-        public DateTime StartDate { get; set; }
-
-        public DateTime FinishDate { get; set; }
-
-
-
-        public string AccountNumber { get; set; }
-
-        public bool Cleaning { get; set; }
-
-
-        public bool IsOver18 { get; set; }
-
-    }*/
-
 }
