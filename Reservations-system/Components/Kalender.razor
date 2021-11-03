@@ -1,11 +1,17 @@
-﻿<h3>Kalender</h3>
+﻿
 
-<Button Title="Forrige måned" Css="btn btn-primary" Onclick="PreviusMonth">
+<Button Title="Forrige måned"
+        Css="btn btn-primary"
+        Onclick="PreviusMonth">
 </Button>
-<Button Title="Næste måned" Css="btn btn-primary" Onclick="NextMonth">
+
+<Button Title="Næste måned"
+        Css="btn btn-primary"
+        Onclick="NextMonth">
 </Button>
+
 <h3>
-    @Months[(ShowMonth.Month + monthCounter - 1) % 12]
+    @Months[(ShowMonth.Month + monthCounter - 1)]
     @(ShowMonth.Year + yearCounter)
 </h3>
 
@@ -14,6 +20,7 @@
         @foreach (var Day in WeekDays)
         {
             <th>@Day</th>
+            dayCounter = 0;
         }
     </tr>
 
@@ -24,56 +31,59 @@
             {
                 Date1 = new DateTime(ShowMonth.Year + yearCounter, ShowMonth.Month + monthCounter, 1);
 
-                if (Date1.AddDays((int)Date1.Day - ((int)Date1.DayOfWeek == 0 ? 7 : (int)Date1.DayOfWeek) + dayCounter).Month == ShowMonth.Month + monthCounter)
+                if (Date1.AddDays(Date1.Day - DayOfWeek(Date1) + dayCounter).Month == Date1.Month)
                 {
-                    Date2 = new DateTime(ShowMonth.Year + yearCounter, ShowMonth.Month + monthCounter, Date1.AddDays((int)Date1.Day - ((int)Date1.DayOfWeek == 0 ? 7 : (int)Date1.DayOfWeek) + dayCounter).Day);
-                    datePrinter = Date1.AddDays((int)Date1.Day - ((int)Date1.DayOfWeek == 0 ? 7 : (int)Date1.DayOfWeek) + dayCounter).Day.ToString();
+                    Date2 = new DateTime(Date1.Year, Date1.Month, Date1.AddDays(Date1.Day - DayOfWeek(Date1) + dayCounter).Day);
+
+                    datePrinter = Date1.AddDays(Date1.Day - DayOfWeek(Date1) + dayCounter).Day.ToString();
+
                     <td>
-                        <Button Title="@datePrinter"
-                                Css="btn btn-primary"
-                                Onclick="() => ChosenMonth(Date2)"
-                                IsDisabled="@(Date1.AddDays((int)Date1.Day - ((int)Date1.DayOfWeek == 0 ? 7 : (int)Date1.DayOfWeek) + dayCounter).Month == Date1.Month ? false : true)">
-                        </Button>
+                        <ChoseADateButton Title="@datePrinter"
+                                          Css="btn btn-primary"
+                                          ThisDate="Date2"
+                                          IsDisabled="IsInArray(Date2, ReservedDates)"
+                                          @bind-ChosenDate="ChosenDate">
+                        </ChoseADateButton>
                     </td>
-                    // i knappen skal der findes en løsning til at sende en variabel ind i chosenmonth, muligvis ved at binde en variabel og sende den med inde fra componentet
                 }
-                    else
-                    {
-                        <td>
-                        </td>
-                    }
+                else
+                {
+                    <td></td>
+                }
 
                 dayCounter++;
             }
         </tr>
     }
 </table>
+@*herfra og ned til code slettes når lortet kan sende variabler til parent med 1 tryk*@
+<Button Title="Update ChosenDate i Index"
+        Css="btn btn-primary"
+        Onclick="UpdateChosenDateForParentObject">
+</Button>
 
 <h3>
-    @ChosenDate
+    @ChosenDate.ToShortDateString()
 </h3>
 
 
 
 @code {
+    private string[] WeekDays = { " man ", " tir ", " ons ", " tor ", " fre ", " lør ", " søn " };
+    private string[] Months = { "januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december" };
 
-    public string[] WeekDays = { " man ", " tir ", " ons ", " tor ", " fre ", " lør ", " søn " };
-    public string[] Months = { "januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december" };
+    private static DateTime ShowMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+    private static DateTime Date1;
+    private static DateTime Date2;
+    private static DateTime ChosenDate;
 
-
-    public static DateTime ShowMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-    public static DateTime Date1;
-    public static DateTime Date2;
-    public static DateTime ChosenDate;
-
-    public int dayCounter = 0;
-    public int monthCounter = 0;
-    public int yearCounter = 0;
-    public string datePrinter;
+    private int dayCounter = 0;
+    private int monthCounter = 0;
+    private int yearCounter = 0;
+    private string datePrinter;
 
     private void NextMonth()
     {
-        dayCounter = 0;
         monthCounter++;
         if (ShowMonth.Month + monthCounter > 12)
         {
@@ -84,9 +94,7 @@
 
     private void PreviusMonth()
     {
-        dayCounter = 0;
         monthCounter--;
-
         if (ShowMonth.Month + monthCounter - 1 < 0)
         {
             yearCounter--;
@@ -94,11 +102,38 @@
         }
     }
 
-    private void ChosenMonth(DateTime dateFromAButton)
+    private int DayOfWeek(DateTime Date)
     {
-        ChosenDate = dateFromAButton;
-        dayCounter = 0;
+        return (int)Date1.DayOfWeek == 0 ? 7 : (int)Date1.DayOfWeek;
     }
 
+    private bool IsInArray(DateTime ADate, DateTime[] ReservedDates)
+    {
+        bool isNotInLst = false;
+        foreach (DateTime RDate in ReservedDates)
+        {
+            if (ADate.Year == RDate.Year && ADate.Month == RDate.Month && ADate.Day == RDate.Day)
+            {
+                isNotInLst = true;
+                break;
+            }
+        }
 
+        return isNotInLst;
+    }
+
+    [Parameter]
+    public DateTime[] ReservedDates { get; set; }
+
+    [Parameter]
+    public DateTime ChosenDateForParentObject { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> ChosenDateForParentObjectChanged { get; set; }
+
+
+    private async Task UpdateChosenDateForParentObject()
+    {
+        await ChosenDateForParentObjectChanged.InvokeAsync(ChosenDate);
+    }
 }
