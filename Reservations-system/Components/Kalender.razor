@@ -7,7 +7,6 @@
 <h3>
     @Months[(ShowMonth.Month + monthCounter - 1) % 12]
     @(ShowMonth.Year + yearCounter)
-    @dayCounter
 </h3>
 
 <table>
@@ -23,14 +22,36 @@
         <tr>
             @for (int j = 0; j < 7; j++)
             {
+                Date1 = new DateTime(ShowMonth.Year + yearCounter, ShowMonth.Month + monthCounter, 1);
 
-                date = new DateTime(ShowMonth.Year + yearCounter, ShowMonth.Month + monthCounter, ShowMonth.Day + (-(int)ShowMonth.DayOfWeek + 1 + dayCounter++));
+                if (Date1.AddDays((int)Date1.Day - ((int)Date1.DayOfWeek == 0 ? 7 : (int)Date1.DayOfWeek) + dayCounter).Month == ShowMonth.Month + monthCounter)
+                {
+                    Date2 = new DateTime(ShowMonth.Year + yearCounter, ShowMonth.Month + monthCounter, Date1.AddDays((int)Date1.Day - ((int)Date1.DayOfWeek == 0 ? 7 : (int)Date1.DayOfWeek) + dayCounter).Day);
+                    datePrinter = Date1.AddDays((int)Date1.Day - ((int)Date1.DayOfWeek == 0 ? 7 : (int)Date1.DayOfWeek) + dayCounter).Day.ToString();
+                    <td>
+                        <Button Title="@datePrinter"
+                                Css="btn btn-primary"
+                                Onclick="() => ChosenMonth(Date2)"
+                                IsDisabled="@(Date1.AddDays((int)Date1.Day - ((int)Date1.DayOfWeek == 0 ? 7 : (int)Date1.DayOfWeek) + dayCounter).Month == Date1.Month ? false : true)">
+                        </Button>
+                    </td>
+                    // i knappen skal der findes en løsning til at sende en variabel ind i chosenmonth, muligvis ved at binde en variabel og sende den med inde fra componentet
+                }
+                    else
+                    {
+                        <td>
+                        </td>
+                    }
 
-                <td>@date.Day</td>
+                dayCounter++;
             }
         </tr>
     }
 </table>
+
+<h3>
+    @ChosenDate
+</h3>
 
 
 
@@ -40,11 +61,15 @@
     public string[] Months = { "januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december" };
 
 
-    public static DateTime ShowMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-    public static DateTime date;
+    public static DateTime ShowMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+    public static DateTime Date1;
+    public static DateTime Date2;
+    public static DateTime ChosenDate;
+
     public int dayCounter = 0;
     public int monthCounter = 0;
     public int yearCounter = 0;
+    public string datePrinter;
 
     private void NextMonth()
     {
@@ -68,4 +93,12 @@
             monthCounter += 12;
         }
     }
+
+    private void ChosenMonth(DateTime dateFromAButton)
+    {
+        ChosenDate = dateFromAButton;
+        dayCounter = 0;
+    }
+
+
 }

@@ -1,7 +1,8 @@
-﻿<button class="@Css" @onclick="@Onclick">@Title</button>
+﻿<button class="@Css" @onclick="@Onclick" disabled ="@IsDisabled">@Title</button>
 
 
 @code {
+
     [Parameter]
     public string Title { get; set; }
 
@@ -10,4 +11,11 @@
 
     [Parameter]
     public string Css { get; set; }
-}
+
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    [Parameter]
+    public DateTime ChosenDate { get; set; }
+    }
+
