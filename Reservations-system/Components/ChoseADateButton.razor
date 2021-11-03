@@ -1,0 +1,31 @@
+﻿
+
+<button class="@Css" @onclick="UpdateChosenDate" disabled="@IsDisabled">@Title</button>
+
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Css { get; set; }
+
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    [Parameter]
+    public DateTime ThisDate { get; set; }
+
+    [Parameter]
+    public DateTime ChosenDate { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> ChosenDateChanged { get; set; }
+
+
+    private async Task UpdateChosenDate()
+    {
+        await ChosenDateChanged.InvokeAsync(ThisDate);
+    }
+}
