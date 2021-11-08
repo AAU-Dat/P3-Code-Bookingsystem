@@ -1,0 +1,25 @@
+﻿@page "/indstillinger"
+<h3>Konktaktoplysninger:</h3>
+
+
+<p>
+    Telefonnummer: @TelephoneNumber
+</p>
+<p>
+    E-mail: @EmailAdress
+</p>
+<p>
+    Placering: @Location
+</p>
+
+@code {
+    [Parameter]
+    public string TelephoneNumber { get; set; }
+
+    [Parameter]
+    public string EmailAdress { get; set; }
+
+    [Parameter]
+    public string Location { get; set; }
+    //Indstillinger som borgerforeningen kan samt at gæsterne kan bruge dem.
+}
