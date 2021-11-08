@@ -1,0 +1,56 @@
+﻿@page "/indstillinger"
+@inject NavigationManager NavManager
+
+<CallFuncButton Title="Tilbage"
+                Css="btn btn-primary"
+                CallThisFunc="BackToAdminPage">
+
+</CallFuncButton>
+
+<h3>Konktaktoplysninger:</h3>
+
+
+<p>
+    <input @bind-value="@DummyInfo.TelephoneNumber" placeholder="@DummyInfo.TelephoneNumber" />
+</p>
+<p>
+    <input type = "text" @bind-value="@DummyInfo.Email" placeholder="@DummyInfo.Email" @oninput="@(ui => { NewDummyInfo = (string) ui.Value;})" />
+</p>
+<p>
+    <input @bind-value="@DummyInfo.Adress" placeholder="@DummyInfo.Adress" />
+</p>
+
+<CallFuncButton Title="Gem"
+                Css="btn btn-primary"
+                IsDisabled="(NewDummyInfo!=DummyInfo?false:true)"
+                CallThisFunc="Save">
+</CallFuncButton>
+
+<h3>
+    @DummyInfo.Adress
+    @DummyInfo.Email
+    @DummyInfo.TelephoneNumber
+</h3>
+
+<h3>
+    @NewDummyInfo.Adress
+    @NewDummyInfo.Email
+    @NewDummyInfo.TelephoneNumber
+</h3>
+
+
+
+@code {
+    static AdminInfo DummyInfo = new AdminInfo("88888888", "fuckdig@yes.sutden", "din mors hus");
+    AdminInfo NewDummyInfo = new AdminInfo("88888888", "fuckdig@yes.sutden", "din mors hus");
+
+    public void Save()
+    {
+        NewDummyInfo = DummyInfo;
+    }
+
+    public void BackToAdminPage()
+        {
+            NavManager.NavigateTo("/login");
+        }
+}

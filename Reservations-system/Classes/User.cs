@@ -13,9 +13,9 @@ namespace Reservations_system.Classes
 
         public User(string userName, string password, string email)
         {
-            Email = email;
-            Password = password;
             UserName = userName;
+            Password = password;
+            Email = email;
         }
 
         public string Email
