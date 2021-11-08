@@ -4,7 +4,6 @@
 
 
 @code {
-
     [Parameter]
     public string Title { get; set; }
 
@@ -23,8 +22,7 @@
     [Parameter]
     public EventCallback<DateTime> ChosenDateChanged { get; set; }
 
-
-    private async Task UpdateChosenDate()
+    public async Task UpdateChosenDate()
     {
         await ChosenDateChanged.InvokeAsync(ThisDate);
     }

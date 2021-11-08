@@ -1,14 +1,14 @@
 ﻿
 
-<Button Title="Forrige måned"
+<CallFuncButton Title="Forrige måned"
         Css="btn btn-primary"
-        Onclick="PreviusMonth">
-</Button>
+        CallThisFunc="PreviusMonth">
+</CallFuncButton>
 
-<Button Title="Næste måned"
+<CallFuncButton Title="Næste måned"
         Css="btn btn-primary"
-        Onclick="NextMonth">
-</Button>
+        CallThisFunc="NextMonth">
+</CallFuncButton>
 
 <h3>
     @Months[(ShowMonth.Month + monthCounter - 1)]
@@ -38,12 +38,12 @@
                     datePrinter = Date1.AddDays(Date1.Day - DayOfWeek(Date1) + dayCounter).Day.ToString();
 
                     <td>
-                        <ChoseADateButton Title="@datePrinter"
+                        <BindDateTimeButton Title="@datePrinter"
                                           Css="btn btn-primary"
                                           ThisDate="Date2"
                                           IsDisabled="IsInArray(Date2, ReservedDates)"
                                           @bind-ChosenDate="ChosenDate">
-                        </ChoseADateButton>
+                        </BindDateTimeButton>
                     </td>
                 }
                 else
@@ -57,10 +57,10 @@
     }
 </table>
 @*herfra og ned til code slettes når lortet kan sende variabler til parent med 1 tryk*@
-<Button Title="Update ChosenDate i Index"
+<CallFuncButton Title="Update ChosenDate i Index"
         Css="btn btn-primary"
-        Onclick="UpdateChosenDateForParentObject">
-</Button>
+        CallThisFunc="UpdateChosenDateForParentObject">
+</CallFuncButton>
 
 <h3>
     @ChosenDate.ToShortDateString()
@@ -72,7 +72,7 @@
     private string[] WeekDays = { " man ", " tir ", " ons ", " tor ", " fre ", " lør ", " søn " };
     private string[] Months = { "januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december" };
 
-    private static DateTime ShowMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+    private static DateTime ShowMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
     private static DateTime Date1;
     private static DateTime Date2;
     private static DateTime ChosenDate;
