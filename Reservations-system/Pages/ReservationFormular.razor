@@ -1,9 +1,8 @@
-﻿
-
+﻿@page "/bookReservation"
 @using System.ComponentModel.DataAnnotations;
 @inject NavigationManager NavigationManager
 
-<h3>Book en reservation!</h3>
+<h3>Book en reservation</h3>
 <EditForm Model="@currentReservation">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -58,10 +57,13 @@
         <InputCheckbox @bind-Value="currentReservation.IsOver18" @onclick="ChangeStateAge" />
     </div>
 
-    <button type="submit" @onclick="ShowData" class="btn btn-primary">Submit bro</button>
+    <button type="submit" @onclick="ShowData" class="btn btn-primary">Send formularen</button>
 </EditForm>
 
 @code {
+
+    [Parameter]
+    public bool MobilePayOn { get; set; } = true;
 
     Reservation currentReservation = new Reservation();
 
@@ -71,7 +73,10 @@
         Console.WriteLine(currentReservation.FirstName);
         Console.WriteLine(currentReservation.LastName);
         Console.WriteLine(currentReservation.Cleaning);
-        //NavigationManager.NavigateTo("/betal-depositum");
+        if (MobilePayOn == true)
+        {
+            NavigationManager.NavigateTo("/betal-depositum");
+        }
     }
     public void ChangeStateCleaning()
     {
