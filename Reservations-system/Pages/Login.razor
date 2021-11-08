@@ -1,0 +1,60 @@
+﻿@page "/login"
+@inject NavigationManager NavManager
+
+<h3>Login</h3>
+
+<p>
+    <input @bind="UserName" />
+</p>
+
+<p>
+    <input type="password" @bind="Password" />
+</p>
+
+<p hidden="@hidden">
+    Brugernavn eller adgangskode er forkert
+</p>
+
+<CallFuncButton Title="Log ind"
+                Css="btn btn-primary"
+                CallThisFunc="Initialized">
+</CallFuncButton>
+
+
+@code {
+    private string userName;
+    private string password;
+    private bool hidden = true;
+    private List<User> ListOfUsers = new List<User>() { new User("Lars", "forkert", "LarsErSej@LarsMail.Lars"), new User("Oliver", "123", "") };
+
+    private void Initialized()
+    {
+        foreach (User user in ListOfUsers)
+        {
+            if (user.UserName == userName && user.Password == password)
+            {
+                NavManager.NavigateTo("/login");
+            }
+        }
+        Hidden = false;
+    }
+
+    public string UserName
+    {
+        get { return userName; }
+        set { userName = value; }
+    }
+
+    public string Password
+    {
+        get { return password; }
+        set { password = value; }
+    }
+
+    public bool Hidden
+    {
+        get { return hidden; }
+        set { hidden = value; }
+    }
+
+}
