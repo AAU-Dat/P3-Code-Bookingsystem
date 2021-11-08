@@ -9,10 +9,14 @@ Welcome to your new app.
 <Kalender ReservedDates="DummyArray" @bind-ChosenDateForParentObject="ChosenDate">
 </Kalender>
 
-
+<Login
+       LstOfUsers="DummyLst">
+</Login>
 
 
 @code{
+    private List<User> DummyLst = new List<User>() { new User("Lars", "forkert", "LarsErSej@LarsMail.Lars"), new User("Oliver", "123", "") };
+
     private DateTime[] DummyArray = { new DateTime(DateTime.Now.Year, DateTime.Now.Month, 23), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 11), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 15), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 3) };
     private static DateTime ChosenDate;
 }
