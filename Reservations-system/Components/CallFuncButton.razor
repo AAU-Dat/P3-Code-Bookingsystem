@@ -1,0 +1,19 @@
+﻿
+
+<button class="@Css" @onclick="@CallThisFunc" disabled="@IsDisabled">@Title</button>
+
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> CallThisFunc { get; set; }
+
+    [Parameter]
+    public string Css { get; set; }
+
+    [Parameter]
+    public bool IsDisabled { get; set; }
+}
+

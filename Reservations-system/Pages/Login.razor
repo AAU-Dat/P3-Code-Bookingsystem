@@ -1,0 +1,55 @@
+﻿@page "/login"
+@inject NavigationManager NavManager
+
+<h3>Login yeeeeeeees</h3>
+
+<p>
+    <input @bind="UserName" />
+</p>
+
+<p>
+    <input @bind="Password" />
+</p>
+
+<ul>
+    <li><code>Username</code>: @UserName</li>
+    <li><code>Password</code>: @Password</li>
+</ul>
+
+<CallFuncButton 
+                Title="Log ind"
+                Css="btn btn-primary"
+                CallThisFunc="OnInitialized">
+</CallFuncButton>
+
+
+@code {
+    private string userNamer;
+    private string password;
+
+    [Parameter]
+    public List<User> LstOfUsers { get; set; }
+
+    protected override void OnInitialized()
+    {
+        foreach (User user in LstOfUsers)
+        {
+            if(user.UserName == UserName && user.Password == Password)
+            {
+                NavManager.NavigateTo("/login");
+            }
+        }
+    }
+
+    public string UserName
+    {
+        get { return userNamer; }
+        set { userNamer = value; }
+    }
+
+    public string Password
+    {
+        get { return password; }
+        set { password = value; }
+    }
+}
