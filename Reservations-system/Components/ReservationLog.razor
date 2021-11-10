@@ -1,6 +1,38 @@
 ﻿@page "/log"
 <h3>ReservationLog</h3>
 
+@foreach (var reservationDetail in ListOfReservations)
+{
+    <p>Reservation @reservationDetail.ID</p>
+    <p>
+        Startdato: @reservationDetail.StartDate
+    </p>
+ 
+    <p>
+        Slutdato: @reservationDetail.FinishDate
+    </p>
+   
+    <p>
+        Eventuelle info: @reservationDetail.OtherInfo
+    </p>
+
+    <p>
+        Rengøring: @reservationDetail.Cleaning
+    </p>
+    <p>
+        <br />
+        ------------------------------------------------
+    </p>
+
+}
 @code {
-    //Log over alle de lavede reservationer
+
+    //Der er en smartere måde udskrive listen på
+    public List<Reservation> ListOfReservations = new List<Reservation>(){ new Reservation(new DateTime(2022, 7, 23), new DateTime(2022, 7, 25),
+                                "Brown", "Watson", "2000000", "this@yahoo.com", "12345680", "9050", false, true, "Google", 1),
+            new Reservation(new DateTime(2021, 7, 23), new DateTime(2021, 7, 25),
+                            "Alice", "Watson", "71617161", "this@yahoo.com", "12345680", "9050", true, true, "", 2) };
+
+
+
 }
