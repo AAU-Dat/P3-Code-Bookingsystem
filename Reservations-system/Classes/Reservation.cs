@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace Reservations_system.Classes
 {
@@ -13,21 +12,18 @@ namespace Reservations_system.Classes
         {
 
         }
-        public Reservation(DateTime startDate, DateTime finishDate, string firstName, string lastName, string phoneNumber,
-                            string mail,string accountNumber, string registrationNumber, bool cleaning, bool isOver18, string otherInfo, int iD)
+        public Reservation(DateTime startDate, DateTime finishDate, bool cleaning, string otherInfo, int iD)
         {
+            //Erstat evt. start og finishdate med Liste af dage 
             StartDate = startDate;
             FinishDate = finishDate;
             Cleaning = cleaning;
             OtherInfo =otherInfo;
             ID = iD;
-
-            Guest guest = new Guest();
         }
-        [Required]
+       
         public DateTime StartDate { get; set; } = DateTime.Now;
 
-        [Required]
         public DateTime FinishDate { get; set; } = DateTime.Now.AddDays(1);
 
         public bool Cleaning { get; set; } = false;
@@ -37,6 +33,7 @@ namespace Reservations_system.Classes
         public int ID { get; set; }
 
 
+        public void ReservationSend() { }
     }
 
 

@@ -8,6 +8,26 @@ namespace Reservations_system.Classes
     public abstract class Guest
     {
 
+        public Guest(string firstname, string lastname, string phonenumber, string mail, string address, string acconutnumber,
+            string reg, bool isover18, DateTime startDate, DateTime finishDate, bool cleaning, string otherInfo, int iD)
+        {
+
+            FirstName = firstname;
+            LastName = lastname;
+            PhoneNumber = phonenumber;
+            Mail = mail;
+            Address = address;
+            AccountNumber = acconutnumber;
+            RegistrationNumber = reg;
+            IsOver18 = isover18;
+
+
+            
+
+
+            Reservation res = new Reservation(startDate, finishDate, cleaning, otherInfo, iD);
+        }
+
 
         public string FirstName { get; set; }
 
@@ -30,6 +50,8 @@ namespace Reservations_system.Classes
 
 
         public bool IsOver18 { get; set; }
+
+
 
     }
 }

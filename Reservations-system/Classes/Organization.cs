@@ -9,6 +9,7 @@ namespace Reservations_system.Classes
     public class Organization : IOrganizator
     {
         public string PhoneNumber { get; set; }
+        public string Mail { get; set; }
 
         public Reservation acceptReservation(Reservation reservation)
         {
