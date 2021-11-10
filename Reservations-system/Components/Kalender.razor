@@ -39,7 +39,7 @@
 
                     <td>
                         <BindDateTimeButton Title="@datePrinter"
-                                          Css="btn btn-primary"
+                                          Css="@(Date2 == CurrentlyChosen ? "btn btn-primary" : "")"
                                           ThisDate="Date2"
                                           IsDisabled="IsInArray(Date2, ReservedDates)"
                                           @bind-ChosenDate="ChosenDate">
@@ -56,15 +56,10 @@
         </tr>
     }
 </table>
-@*herfra og ned til code slettes når lortet kan sende variabler til parent med 1 tryk*@
 <CallFuncButton Title="Reserver dag"
         Css="btn btn-primary"
         CallThisFunc="UpdateChosenTimespan">
 </CallFuncButton>
-
-<h3>
-    @ChosenDate.ToShortDateString()
-</h3>
 
 
 
@@ -126,6 +121,9 @@
     public DateTime[] ReservedDates { get; set; }
 
     [Parameter]
+    public DateTime CurrentlyChosen { get; set; }
+    /*
+    [Parameter]
     public DateTime StartDateP { get; set; }
 
     [Parameter]
@@ -136,7 +134,7 @@
 
     [Parameter]
     public EventCallback<DateTime> FinishDatePChanged { get; set; }
-
+    */
     [Parameter]
     public DateTime ChosenDateP { get; set; }
 
@@ -145,8 +143,8 @@
 
     private async Task UpdateChosenTimespan()
     {
-        await StartDatePChanged.InvokeAsync(new DateTime(ChosenDate.AddDays(-1).Year, ChosenDate.AddDays(-1).Month, ChosenDate.AddDays(-1).Day));
+        //await StartDatePChanged.InvokeAsync(new DateTime(ChosenDate.AddDays(-1).Year, ChosenDate.AddDays(-1).Month, ChosenDate.AddDays(-1).Day));
         await ChosenDatePChanged.InvokeAsync(ChosenDate);
-        await FinishDatePChanged.InvokeAsync(new DateTime(ChosenDate.AddDays(1).Year, ChosenDate.AddDays(1).Month, ChosenDate.AddDays(1).Day));
+        //await FinishDatePChanged.InvokeAsync(new DateTime(ChosenDate.AddDays(1).Year, ChosenDate.AddDays(1).Month, ChosenDate.AddDays(1).Day));
     }
 }
