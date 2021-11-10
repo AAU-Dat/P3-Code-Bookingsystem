@@ -1,17 +1,10 @@
 ﻿@page "/"
 
-<h1>This is the chosen date @StartDate</h1>
-<h1>
-    This is the chosen date @FinishDate.ToShortDateString()
-</h1>
-<Kalender ReservedDates="DummyArray" @bind-StartDateP="StartDate" @bind-ChosenDateP="ChosenDate" @bind-FinishDateP="FinishDate">
+<h1>@ChosenDate.ToShortDateString()</h1>
+<Kalender ReservedDates="DummyArray" @bind-ChosenDateP="ChosenDate" CurrentlyChosen ="ChosenDate">
 </Kalender>
-
-<CallFuncButton Title ="haha"></CallFuncButton>
 
 @code{
     private DateTime[] DummyArray = { new DateTime(DateTime.Now.Year, DateTime.Now.Month, 23), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 11), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 15), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 3) };
-    private static DateTime StartDate;
     private static DateTime ChosenDate;
-    private static DateTime FinishDate;
 }
