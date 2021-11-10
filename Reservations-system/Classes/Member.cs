@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Reservations_system.Interfaces;
 
 namespace Reservations_system.Classes
 {
-    public class Citizen : Guest, IReservation
+    public class Member : Guest, IReservation
     {
+        public Member(string firstname, string lastname, string phonenumber, string mail, string address, string acconutnumber, string reg, bool isover18, DateTime startDate, DateTime finishDate,
+            bool cleaning, string otherInfo, int iD) : base(firstname, lastname, phonenumber, mail, address, acconutnumber, reg, isover18, startDate, finishDate, cleaning, otherInfo, iD)
+        {
+        }
+
         public void citizenHouseDelivered()
         {
             throw new NotImplementedException();
