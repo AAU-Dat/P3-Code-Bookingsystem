@@ -1,89 +1,90 @@
 ﻿@page "/bookReservation"
 @using System.ComponentModel.DataAnnotations;
 @inject NavigationManager NavigationManager
+@*
+    <h3>Book en reservation</h3>
+    <EditForm Model="@currentReservation">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label for="fornavn">Fornavn</label>
+            <InputText placeholder="Fornavn" @bind-Value="currentReservation.FirstName" class="form-control" />
+        </div>
 
-<h3>Book en reservation</h3>
-<EditForm Model="@currentReservation">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div class="form-group">
-        <label for="fornavn">Fornavn</label>
-        <InputText placeholder="Fornavn" @bind-Value="currentReservation.FirstName" class="form-control" />
-    </div>
+        <div class="form-group">
+            <label for="efternavn">Efternavn</label>
+            <InputText placeholder="Efternavn" @bind-Value="currentReservation.LastName" class="form-control" />
+        </div>
 
-    <div class="form-group">
-        <label for="efternavn">Efternavn</label>
-        <InputText placeholder="Efternavn" @bind-Value="currentReservation.LastName" class="form-control" />
-    </div>
+        <div class="form-group">
+            <label for="telefonnummer">Telefonnummer</label>
+            <InputText placeholder="telefonnummer" @bind-Value="currentReservation.PhoneNumber" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="mail">Mail</label>
+            <InputText placeholder="mail" @bind-Value="currentReservation.Mail" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="startDato">StartDato</label>
+            <InputDate placeholder="StartDato" @bind-Value="currentReservation.StartDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="finishDato">FinishDato</label>
+            <InputDate placeholder="FinishDato" @bind-Value="currentReservation.FinishDate" class="form-control" />
+        </div>
 
-    <div class="form-group">
-        <label for="telefonnummer">Telefonnummer</label>
-        <InputText placeholder="telefonnummer" @bind-Value="currentReservation.PhoneNumber" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="mail">Mail</label>
-        <InputText placeholder="mail" @bind-Value="currentReservation.Mail" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="startDato">StartDato</label>
-        <InputDate placeholder="StartDato" @bind-Value="currentReservation.StartDate" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="finishDato">FinishDato</label>
-        <InputDate placeholder="FinishDato" @bind-Value="currentReservation.FinishDate" class="form-control" />
-    </div>
+        <div class="form-group">
+            <label for="accountNumber">Kontonummer</label>
+            <InputText placeholder="xx xx xx xx xx" @bind-Value="currentReservation.AccountNumber" class="form-control" />
 
-    <div class="form-group">
-        <label for="accountNumber">Kontonummer</label>
-        <InputText placeholder="xx xx xx xx xx" @bind-Value="currentReservation.AccountNumber" class="form-control" />
+            <label for="registerNumber"> Registreringnummer</label>
+            <InputText placeholder="xxxx" @bind-Value="currentReservation.RegistrationNumber" class="form-control" />
+        </div>
 
-        <label for="registerNumber"> Registreringnummer</label>
-        <InputText placeholder="xxxx" @bind-Value="currentReservation.RegistrationNumber" class="form-control" />
-    </div>
+        <div class="form-group">
+            <label for="otherStuff">Spørgsmål eller andre kommentarer</label>
+            <InputTextArea placeholder=". . ." @bind-Value="currentReservation.OtherInfo" class="form-control" />
+        </div>
 
-    <div class="form-group">
-        <label for="otherStuff">Spørgsmål eller andre kommentarer</label>
-        <InputTextArea placeholder=". . ." @bind-Value="currentReservation.OtherInfo" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label for="cleaning">Rengøring</label>
-        <InputCheckbox @bind-Value="currentReservation.Cleaning" @onclick="ChangeStateCleaning" />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <label for="cleaning">Rengøring</label>
+            <InputCheckbox @bind-Value="currentReservation.Cleaning" @onclick="ChangeStateCleaning" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
 
-        <label for="permission">Jeg er over 18 år</label>
-        <InputCheckbox @bind-Value="currentReservation.IsOver18" @onclick="ChangeStateAge" />
-    </div>
+            <label for="permission">Jeg er over 18 år</label>
+            <InputCheckbox @bind-Value="currentReservation.IsOver18" @onclick="ChangeStateAge" />
+        </div>
 
-    <button type="submit" @onclick="ShowData" class="btn btn-primary">Send formularen</button>
-</EditForm>
+        <button type="submit" @onclick="ShowData" class="btn btn-primary">Send formularen</button>
+    </EditForm>
 
-@code {
+    @code {
 
-    [Parameter]
-    public bool MobilePayOn { get; set; } = true;
+        [Parameter]
+        public bool MobilePayOn { get; set; } = true;
 
-    Reservation currentReservation = new Reservation();
+        Reservation currentReservation = new Reservation(new DateTime(2022, 7, 23), new DateTime(2022, 7, 25), "Brown", "Watson", "2000000", "this@yahoo.com", "12345680", "9050", false, true, "haha");
 
-    public void ShowData()
-    {
-
-        Console.WriteLine(currentReservation.FirstName);
-        Console.WriteLine(currentReservation.LastName);
-        Console.WriteLine(currentReservation.Cleaning);
-        if (MobilePayOn == true)
+        public void ShowData()
         {
-            NavigationManager.NavigateTo("/betal-depositum");
+
+            Console.WriteLine(currentReservation.FirstName);
+            Console.WriteLine(currentReservation.LastName);
+            Console.WriteLine(currentReservation.Cleaning);
+            if (MobilePayOn == true)
+            {
+                NavigationManager.NavigateTo("/betal-depositum");
+            }
+        }
+        public void ChangeStateCleaning()
+        {
+            currentReservation.Cleaning = !currentReservation.Cleaning;
+        }
+        public void ChangeStateAge()
+        {
+            currentReservation.IsOver18 = !currentReservation.IsOver18;
         }
     }
-    public void ChangeStateCleaning()
-    {
-        currentReservation.Cleaning = !currentReservation.Cleaning;
-    }
-    public void ChangeStateAge()
-    {
-        currentReservation.IsOver18 = !currentReservation.IsOver18;
-    }
-}
+*@

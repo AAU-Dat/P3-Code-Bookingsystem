@@ -1,8 +1,8 @@
 ﻿@page "/"
 
-<ShowAReservation>
+<ShowAReservation ShowThis="Res">
 </ShowAReservation>
 
 @code{
-
+    Reservation Res = new Reservation(new DateTime(2022, 7, 23), new DateTime(2022, 7, 25), "Brown", "Watson", "2000000", "this@yahoo.com", "12345680", "9050", false, true, "haha");
 }

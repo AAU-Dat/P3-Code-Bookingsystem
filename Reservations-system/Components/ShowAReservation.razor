@@ -1,18 +1,18 @@
-﻿
-<h4>Gæsteinfo</h4>
-
+﻿<h4>Gæsteinfo</h4>
+@if (ShowThis.FirstName != null)
+{
 <div>
     <p>
-        Navn: @firstName @lastName
+        Navn: @ShowThis.FirstName @ShowThis.LastName
     </p>
     <p>
-        TelefonNummer: @phoneNumber
+        TelefonNummer: @ShowThis.PhoneNumber
     </p>
     <p>
-        Mail: @mail
+        Mail: @ShowThis.Mail
     </p>
     <p>
-        Konto og Registrerings nummer: @accountNumber + @registrationNumber
+        Konto og Registrerings nummer: @ShowThis.AccountNumber + @ShowThis.RegistrationNumber
     </p>
 </div>
 <h4>
@@ -23,25 +23,35 @@
         Reservations periode
     </p>
     <p>
-        Fra @StartDate.ToShortDateString() til @FinishDate.ToShortDateString()
+        Fra @ShowThis.StartDate.ToShortDateString() til @ShowThis.FinishDate.ToShortDateString()
     </p>
     <p>
-        Jeg er over 18 <input type="checkbox" checked="@isOver18" onclick="return false;">
+        Jeg er over 18 <input type="checkbox" checked="@ShowThis.IsOver18" onclick="return false;">
     </p>
     <p>
-        Jeg gør selv rent <input type="checkbox" checked="@cleaning" onclick="return false;">
+        Jeg gør selv rent <input type="checkbox" checked="@ShowThis.Cleaning" onclick="return false;">
     </p>
     <h5>Yderligere information</h5>
     <p>
-        @otherInfo
-        @*<input text="area" value="@otherInfo" />*@
+        @ShowThis.OtherInfo
+    </p>
+    @if (ShowThis.Confirmed == false)
+    {
+        <p>
+            <BindBoolButton Title="Bekræft" Css="btn btn-primary" @bind-variableToBeChanged="ShowThis.Confirmed" changeItToThis="true"></BindBoolButton>
+        </p>
+    }
+
+    <p>
+        <DeleteOrCancelReservation Title="@(ShowThis.Confirmed == true? "Slet":"Annuller")" Css="btn btn-primary" @bind-Reservation="ShowThis"></DeleteOrCancelReservation>
     </p>
 </div>
+}
 
 @code {
     [Parameter]
     public Reservation ShowThis { get; set; }
-
+    
     private string firstName = "Jens";
     private string lastName = "Larsen";
 
@@ -59,4 +69,5 @@
     private bool cleaning = false;
 
     private string otherInfo = "Så altså det bare lige fordi min søster holder fødselsdag og så ville jeg også holde en kat så jeg har lejet det til mor";
+
 }
