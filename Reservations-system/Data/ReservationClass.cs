@@ -6,6 +6,26 @@ using System.Threading.Tasks;
 
 public class Reservation
 {
+    public Reservation()
+    {
+    }
+
+    public Reservation(DateTime startDate, DateTime finishDate, string firstName, string lastName, string phoneNumber, string mail, string accountNumber, string registrationNumber, bool cleaning, bool isOver18, string otherInfo)
+    {
+        StartDate = startDate;
+        FinishDate = finishDate;
+        FirstName = firstName;
+        LastName = lastName;
+        PhoneNumber = phoneNumber;
+        Mail = mail;
+        AccountNumber = accountNumber;
+        RegistrationNumber = registrationNumber;
+        Cleaning = cleaning;
+        IsOver18 = isOver18;
+        OtherInfo = otherInfo;
+        Confirmed = false;
+    }
+
     [Required]
     public DateTime StartDate { get; set;} = DateTime.Now;
     [Required]
@@ -36,6 +56,8 @@ public class Reservation
     public bool IsOver18 { get; set; }
     
     public string OtherInfo { get; set; }
+
+    public bool Confirmed { get; set; }
 
 }
 
