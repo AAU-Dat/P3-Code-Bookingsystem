@@ -39,6 +39,9 @@
 </div>
 
 @code {
+    [Parameter]
+    public Reservation ShowThis { get; set; }
+
     private string firstName = "Jens";
     private string lastName = "Larsen";
 
@@ -56,40 +59,4 @@
     private bool cleaning = false;
 
     private string otherInfo = "Så altså det bare lige fordi min søster holder fødselsdag og så ville jeg også holde en kat så jeg har lejet det til mor";
-
-    [Parameter]
-    public Reservation ShowThis { get; set; }
-
-    /*
-    [Required]
-    public DateTime StartDate { get; set; } = DateTime.Now;
-    [Required]
-
-    public DateTime FinishDate { get; set; } = DateTime.Now.AddDays(1);
-    [Required]
-
-    public string FirstName { get; set; }
-    [Required]
-
-    public string LastName { get; set; }
-    [Required]
-
-    public string PhoneNumber { get; set; }
-    [Required]
-
-    public string Mail { get; set; }
-    [Required]
-
-    public string AccountNumber { get; set; }
-    [Required]
-
-    public string RegistrationNumber { get; set; }
-
-    public bool Cleaning { get; set; } = false;
-
-    [Required]
-    public bool IsOver18 { get; set; }
-
-    public string OtherInfo { get; set; }
-    */
 }
