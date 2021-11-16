@@ -7,27 +7,22 @@ namespace Reservations_system.Classes
 {
     public abstract class Guest
     {
-
-        public Guest(string firstname, string lastname, string phonenumber, string mail, string address, string acconutnumber,
-            string reg, bool isover18, DateTime startDate, DateTime finishDate, bool cleaning, string otherInfo, int iD)
+        public Guest()
         {
 
-            FirstName = firstname;
-            LastName = lastname;
-            PhoneNumber = phonenumber;
+        }
+        public Guest(string firstName, string lastName, string phoneNumber, string mail,
+                        string address, string accountNumber, string registrationNumber, bool isOver18)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            PhoneNumber = phoneNumber;
             Mail = mail;
             Address = address;
-            AccountNumber = acconutnumber;
-            RegistrationNumber = reg;
-            IsOver18 = isover18;
-
-
-            
-
-
-            Reservation res = new Reservation(startDate, finishDate, cleaning, otherInfo, iD);
+            AccountNumber = accountNumber;
+            RegistrationNumber = registrationNumber;
+            IsOver18 = isOver18;
         }
-
 
         public string FirstName { get; set; }
 
@@ -51,7 +46,10 @@ namespace Reservations_system.Classes
 
         public bool IsOver18 { get; set; }
 
-
+        public string GuestFullName()
+        {
+            return $"{FirstName} {LastName}";
+        }
 
     }
 }
