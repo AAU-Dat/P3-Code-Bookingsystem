@@ -8,6 +8,17 @@ namespace Reservations_system.Classes
 {
     public class Citizen : Guest, IReservation
     {
+        public Citizen()
+        {
+
+        }
+        public Citizen(string firstName, string lastName, string phoneNumber, string mail, 
+            string address, string accountNumber, string registrationNumber, bool isOver18) : base(firstName, lastName, phoneNumber, mail, address,
+                accountNumber, registrationNumber, isOver18)
+        {
+
+        }
+
         public void citizenHouseDelivered()
         {
             throw new NotImplementedException();
