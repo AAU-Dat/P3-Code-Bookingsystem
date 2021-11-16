@@ -1,0 +1,36 @@
+﻿<p>
+    Reservation @TestReservationList.ListOfReservations[(ReservationID)].ID
+</p>
+<p>
+    Bekræftet: @TestReservationList.ListOfReservations[(ReservationID)].(reservationDetail.Confirmed == true ? "Ja" : "Nej")
+</p>
+<p>
+    Tidspunkt: @TestReservationList.ListOfReservations[(ReservationID)].ReservationFormatDates()
+</p>
+<p>
+    Gæst: @TestReservationList.ListOfReservations[(ReservationID)].CitizenGuest.GuestFullName()
+</p>
+<p>
+    Telefonnumer:@TestReservationList.ListOfReservations[(ReservationID)].CitizenGuest.PhoneNumber
+</p>
+<p>
+    Email: @TestReservationList.ListOfReservations[(ReservationID)].CitizenGuest.Mail
+</p>
+<p>
+    Rengøring: @TestReservationList.ListOfReservations[(ReservationID)].(Cleaning == true ? "Ja" : "Nej")
+</p>
+<p>
+    Eventuelle info: @TestReservationList.ListOfReservations[(ReservationID)].OtherInfo
+</p>
+
+<p>
+    <br />
+    ------------------------------------------------
+</p>
+
+@code {
+    Reservation reservationDetail = new Reservation();
+    [Parameter]
+    public int ReservationID { get; set; }
+
+}
