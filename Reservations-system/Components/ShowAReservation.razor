@@ -1,0 +1,73 @@
+﻿<h4>Gæsteinfo</h4>
+@if (ShowThis.CitizenGuest.FirstName != null)
+{
+<div>
+    <p>
+        Navn: @ShowThis.CitizenGuest.FirstName @ShowThis.CitizenGuest.LastName
+    </p>
+    <p>
+        TelefonNummer: @ShowThis.CitizenGuest.PhoneNumber
+    </p>
+    <p>
+        Mail: @ShowThis.CitizenGuest.Mail
+    </p>
+    <p>
+        Konto og Registrerings nummer: @ShowThis.CitizenGuest.AccountNumber + @ShowThis.CitizenGuest.RegistrationNumber
+    </p>
+</div>
+<h4>
+    Reservations info
+</h4>
+<div>
+    <p>
+        Reservations periode
+    </p>
+    <p>
+        Fra @ShowThis.StartDate.ToShortDateString() til @ShowThis.FinishDate.ToShortDateString()
+    </p>
+    <p>
+        Jeg er over 18 <input type="checkbox" checked="@ShowThis.CitizenGuest.IsOver18" onclick="return false;">
+    </p>
+    <p>
+        Jeg gør selv rent <input type="checkbox" checked="@ShowThis.Cleaning" onclick="return false;">
+    </p>
+    <h5>Yderligere information</h5>
+    <p>
+        @ShowThis.OtherInfo
+    </p>
+    @if (ShowThis.Confirmed == false)
+    {
+        <p>
+            <BindBoolButton Title="Bekræft" Css="btn btn-primary" @bind-variableToBeChanged="ShowThis.Confirmed" changeItToThis="true"></BindBoolButton>
+        </p>
+    }
+
+    <p>
+        <DeleteOrCancelReservation Title="@(ShowThis.Confirmed == true? "Slet":"Annuller")" Css="btn btn-primary" @bind-Reservation="ShowThis"></DeleteOrCancelReservation>
+    </p>
+</div>
+}
+
+@code {
+    [Parameter]
+    public Reservation ShowThis { get; set; }
+    
+    private string firstName = "Jens";
+    private string lastName = "Larsen";
+
+    private string phoneNumber = "88888888";
+
+    private string mail = "HahaWannabe123@shitposter.cum";
+
+    private string accountNumber = "123456789";
+    private string registrationNumber = "12345";
+
+    private DateTime StartDate = DateTime.Now;
+    private DateTime FinishDate = DateTime.Now.AddDays(1);
+
+    private bool isOver18 = true;
+    private bool cleaning = false;
+
+    private string otherInfo = "Så altså det bare lige fordi min søster holder fødselsdag og så ville jeg også holde en kat så jeg har lejet det til mor";
+
+}
