@@ -2,8 +2,10 @@
 
 <ShowAReservation ShowThis="Res">
 </ShowAReservation>
+<Kalender ReservedDates="days" @bind-ChosenDateP ="chosendate" CurrentlyChosen="chosendate"></Kalender>
 
 @code{
     Reservation Res = new Reservation("Brown", "Watson", "2000000", "this@yahoo.com", "Aalborg" , "12345680", "9050", false, new DateTime(2022, 7, 23), new DateTime(2022, 7, 25), true, "haha", 1);
-   
+    DateTime[] days = new DateTime[] { new DateTime (2021, 11, 23), new DateTime(2021, 11, 11)};
+    DateTime chosendate;
 }
