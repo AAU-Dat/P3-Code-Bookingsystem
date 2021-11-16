@@ -65,17 +65,26 @@
     [Parameter]
     public bool MobilePayOn { get; set; } = true;
 
+    [Parameter]
+    public bool isChangeable { get; set; } = false;
     Reservation currentReservation = new Reservation();
 
     public void SendDataToListAndSendToMobilePay()
     {
-
-        TestReservationList.ListOfReservations.Add(new Reservation(currentReservation.CitizenGuest.FirstName, currentReservation.CitizenGuest.LastName,
-            currentReservation.CitizenGuest.PhoneNumber, currentReservation.CitizenGuest.Mail,
-            currentReservation.CitizenGuest.Address, currentReservation.CitizenGuest.AccountNumber,
-            currentReservation.CitizenGuest.RegistrationNumber, currentReservation.CitizenGuest.IsOver18,
-            currentReservation.StartDate, currentReservation.FinishDate,
-            currentReservation.Cleaning, currentReservation.OtherInfo, (currentReservation.ID = TestReservationList.ListOfReservations.Count+1)));
+        if (isChangeable == false)
+        {
+            TestReservationList.ListOfReservations.Add(new Reservation(currentReservation.CitizenGuest.FirstName, currentReservation.CitizenGuest.LastName,
+                currentReservation.CitizenGuest.PhoneNumber, currentReservation.CitizenGuest.Mail,
+                currentReservation.CitizenGuest.Address, currentReservation.CitizenGuest.AccountNumber,
+                currentReservation.CitizenGuest.RegistrationNumber, currentReservation.CitizenGuest.IsOver18,
+                currentReservation.StartDate, currentReservation.FinishDate,
+                currentReservation.Cleaning, currentReservation.OtherInfo, (currentReservation.ID = TestReservationList.ListOfReservations.Count)));
+        }
+        else if (isChangeable == true)
+        {
+            TestReservationList.ListOfReservations[(currentReservation.ID)].CitizenGuest.FirstName = currentReservation.CitizenGuest.FirstName;
+            Console.WriteLine(currentReservation.ID);
+        }
 
         if (MobilePayOn == true)
         {

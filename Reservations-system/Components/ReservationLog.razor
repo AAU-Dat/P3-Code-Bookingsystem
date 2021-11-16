@@ -1,11 +1,13 @@
 ﻿@page "/log"
+@inject NavigationManager NavigationManager
+
 @foreach (var reservationID in TestReservationList.ListOfReservations)
 {<tr>
-     <button class="btn btn-primary"  type="submit">
-         Reservations ID @reservationID.ID <br /> 
-         Bekræftet: @(reservationID.Confirmed == true ? "Ja" : "Nej") <br />
-         Tidspunkt: @reservationID.ReservationFormatDates() <br />
-     </button>
+        <button class="btn btn-primary" type="submit">
+            Reservations ID @reservationID.ID <br />
+            Bekræftet: @(reservationID.Confirmed == true ? "Ja" : "Nej") <br />
+            Tidspunkt: @reservationID.ReservationFormatDates() <br />
+        </button>
     </tr>
 }
 
@@ -36,6 +38,7 @@
         Eventuelle info: @reservationDetail.OtherInfo
     </p>
 
+    <button @onclick="RedirectToChange" @bind="reservationDetail.ID">Ændre reservationen</button>
     <p>
         <br />
         ------------------------------------------------
@@ -43,6 +46,11 @@
 }
 
 @code {
+    public void RedirectToChange(int reservation)
+    {
+
+        NavigationManager.NavigateTo("/change");
+    }
     //Det her var et forsøg på at vise listen på andre måder
     //  public void ShowList2()
     //    {
