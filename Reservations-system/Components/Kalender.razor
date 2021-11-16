@@ -39,7 +39,7 @@
 
                     <td>
                         <BindDateTimeButton Title="@datePrinter"
-                                          Css="btn btn-primary"
+                                          Css="@(Date2 == CurrentlyChosen ? "btn btn-primary" : "")"
                                           ThisDate="Date2"
                                           IsDisabled="IsInArray(Date2, ReservedDates)"
                                           @bind-ChosenDate="ChosenDate">
@@ -56,15 +56,10 @@
         </tr>
     }
 </table>
-@*herfra og ned til code slettes når lortet kan sende variabler til parent med 1 tryk*@
 <CallFuncButton Title="Reserver dag"
         Css="btn btn-primary"
-        CallThisFunc="UpdateChosenDateForParentObject">
+        CallThisFunc="UpdateChosenTimespan">
 </CallFuncButton>
-
-<h3>
-    @ChosenDate.ToShortDateString()
-</h3>
 
 
 
@@ -72,7 +67,7 @@
     private string[] WeekDays = { " man ", " tir ", " ons ", " tor ", " fre ", " lør ", " søn " };
     private string[] Months = { "januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december" };
 
-    private static DateTime ShowMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+    private static DateTime ShowMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
     private static DateTime Date1;
     private static DateTime Date2;
     private static DateTime ChosenDate;
@@ -126,14 +121,30 @@
     public DateTime[] ReservedDates { get; set; }
 
     [Parameter]
-    public DateTime ChosenDateForParentObject { get; set; }
+    public DateTime CurrentlyChosen { get; set; }
+    /*
+    [Parameter]
+    public DateTime StartDateP { get; set; }
 
     [Parameter]
-    public EventCallback<DateTime> ChosenDateForParentObjectChanged { get; set; }
+    public DateTime FinishDateP { get; set; }
 
+    [Parameter]
+    public EventCallback<DateTime> StartDatePChanged { get; set; }
 
-    private async Task UpdateChosenDateForParentObject()
+    [Parameter]
+    public EventCallback<DateTime> FinishDatePChanged { get; set; }
+    */
+    [Parameter]
+    public DateTime ChosenDateP { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> ChosenDatePChanged { get; set; }
+
+    private async Task UpdateChosenTimespan()
     {
-        await ChosenDateForParentObjectChanged.InvokeAsync(ChosenDate);
+        //await StartDatePChanged.InvokeAsync(new DateTime(ChosenDate.AddDays(-1).Year, ChosenDate.AddDays(-1).Month, ChosenDate.AddDays(-1).Day));
+        await ChosenDatePChanged.InvokeAsync(ChosenDate);
+        //await FinishDatePChanged.InvokeAsync(new DateTime(ChosenDate.AddDays(1).Year, ChosenDate.AddDays(1).Month, ChosenDate.AddDays(1).Day));
     }
 }

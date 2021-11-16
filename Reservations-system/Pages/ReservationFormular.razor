@@ -41,10 +41,10 @@
         <InputText placeholder="xxxx" @bind-Value="currentReservation.CitizenGuest.RegistrationNumber" class="form-control" />
     </div>
 
-    <div class="form-group">
-        <label for="otherStuff">Spørgsmål eller andre kommentarer</label>
-        <InputTextArea placeholder=". . ." @bind-Value="currentReservation.OtherInfo" class="form-control" />
-    </div>
+        <div class="form-group">
+            <label for="otherStuff">Spørgsmål eller andre kommentarer</label>
+            <InputTextArea placeholder=". . ." @bind-Value="currentReservation.OtherInfo" class="form-control" />
+        </div>
 
     <div class="form-group">
         <label for="cleaning">Rengøring</label>
@@ -60,10 +60,10 @@
     <button type="submit" @onclick="SendDataToListAndSendToMobilePay" class="btn btn-primary">Send formularen</button>
 </EditForm>
 
-@code {
+    @code {
 
-    [Parameter]
-    public bool MobilePayOn { get; set; } = true;
+        [Parameter]
+        public bool MobilePayOn { get; set; } = true;
 
     [Parameter]
     public bool isChangeable { get; set; } = false;
