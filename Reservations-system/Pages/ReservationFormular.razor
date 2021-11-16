@@ -8,21 +8,21 @@
     <ValidationSummary />
     <div class="form-group">
         <label for="fornavn">Fornavn</label>
-        <InputText placeholder="Fornavn" @bind-Value="currentReservation.FirstName" class="form-control" />
+        <InputText placeholder="Fornavn" @bind-Value="currentReservation.CitizenGuest.FirstName" class="form-control" />
     </div>
 
     <div class="form-group">
         <label for="efternavn">Efternavn</label>
-        <InputText placeholder="Efternavn" @bind-Value="currentReservation.LastName" class="form-control" />
+        <InputText placeholder="Efternavn" @bind-Value="currentReservation.CitizenGuest.LastName" class="form-control" />
     </div>
 
     <div class="form-group">
         <label for="telefonnummer">Telefonnummer</label>
-        <InputText placeholder="telefonnummer" @bind-Value="currentReservation.PhoneNumber" class="form-control" />
+        <InputText placeholder="telefonnummer" @bind-Value="currentReservation.CitizenGuest.PhoneNumber" class="form-control" />
     </div>
     <div class="form-group">
         <label for="mail">Mail</label>
-        <InputText placeholder="mail" @bind-Value="currentReservation.Mail" class="form-control" />
+        <InputText placeholder="mail" @bind-Value="currentReservation.CitizenGuest.Mail" class="form-control" />
     </div>
     <div class="form-group">
         <label for="startDato">StartDato</label>
@@ -35,44 +35,48 @@
 
     <div class="form-group">
         <label for="accountNumber">Kontonummer</label>
-        <InputText placeholder="xx xx xx xx xx" @bind-Value="currentReservation.AccountNumber" class="form-control" />
+        <InputText placeholder="xx xx xx xx xx" @bind-Value="currentReservation.CitizenGuest.AccountNumber" class="form-control" />
 
         <label for="registerNumber"> Registreringnummer</label>
-        <InputText placeholder="xxxx" @bind-Value="currentReservation.RegistrationNumber" class="form-control" />
+        <InputText placeholder="xxxx" @bind-Value="currentReservation.CitizenGuest.RegistrationNumber" class="form-control" />
     </div>
 
-    <div class="form-group">
-        <label for="otherStuff">Spørgsmål eller andre kommentarer</label>
-        <InputTextArea placeholder=". . ." @bind-Value="currentReservation.OtherInfo" class="form-control" />
-    </div>
+        <div class="form-group">
+            <label for="otherStuff">Spørgsmål eller andre kommentarer</label>
+            <InputTextArea placeholder=". . ." @bind-Value="currentReservation.OtherInfo" class="form-control" />
+        </div>
 
     <div class="form-group">
         <label for="cleaning">Rengøring</label>
         <InputCheckbox @bind-Value="currentReservation.Cleaning" @onclick="ChangeStateCleaning" />
+
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
-
         <label for="permission">Jeg er over 18 år</label>
-        <InputCheckbox @bind-Value="currentReservation.IsOver18" @onclick="ChangeStateAge" />
+        <InputCheckbox @bind-Value="currentReservation.CitizenGuest.IsOver18" @onclick="ChangeStateAge" />
     </div>
 
-    <button type="submit" @onclick="ShowData" class="btn btn-primary">Send formularen</button>
+    <button type="submit" @onclick="SendDataToListAndSendToMobilePay" class="btn btn-primary">Send formularen</button>
 </EditForm>
 
-@code {
+    @code {
 
-    [Parameter]
-    public bool MobilePayOn { get; set; } = true;
+        [Parameter]
+        public bool MobilePayOn { get; set; } = true;
 
-    Reservation currentReservation = new Reservation();
+        Reservation currentReservation = new Reservation();
 
-    public void ShowData()
+    public void SendDataToListAndSendToMobilePay()
     {
 
-        Console.WriteLine(currentReservation.FirstName);
-        Console.WriteLine(currentReservation.LastName);
-        Console.WriteLine(currentReservation.Cleaning);
+        TestReservationList.ListOfReservations.Add(new Reservation(currentReservation.CitizenGuest.FirstName, currentReservation.CitizenGuest.LastName,
+            currentReservation.CitizenGuest.PhoneNumber, currentReservation.CitizenGuest.Mail,
+            currentReservation.CitizenGuest.Address, currentReservation.CitizenGuest.AccountNumber,
+            currentReservation.CitizenGuest.RegistrationNumber, currentReservation.CitizenGuest.IsOver18,
+            currentReservation.StartDate, currentReservation.FinishDate,
+            currentReservation.Cleaning, currentReservation.OtherInfo, (currentReservation.ID = TestReservationList.ListOfReservations.Count+1)));
+
         if (MobilePayOn == true)
         {
             NavigationManager.NavigateTo("/betal-depositum");
@@ -84,6 +88,6 @@
     }
     public void ChangeStateAge()
     {
-        currentReservation.IsOver18 = !currentReservation.IsOver18;
+        currentReservation.CitizenGuest.IsOver18 = !currentReservation.CitizenGuest.IsOver18;
     }
 }

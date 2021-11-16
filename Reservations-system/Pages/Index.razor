@@ -1,10 +1,9 @@
 ﻿@page "/"
 
-<h1>@ChosenDate.ToShortDateString()</h1>
-<Kalender ReservedDates="DummyArray" @bind-ChosenDateP="ChosenDate" CurrentlyChosen ="ChosenDate">
-</Kalender>
+<ShowAReservation ShowThis="Res">
+</ShowAReservation>
 
 @code{
-    private DateTime[] DummyArray = { new DateTime(DateTime.Now.Year, DateTime.Now.Month, 23), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 11), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 15), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 3) };
-    private static DateTime ChosenDate;
+    Reservation Res = new Reservation("Brown", "Watson", "2000000", "this@yahoo.com", "Aalborg" , "12345680", "9050", false, new DateTime(2022, 7, 23), new DateTime(2022, 7, 25), true, "haha", 1);
+   
 }
