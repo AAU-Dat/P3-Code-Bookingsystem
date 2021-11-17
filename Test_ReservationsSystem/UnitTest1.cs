@@ -11,7 +11,7 @@ namespace Test_ReservationsSystem
         [Fact]
         public void Test1()
         {
-            
+
         }
     }
 }
