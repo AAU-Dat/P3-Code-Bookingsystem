@@ -7,10 +7,21 @@ namespace Reservations_system.Classes
 {
     public class CitizenHouse
     {
-        public string Address { get; set; }
+        private string _adress;
+        private bool _isInUse;
 
-        public bool IsInUse { get; set; }
+        public string Adress
+        {
+            get { return _adress; }
+            set { _adress = value; }
+        }
 
+
+        public bool IsInUse
+        {
+            get { return _isInUse; }
+            set { _isInUse = value; }
+        }
 
         public void HouseIsNotInUse()
         {
