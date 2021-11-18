@@ -1,0 +1,93 @@
+﻿<h3>Rediger reservationen</h3>
+<h3>@Res.ID</h3>
+
+<EditForm Model="@Res">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="fornavn">Fornavn</label>
+        <InputText placeholder="@Res.CitizenGuest.FirstName" @bind-Value="Res.CitizenGuest.FirstName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="efternavn">Efternavn</label>
+        <InputText placeholder="@Res.CitizenGuest.LastName" @bind-Value="Res.CitizenGuest.LastName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="telefonnummer">Telefonnummer</label>
+        <InputText placeholder="@Res.CitizenGuest.PhoneNumber" @bind-Value="Res.CitizenGuest.PhoneNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="mail">Mail</label>
+        <InputText placeholder="@Res.CitizenGuest.Mail" @bind-Value="Res.CitizenGuest.Mail" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="startDato">StartDato</label>
+        <InputDate placeholder="@Res.StartDate" @bind-Value="Res.StartDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="finishDato">FinishDato</label>
+        <InputDate placeholder="@Res.FinishDate" @bind-Value="Res.FinishDate" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="accountNumber">Kontonummer</label>
+        <InputText placeholder="@Res.CitizenGuest.AccountNumber" @bind-Value="Res.CitizenGuest.AccountNumber" class="form-control" />
+
+        <label for="registerNumber"> Registreringnummer</label>
+        <InputText placeholder="@Res.CitizenGuest.RegistrationNumber" @bind-Value="Res.CitizenGuest.RegistrationNumber" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="otherStuff">Spørgsmål eller andre kommentarer</label>
+        <InputTextArea placeholder="@Res.OtherInfo" @bind-Value="Res.OtherInfo" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="cleaning">Rengøring</label>
+        <InputCheckbox @bind-Value="Res.Cleaning" @onclick="ChangeStateCleaning" />
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+        <label for="permission">Jeg er over 18 år</label>
+        <InputCheckbox @bind-Value="Res.CitizenGuest.IsOver18" @onclick="ChangeStateAge" />
+    </div>
+
+        <button type="submit" @onclick="ChangeCurrentReservation" class="btn btn-primary">Gem</button>
+
+    
+</EditForm>
+
+@code {
+    [Parameter]
+    public Reservation Res { get; set; }
+
+    [Parameter]
+    public EventCallback<Reservation> ResChanged { get; set; }
+
+    [Parameter]
+    public bool EditMode { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> EditModeChanged { get; set; }
+
+    public async Task ChangeCurrentReservation()
+    {
+        //Skal ændre reservationen i databasen
+
+        await ResChanged.InvokeAsync(Res);
+        await EditModeChanged.InvokeAsync(!EditMode);
+    }
+
+
+    public void ChangeStateCleaning()
+    {
+        Res.Cleaning = !Res.Cleaning;
+    }
+    public void ChangeStateAge()
+    {
+        Res.CitizenGuest.IsOver18 = !Res.CitizenGuest.IsOver18;
+    }
+}
