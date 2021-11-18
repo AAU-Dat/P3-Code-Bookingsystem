@@ -1,58 +1,28 @@
-﻿@page "/log"
-@foreach (var reservationID in TestReservationList.ListOfReservations)
+﻿@foreach (var reservationID in ListOfReservations)
 {<tr>
-     <button class="btn btn-primary"  type="submit">
-         Reservations ID @reservationID.ID <br /> 
-         Bekræftet: @(reservationID.Confirmed == true ? "Ja" : "Nej") <br />
-         Tidspunkt: @reservationID.ReservationFormatDates() <br />
-     </button>
+        <button class="btn btn-primary" type="submit" @onclick="(e => UpdateChosenReservation(reservationID))">
+            Reservations ID @reservationID.ID <br />
+            Bekræftet: @(reservationID.Confirmed == true ? "Ja" : "Nej") <br />
+            Tidspunkt: @reservationID.ReservationFormatDates() <br />
+        </button>
     </tr>
 }
 
-@foreach (var reservationDetail in TestReservationList.ListOfReservations)
-{
-    <p>
-        Reservation @reservationDetail.ID
-    </p>
-    <p>
-        Bekræftet: @(reservationDetail.Confirmed == true ? "Ja" : "Nej")
-    </p>
-    <p>
-        Tidspunkt: @reservationDetail.ReservationFormatDates()
-    </p>
-    <p>
-        Gæst: @reservationDetail.CitizenGuest.GuestFullName()
-    </p>
-    <p>
-        Telefonnumer: @reservationDetail.CitizenGuest.PhoneNumber
-    </p>
-    <p>
-        Email: @reservationDetail.CitizenGuest.Mail
-    </p>
-    <p>
-        Rengøring: @(reservationDetail.Cleaning == true ? "Ja" : "Nej")
-    </p>
-    <p>
-        Eventuelle info: @reservationDetail.OtherInfo
-    </p>
-
-    <p>
-        <br />
-        ------------------------------------------------
-    </p>
-}
 
 @code {
-    //Det her var et forsøg på at vise listen på andre måder
-    //  public void ShowList2()
-    //    {
-    //    ReservationDetailHTML ReservationID="@reservationsID"></ReservationDetailHTML>
-    //  }
-    //Task
-    //  public async Task ShowList1(Reservation reservation)
-    //  {
-    //      await Console.WriteLine(ListOfReservations[(reservation.ID)].CitizenGuest.LastName);
-    //  }
+    [Parameter]
+    public Reservation ChosenReservation { get; set; }
+
+    [Parameter]
+    public EventCallback<Reservation> ChosenReservationChanged { get; set; }
+
+    private async Task UpdateChosenReservation(Reservation reservation)
+    {
+        await ChosenReservationChanged.InvokeAsync(reservation);
+    }
+    [Parameter]
+    public List<Reservation> ListOfReservations { get; set; }
+
 
 
 }
