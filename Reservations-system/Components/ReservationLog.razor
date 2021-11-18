@@ -1,11 +1,12 @@
-﻿@foreach (var reservationID in ListOfReservations)
+﻿@foreach (var reservation in ListOfReservations)
 {<tr>
-        <button class="btn btn-primary" type="submit" @onclick="(e => UpdateChosenReservation(reservationID))">
-            Reservations ID @reservationID.ID <br />
-            Bekræftet: @(reservationID.Confirmed == true ? "Ja" : "Nej") <br />
-            Tidspunkt: @reservationID.ReservationFormatDates() <br />
+    <td>
+        <button class="btn btn-primary" type="submit" @onclick="(e => UpdateChosenReservation(reservation))">
+            Bekræftet: @(reservation.Confirmed == true ? "Ja" : "Nej") <br />
+            Tidspunkt: @reservation.ReservationPeriod() <br />
         </button>
-    </tr>
+    </td>
+</tr>
 }
 
 

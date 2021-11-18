@@ -5,17 +5,9 @@ using System.Threading.Tasks;
 
 namespace Reservations_system.Classes
 {
-    public class CitizenHouse
+    public class House
     {
-        private string _adress;
         private bool _isInUse;
-
-        public string Adress
-        {
-            get { return _adress; }
-            set { _adress = value; }
-        }
-
 
         public bool IsInUse
         {

@@ -21,11 +21,11 @@
     private string userName;
     private string password;
     private bool hidden = true;
-    private List<User> ListOfUsers = new List<User>() { new User("Lars", "forkert", "LarsErSej@LarsMail.Lars"), new User("Oliver", "123", "") };
+    private List<Member> ListOfUsers = new List<Member>() { new Member("Lars", "forkert", "LarsErSej@LarsMail.Lars"), new Member("Oliver", "123", "") };
 
     private void Initialized()
     {
-        foreach (User user in ListOfUsers)
+        foreach (Member user in ListOfUsers)
         {
             if (user.UserName == userName && user.Password == password)
             {

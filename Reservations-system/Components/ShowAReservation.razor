@@ -1,19 +1,17 @@
 ﻿@inject IJSRuntime JSRuntime
+
 <h4>Gæsteinfo</h4>
-@if (ShowThis.CitizenGuest.FirstName != null)
+@if (ShowThis != null)
 {
     <div>
         <p>
-            Navn: @ShowThis.CitizenGuest.FirstName @ShowThis.CitizenGuest.LastName
+            Navn: @ShowThis.Guest.Name
         </p>
         <p>
-            TelefonNummer: @ShowThis.CitizenGuest.PhoneNumber
+            TelefonNummer: @ShowThis.Guest.PhoneNumber
         </p>
         <p>
-            Mail: @ShowThis.CitizenGuest.Mail
-        </p>
-        <p>
-            Konto og Registrerings nummer: @ShowThis.CitizenGuest.AccountNumber + @ShowThis.CitizenGuest.RegistrationNumber
+            Mail: @ShowThis.Guest.Mail
         </p>
     </div>
     <h4>
@@ -24,18 +22,9 @@
             Reservations periode
         </p>
         <p>
-            Fra @ShowThis.StartDate.ToShortDateString() til @ShowThis.FinishDate.ToShortDateString()
+            @ShowThis.ReservationPeriod()
         </p>
-        <p>
-            Jeg er over 18 <input type="checkbox" checked="@ShowThis.CitizenGuest.IsOver18" onclick="return false;">
-        </p>
-        <p>
-            Jeg gør selv rent <input type="checkbox" checked="@ShowThis.Cleaning" onclick="return false;">
-        </p>
-        <h5>Yderligere information</h5>
-        <p>
-            @ShowThis.OtherInfo
-        </p>
+    </div>
         @if (ShowThis.Confirmed == false)
         {
             <p>
@@ -47,9 +36,6 @@
             <button class="btn btn-primary" @onclick="DeleteReservation">@(ShowThis.Confirmed == true? "Slet":"Annuller")</button>
             <button class="btn btn-primary" @onclick="ChangeEditMode">Rediger</button>
         </p>
-
-
-    </div>
 }
 
 @code {
@@ -76,7 +62,7 @@
         if (!await JSRuntime.InvokeAsync<bool>("confirm", "Er du sikker på at du vil slette denne reservation?"))
             return;
 
-        ShowThis = new Reservation();
+        ShowThis = null;
         //Delete from DB
         await ShowThisChanged.InvokeAsync(ShowThis);
 
