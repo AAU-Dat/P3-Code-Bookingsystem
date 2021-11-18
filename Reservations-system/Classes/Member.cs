@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace Reservations_system.Classes
 {
-    public class User
+    public class Member
     {
         private string _userName;
         private string _password;
         private string _email;
 
-        public User(string userName, string password, string email)
+        public Member(string userName, string password, string email)
         {
             Email = email;
             Password = password;
@@ -36,7 +36,6 @@ namespace Reservations_system.Classes
             get { return _userName; }
             set { _userName = value; }
         }
-
-
+        
     }
 }

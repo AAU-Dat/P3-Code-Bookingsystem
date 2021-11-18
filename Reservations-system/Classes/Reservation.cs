@@ -10,20 +10,20 @@ namespace Reservations_system.Classes
     {
         private Guest _guest;
         private List<DateTime> _reservedDates;
-        private bool _confirmed;
-        private bool _cleaning;
-        private string _otherInfo;
-        private int _id;
+        private bool _confirmed;//gik ud fr at det var det status betød
+        //private bool _cleaning;
 
-        public Reservation(Guest guest, DateTime start, DateTime end, bool confirmed, bool cleaning, string otherInfo, int id)
+        public Reservation(Guest guest, DateTime start, DateTime end/*, bool cleaning*/)
         {
             Guest = guest;
             SetReservedDates(start, end);
-            Confirmed = confirmed;
-            Cleaning = cleaning;
-            OtherInfo = otherInfo;
-            Id = id;
+            Confirmed = false;
+            //Cleaning = cleaning;
+        }
 
+        public Reservation()
+        {
+            Guest = new Guest();
         }
 
         public Guest Guest
@@ -37,45 +37,56 @@ namespace Reservations_system.Classes
             get { return _reservedDates; }
             set { _reservedDates = value; }
         }
-
+        
         public bool Confirmed
         {
             get { return _confirmed; }
             set { _confirmed = value; }
         }
-
-
+        /*
         public bool Cleaning
         {
             get { return _cleaning; }
             set { _cleaning = value; }
         }
+        */
 
-
-        public string OtherInfo
+        public string ReservationPeriod()
         {
-            get { return _otherInfo; }
-            set { _otherInfo = value; }
+            return $"{ReservedDates[0].ToShortDateString()} - {ReservedDates[ReservedDates.Count-1].ToShortDateString()}";
         }
 
-
-        public int Id
+        public void SetReservedDates(DateTime Start, DateTime End)
         {
-            get { return _id; }
-            private set { _id = value; }
-        }
-
-        public string ReservationFormatDates()
-        {
-            return $"{ReservedDates[0].ToShortDateString()} - {ReservedDates[ReservedDates.Count].ToShortDateString()}";
-        }
-
-        public void SetReservedDates(DateTime start, DateTime end)
-        { 
+            ReservedDates = new List<DateTime>();
             int i = 0;
-            while (start.AddDays(i) != end)
+            while (Start.AddDays(i) != End.AddDays(1))
             {
-                ReservedDates.Add(start.AddDays(i));
+                ReservedDates.Add(Start.AddDays(i));
+                i++;
+            }
+        }
+
+        public void SetStartDate(DateTime Start)
+        {
+            DateTime End = ReservedDates[ReservedDates.Count];
+            ReservedDates = new List<DateTime>();
+            int i = 0;
+            while (Start.AddDays(i) != End.AddDays(1))
+            {
+                ReservedDates.Add(Start.AddDays(i));
+                i++;
+            }
+        }
+
+        public void SetEndDate(DateTime End)
+        {
+            DateTime Start = ReservedDates[0];
+            ReservedDates = new List<DateTime>();
+            int i = 0;
+            while (Start.AddDays(i) != End.AddDays(1))
+            {
+                ReservedDates.Add(Start.AddDays(i));
                 i++;
             }
         }

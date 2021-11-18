@@ -1,0 +1,34 @@
+﻿@page "/admin"
+
+<table>
+    <tr>
+        @if (!EditMode)
+        {
+            <td>
+                <ReservationLog ListOfReservations="xxxDummyData.ListOfReservations" @bind-ChosenReservation="Res">
+
+                </ReservationLog>
+            </td>
+
+            <td>
+
+                <ShowAReservation ShowThis="Res" @bind-EditMode="EditMode">
+
+                </ShowAReservation>
+            </td>
+        }
+        else
+        {
+            <td>
+                <EditReservation @bind-Res="Res" @bind-EditMode="EditMode">
+
+                </EditReservation>
+            </td>
+        }
+    </tr>
+</table>
+
+@code {
+    Reservation Res;
+    public bool EditMode = false;
+}

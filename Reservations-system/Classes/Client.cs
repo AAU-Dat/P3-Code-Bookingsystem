@@ -5,33 +5,56 @@ using System.Threading.Tasks;
 
 namespace Reservations_system.Classes
 {
-    public abstract class Client : Person
+    //ændre navn
+    public abstract class Client
     {
-        
-        private string _accountNumber;
-        private string _registrationNumber;
+        private string _name;
+        private string _phoneNumber;
+        private string _mail;
+        private string _address;
+        private ContactPerson _contactPerson;
 
-        protected Client(string firstName, string lastName, string phoneNumber, string mail, string address) : base(firstName, lastName, phoneNumber, mail, address)
+        protected Client(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson)
         {
-
+            Name = name;
+            PhoneNumber = phoneNumber;
+            Mail = mail;
+            Address = address;
+            ContactPerson = contactPerson;
         }
 
-        public string AccountNumber
+        protected Client()
         {
-            get { return _accountNumber; }
-            set { _accountNumber = value; }
         }
 
-        public string RegistrationNumber
+        public string Name
         {
-            get { return _registrationNumber; }
-            set { _registrationNumber = value; }
+            get { return _name; }
+            set { _name = value; }
         }
 
-        public string AccNrAndRegNr()
+        public string PhoneNumber
         {
-            return $"{AccountNumber} + {RegistrationNumber}";
+            get { return _phoneNumber; }
+            set { _phoneNumber = value; }
         }
 
+        public string Mail
+        {
+            get { return _mail; }
+            set { _mail = value; }
+        }
+
+        public string Address
+        {
+            get { return _address; }
+            set { _address = value; }
+        }
+
+        public ContactPerson ContactPerson
+        {
+            get { return _contactPerson; }
+            set { _contactPerson = value; }
+        }
     }
 }

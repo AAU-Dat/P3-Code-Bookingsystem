@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 
 namespace Reservations_system.Classes
 {
-    public class ContactPerson : Person
+    public class ContactPerson : Guest
     {
-        public ContactPerson(string firstName, string lastName, string phoneNumber, string mail, string address) 
-                                : base(firstName, lastName, phoneNumber, mail, address)
+        //stuff
+        public ContactPerson(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson) : base(name, phoneNumber, mail, address, contactPerson)
         {
+        }
 
+        public ContactPerson()
+        {
         }
     }
 }

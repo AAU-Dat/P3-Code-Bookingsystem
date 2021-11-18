@@ -5,20 +5,17 @@ using System.Threading.Tasks;
 
 namespace Reservations_system.Classes
 {
+    //ændre navn
     public class Guest : Client
     {
-        private ContactPerson _contactPerson;
-
-        public Guest(string firstName, string lastName, string phoneNumber, string mail, string address, bool isOver18,
-                        ContactPerson contactPerson) : base(firstName, lastName, phoneNumber, mail, address)
+        //stuff
+        public Guest(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson) :
+                base(name, phoneNumber, mail, address, contactPerson)
         {
         }
 
-        public ContactPerson ContactPerson
+        public Guest()
         {
-            get { return _contactPerson; }
-            set { _contactPerson = value; }
         }
-
     }
 }

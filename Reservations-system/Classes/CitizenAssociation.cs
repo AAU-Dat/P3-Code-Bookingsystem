@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Reservations_system.Classes
 {
-    public class Organization
+    public class CitizenAssociation
     {
         private string _phoneNumber;
         private string _mail;
@@ -22,6 +22,5 @@ namespace Reservations_system.Classes
             get { return _mail; }
             set { _mail = value; }
         }
-
     }
 }
