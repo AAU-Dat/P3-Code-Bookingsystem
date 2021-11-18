@@ -77,14 +77,14 @@
     public Reservation currentReservation { get; set; } = new Reservation();
 
     [Parameter]
-    public Reservation CurrentReservation { get; set; }
-    [Parameter]
     public List<Reservation> ListOfReservations { get; set; }
-    [Parameter]
-    public bool ShouldBeChanged { get; set; } = false;
 
     [Parameter]
     public EventCallback<Reservation> CurrentReservationChanged { get; set; }
+
+    [Parameter]
+    public bool ShouldBeChanged { get; set; } = false;
+
 
     public async Task ChangeCurrentReservation(Reservation reservation)
     {

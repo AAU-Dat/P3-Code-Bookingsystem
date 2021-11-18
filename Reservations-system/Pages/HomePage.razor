@@ -2,30 +2,29 @@
 
 <table>
     <tr>
-        @if (IsEditable)
+
+        @if (!EditMode)
         {
+            <td>
+                <ReservationLog ListOfReservations="ListOfReservations" @bind-ChosenReservation="reservation">
 
-        <td>
-            <ReservationLog ListOfReservations="ListOfReservations" @bind-ChosenReservation="reservation">
+                </ReservationLog>
+            </td>
 
-            </ReservationLog>
-        </td>
+            <td>
 
-        <td>
+                <ShowAReservation ShowThis="reservation" @bind-EditMode="EditMode">
 
-            <ShowAReservation ShowThis="reservation">
-
-            </ShowAReservation>
-        </td>
-
+                </ShowAReservation>
+            </td>
         }
         else
         {
-        <td>
-            <ReservationFormular ListOfReservations="ListOfReservations" @bind-CurrentReservation="reservation" MobilePayOn="false" ShouldBeChanged="true">
+            <td>
+                <EditReservation @bind-Res="reservation" @bind-EditMode="EditMode">
 
-            </ReservationFormular>
-        </td>
+                </EditReservation>
+            </td>
         }
     </tr>
 
@@ -40,7 +39,7 @@
     public Reservation reservation { get; set; } = new Reservation("TEEEEEEEEEEST", "Watson", "748923", "thi@yaoho.com", "Aalborg", "conto", "regnumbah", true,
             new DateTime(2021, 7, 3), new DateTime(2020, 5, 5), false, "no", 4);
 
-    public bool IsEditable = false;
+    public bool EditMode = false;
 
 
 }
