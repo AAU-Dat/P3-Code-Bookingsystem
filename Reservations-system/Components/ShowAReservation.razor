@@ -1,77 +1,79 @@
-﻿<h4>Gæsteinfo</h4>
+﻿@inject IJSRuntime JSRuntime
+<h4>Gæsteinfo</h4>
 @if (ShowThis.CitizenGuest.FirstName != null)
 {
-<div>
-    <p>
-        Navn: @ShowThis.CitizenGuest.FirstName @ShowThis.CitizenGuest.LastName
-    </p>
-    <p>
-        TelefonNummer: @ShowThis.CitizenGuest.PhoneNumber
-    </p>
-    <p>
-        Mail: @ShowThis.CitizenGuest.Mail
-    </p>
-    <p>
-        Konto og Registrerings nummer: @ShowThis.CitizenGuest.AccountNumber + @ShowThis.CitizenGuest.RegistrationNumber
-    </p>
-</div>
-<h4>
-    Reservations info
-</h4>
-<div>
-    <p>
-        Reservations periode
-    </p>
-    <p>
-        Fra @ShowThis.StartDate.ToShortDateString() til @ShowThis.FinishDate.ToShortDateString()
-    </p>
-    <p>
-        Jeg er over 18 <input type="checkbox" checked="@ShowThis.CitizenGuest.IsOver18" onclick="return false;">
-    </p>
-    <p>
-        Jeg gør selv rent <input type="checkbox" checked="@ShowThis.Cleaning" onclick="return false;">
-    </p>
-    <h5>Yderligere information</h5>
-    <p>
-        @ShowThis.OtherInfo
-    </p>
-    @if (ShowThis.Confirmed == false)
-    {
+    <div>
         <p>
-            <BindBoolButton Title="Bekræft" Css="btn btn-primary" @bind-variableToBeChanged="ShowThis.Confirmed" changeItToThis="true"></BindBoolButton>
+            Navn: @ShowThis.CitizenGuest.FirstName @ShowThis.CitizenGuest.LastName
         </p>
-    }
+        <p>
+            TelefonNummer: @ShowThis.CitizenGuest.PhoneNumber
+        </p>
+        <p>
+            Mail: @ShowThis.CitizenGuest.Mail
+        </p>
+        <p>
+            Konto og Registrerings nummer: @ShowThis.CitizenGuest.AccountNumber + @ShowThis.CitizenGuest.RegistrationNumber
+        </p>
+    </div>
+    <h4>
+        Reservations info
+    </h4>
+    <div>
+        <p>
+            Reservations periode
+        </p>
+        <p>
+            Fra @ShowThis.StartDate.ToShortDateString() til @ShowThis.FinishDate.ToShortDateString()
+        </p>
+        <p>
+            Jeg er over 18 <input type="checkbox" checked="@ShowThis.CitizenGuest.IsOver18" onclick="return false;">
+        </p>
+        <p>
+            Jeg gør selv rent <input type="checkbox" checked="@ShowThis.Cleaning" onclick="return false;">
+        </p>
+        <h5>Yderligere information</h5>
+        <p>
+            @ShowThis.OtherInfo
+        </p>
+        @if (ShowThis.Confirmed == false)
+        {
+            <p>
+                <button class="btn btn-primary" @onclick="Confirme">Bekræft</button>
+            </p>
+        }
 
-    <p>
-        <DeleteOrCancelReservation Title="@(ShowThis.Confirmed == true? "Slet":"Annuller")" Css="btn btn-primary" @bind-Reservation="ShowThis"></DeleteOrCancelReservation>
-    </p>
-
-    <p>
-        <ChangeButton Title="Rediger" Css="btn btn-primary" @bind-Reservation="ShowThis"></ChangeButton>
-    </p>
-</div>
+        <p>
+            <button class="btn btn-primary" @onclick="DeleteReservation">@(ShowThis.Confirmed == true? "Slet":"Annuller")</button>
+        </p>
+    </div>
 }
 
 @code {
     [Parameter]
     public Reservation ShowThis { get; set; }
-    
-    private string firstName = "Jens";
-    private string lastName = "Larsen";
 
-    private string phoneNumber = "88888888";
+    [Parameter]
+    public EventCallback<Reservation> ShowThisChanged { get; set; }
 
-    private string mail = "HahaWannabe123@shitposter.cum";
+    async Task DeleteReservation()
+    {
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", "Er du sikker på at du vil slette denne reservation?"))
+            return;
 
-    private string accountNumber = "123456789";
-    private string registrationNumber = "12345";
+        ShowThis = new Reservation();
+        //Delete from DB
+        await ShowThisChanged.InvokeAsync(ShowThis);
 
-    private DateTime StartDate = DateTime.Now;
-    private DateTime FinishDate = DateTime.Now.AddDays(1);
+    }
 
-    private bool isOver18 = true;
-    private bool cleaning = false;
+    async Task Confirme()
+    {
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", "Er du sikker på at du vil bekræfte denne reservation?"))
+            return;
 
-    private string otherInfo = "Så altså det bare lige fordi min søster holder fødselsdag og så ville jeg også holde en kat så jeg har lejet det til mor";
+        ShowThis.Confirmed = true;
+        await ShowThisChanged.InvokeAsync(ShowThis);
 
+    }
 }

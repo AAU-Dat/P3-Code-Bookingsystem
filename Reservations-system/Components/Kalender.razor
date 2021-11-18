@@ -1,14 +1,6 @@
 ﻿
-
-<CallFuncButton Title="Forrige måned"
-        Css="btn btn-primary"
-        CallThisFunc="PreviusMonth">
-</CallFuncButton>
-
-<CallFuncButton Title="Næste måned"
-        Css="btn btn-primary"
-        CallThisFunc="NextMonth">
-</CallFuncButton>
+<button class="btn btn-primary" @onclick="PreviusMonth">Forrige måned</button>
+<button class="btn btn-primary" @onclick="NextMonth">Næste måned</button>
 
 <h3>
     @Months[(ShowMonth.Month + monthCounter - 1)]
@@ -39,10 +31,10 @@
 
                     <td>
                         <BindDateTimeButton Title="@datePrinter"
-                                          Css="@(Date2 == CurrentlyChosen ? "btn btn-primary" : "")"
-                                          ThisDate="Date2"
-                                          IsDisabled="IsInArray(Date2, ReservedDates)"
-                                          @bind-ChosenDate="ChosenDate">
+                                            Css="@(Date2 == CurrentlyChosen ? "btn btn-primary" : "")"
+                                            ThisDate="Date2"
+                                            IsDisabled="IsInArray(Date2, ReservedDates)"
+                                            @bind-ChosenDate="ChosenDate">
                         </BindDateTimeButton>
                     </td>
                 }
@@ -56,10 +48,9 @@
         </tr>
     }
 </table>
-<CallFuncButton Title="Reserver dag"
-        Css="btn btn-primary"
-        CallThisFunc="UpdateChosenTimespan">
-</CallFuncButton>
+<button class="btn btn-primary" @onclick="UpdateChosenTimespan">Reserver dag</button>
+
+
 
 
 
@@ -122,19 +113,7 @@
 
     [Parameter]
     public DateTime CurrentlyChosen { get; set; }
-    /*
-    [Parameter]
-    public DateTime StartDateP { get; set; }
 
-    [Parameter]
-    public DateTime FinishDateP { get; set; }
-
-    [Parameter]
-    public EventCallback<DateTime> StartDatePChanged { get; set; }
-
-    [Parameter]
-    public EventCallback<DateTime> FinishDatePChanged { get; set; }
-    */
     [Parameter]
     public DateTime ChosenDateP { get; set; }
 
@@ -143,8 +122,6 @@
 
     private async Task UpdateChosenTimespan()
     {
-        //await StartDatePChanged.InvokeAsync(new DateTime(ChosenDate.AddDays(-1).Year, ChosenDate.AddDays(-1).Month, ChosenDate.AddDays(-1).Day));
         await ChosenDatePChanged.InvokeAsync(ChosenDate);
-        //await FinishDatePChanged.InvokeAsync(new DateTime(ChosenDate.AddDays(1).Year, ChosenDate.AddDays(1).Month, ChosenDate.AddDays(1).Day));
     }
 }
