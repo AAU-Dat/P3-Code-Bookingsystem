@@ -3,6 +3,7 @@
 @inject NavigationManager NavigationManager
 
 <h3>Book en reservation</h3>
+<h3>@currentReservation.ID</h3>
 <EditForm Model="@currentReservation">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -41,10 +42,10 @@
         <InputText placeholder="xxxx" @bind-Value="currentReservation.CitizenGuest.RegistrationNumber" class="form-control" />
     </div>
 
-        <div class="form-group">
-            <label for="otherStuff">Spørgsmål eller andre kommentarer</label>
-            <InputTextArea placeholder=". . ." @bind-Value="currentReservation.OtherInfo" class="form-control" />
-        </div>
+    <div class="form-group">
+        <label for="otherStuff">Spørgsmål eller andre kommentarer</label>
+        <InputTextArea placeholder=". . ." @bind-Value="currentReservation.OtherInfo" class="form-control" />
+    </div>
 
     <div class="form-group">
         <label for="cleaning">Rengøring</label>
@@ -56,17 +57,39 @@
         <label for="permission">Jeg er over 18 år</label>
         <InputCheckbox @bind-Value="currentReservation.CitizenGuest.IsOver18" @onclick="ChangeStateAge" />
     </div>
+    @if (ShouldBeChanged == false)
+    {
+        <button type="submit" @onclick="SendDataToListAndSendToMobilePay" class="btn btn-primary">Send formularen</button>
+    }
+    @if (ShouldBeChanged == true)
+    {
+        <button type="submit" @onclick="(e =>ChangeCurrentReservation(currentReservation))" class="btn btn-primary">Gem</button>
 
-    <button type="submit" @onclick="SendDataToListAndSendToMobilePay" class="btn btn-primary">Send formularen</button>
+    }
 </EditForm>
 
-    @code {
+@code {
 
-        [Parameter]
-        public bool MobilePayOn { get; set; } = true;
+    [Parameter]
+    public bool MobilePayOn { get; set; } = true;
 
-        Reservation currentReservation = new Reservation();
 
+    public Reservation currentReservation { get; set; } = new Reservation();
+
+    [Parameter]
+    public Reservation CurrentReservation { get; set; }
+    [Parameter]
+    public List<Reservation> ListOfReservations { get; set; }
+    [Parameter]
+    public bool ShouldBeChanged { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<Reservation> CurrentReservationChanged { get; set; }
+
+    public async Task ChangeCurrentReservation(Reservation reservation)
+    {
+        await CurrentReservationChanged.InvokeAsync(reservation);
+    }
     public void SendDataToListAndSendToMobilePay()
     {
 
@@ -75,11 +98,12 @@
             currentReservation.CitizenGuest.Address, currentReservation.CitizenGuest.AccountNumber,
             currentReservation.CitizenGuest.RegistrationNumber, currentReservation.CitizenGuest.IsOver18,
             currentReservation.StartDate, currentReservation.FinishDate,
-            currentReservation.Cleaning, currentReservation.OtherInfo, (currentReservation.ID = TestReservationList.ListOfReservations.Count+1)));
+            currentReservation.Cleaning, currentReservation.OtherInfo, (currentReservation.ID = TestReservationList.ListOfReservations.Count + 1)));
 
         if (MobilePayOn == true)
         {
             NavigationManager.NavigateTo("/betal-depositum");
+
         }
     }
     public void ChangeStateCleaning()

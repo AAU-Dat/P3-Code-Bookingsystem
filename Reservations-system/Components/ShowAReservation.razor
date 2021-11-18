@@ -45,6 +45,10 @@
     <p>
         <DeleteOrCancelReservation Title="@(ShowThis.Confirmed == true? "Slet":"Annuller")" Css="btn btn-primary" @bind-Reservation="ShowThis"></DeleteOrCancelReservation>
     </p>
+
+    <p>
+        <ChangeButton Title="Rediger" Css="btn btn-primary" @bind-Reservation="ShowThis"></ChangeButton>
+    </p>
 </div>
 }
 
