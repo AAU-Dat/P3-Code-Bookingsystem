@@ -7,37 +7,21 @@ namespace Reservations_system.Classes
 {
     public class Organization
     {
-        public string PhoneNumber { get; set; }
-        public string Mail { get; set; }
+        private string _phoneNumber;
+        private string _mail;
 
-        public Reservation acceptReservation(Reservation reservation)
+        public string Phonenumber
         {
-            throw new NotImplementedException();
+            get { return _phoneNumber; }
+            set { _phoneNumber = value; }
         }
 
-        public Reservation cancelReservation(Reservation reservation)
+
+        public string Mail
         {
-            throw new NotImplementedException();
+            get { return _mail; }
+            set { _mail = value; }
         }
 
-        public Reservation changeReservation(Reservation reservation)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Reservation declineReservation(Reservation reservation)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void deleteReservation(Reservation reservation)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void sendMail()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

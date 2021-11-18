@@ -8,41 +8,89 @@ namespace Reservations_system.Classes
 
     public class Reservation
     {
-        public Reservation()
+        private Guest _guest;
+        private List<DateTime> _reservedDates;
+        private bool _confirmed;
+        private bool _cleaning;
+        private string _otherInfo;
+        private int _id;
+
+        public Reservation(Guest guest, DateTime start, DateTime end, bool confirmed, bool cleaning, string otherInfo, int id)
         {
-            CitizenGuest = new();
-        }
-        public Reservation(string firstName, string lastName, string phoneNumber, string mail, string address, string acconutNumber,
-            string reg, bool isover18, DateTime startDate, DateTime finishDate, bool cleaning, string otherInfo, int iD)
-        {
-            StartDate = startDate;
-            FinishDate = finishDate;
+            Guest = guest;
+            SetReservedDates(start, end);
+            Confirmed = confirmed;
             Cleaning = cleaning;
             OtherInfo = otherInfo;
-            ID = iD;
+            Id = id;
 
-            CitizenGuest = new Citizen(firstName, lastName, phoneNumber, mail, address, acconutNumber, reg, isover18);
         }
-        public Citizen CitizenGuest {get;set;}
-        public DateTime StartDate { get; set; } = DateTime.Now;
 
-        public DateTime FinishDate { get; set; } = DateTime.Now.AddDays(1);
+        public Guest Guest
+        {
+            get { return _guest; }
+            set { _guest = value; }
+        }
 
-        public bool Cleaning { get; set; } = false;
+        public List<DateTime> ReservedDates
+        {
+            get { return _reservedDates; }
+            set { _reservedDates = value; }
+        }
 
-        public string OtherInfo { get; set; }
+        public bool Confirmed
+        {
+            get { return _confirmed; }
+            set { _confirmed = value; }
+        }
 
-        public int ID { get; set; }
 
-        public bool Confirmed { get; set; } = false;
+        public bool Cleaning
+        {
+            get { return _cleaning; }
+            set { _cleaning = value; }
+        }
 
-        public void ReservationSend() { }
+
+        public string OtherInfo
+        {
+            get { return _otherInfo; }
+            set { _otherInfo = value; }
+        }
+
+
+        public int Id
+        {
+            get { return _id; }
+            private set { _id = value; }
+        }
 
         public string ReservationFormatDates()
         {
-            return $"{StartDate.ToShortDateString()} - {FinishDate.ToShortDateString()}";
+            return $"{ReservedDates[0].ToShortDateString()} - {ReservedDates[ReservedDates.Count].ToShortDateString()}";
         }
-    }
 
+        public void SetReservedDates(DateTime start, DateTime end)
+        { 
+            int i = 0;
+            while (start.AddDays(i) != end)
+            {
+                ReservedDates.Add(start.AddDays(i));
+                i++;
+            }
+        }
+
+        public DateTime GetStartDate()
+        {
+            return ReservedDates[0];
+        }
+
+        public DateTime GetEndDate()
+        {
+            return ReservedDates[ReservedDates.Count];
+        }
+
+
+    }
 
 }
