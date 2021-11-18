@@ -45,11 +45,26 @@
 
         <p>
             <button class="btn btn-primary" @onclick="DeleteReservation">@(ShowThis.Confirmed == true? "Slet":"Annuller")</button>
+            <button class="btn btn-primary" @onclick="ChangeEditMode">Rediger</button>
         </p>
+
+
     </div>
 }
 
 @code {
+    [Parameter]
+    public bool EditMode { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> EditModeChanged { get; set; }
+
+    public async Task ChangeEditMode()
+    {
+        await EditModeChanged.InvokeAsync(!EditMode);
+    }
+
+
     [Parameter]
     public Reservation ShowThis { get; set; }
 
