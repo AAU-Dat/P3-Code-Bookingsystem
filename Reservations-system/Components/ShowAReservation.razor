@@ -71,12 +71,15 @@
     [Parameter]
     public EventCallback<Reservation> ShowThisChanged { get; set; }
 
+    [Parameter]
+    public List<Reservation> ListOfReservations { get; set; }
+
     async Task DeleteReservation()
     {
         if (!await JSRuntime.InvokeAsync<bool>("confirm", "Er du sikker på at du vil slette denne reservation?"))
             return;
-
-        ShowThis = new Reservation();
+        ListOfReservations.RemoveAt(ShowThis.ID);
+        //ShowThis = new Reservation();
         //Delete from DB
         await ShowThisChanged.InvokeAsync(ShowThis);
 
