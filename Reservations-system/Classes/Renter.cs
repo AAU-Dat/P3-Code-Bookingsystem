@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Reservations_system.Classes
 {
-    //ændre navn
-    public abstract class Client
+    
+    public abstract class Renter
     {
         private string _name;
         private string _phoneNumber;
@@ -14,7 +14,7 @@ namespace Reservations_system.Classes
         private string _address;
         private ContactPerson _contactPerson;
 
-        protected Client(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson)
+        protected Renter(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson)
         {
             Name = name;
             PhoneNumber = phoneNumber;
@@ -23,7 +23,7 @@ namespace Reservations_system.Classes
             ContactPerson = contactPerson;
         }
 
-        protected Client()
+        protected Renter()
         {
         }
 

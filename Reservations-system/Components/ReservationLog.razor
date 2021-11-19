@@ -11,18 +11,21 @@
 
 
 @code {
-    [Parameter]
+    [CascadingParameter(Name = "chosenReservation")]
     public Reservation ChosenReservation { get; set; }
 
+    [CascadingParameter(Name = "dummyData")]
+    public List<Reservation> dummyData { get; set; }
+    
     [Parameter]
-    public EventCallback<Reservation> ChosenReservationChanged { get; set; }
+    public EventCallback<MouseEventArgs> UpdateChosenReservationInParentObject { get; set; }
 
     private async Task UpdateChosenReservation(Reservation reservation)
     {
-        await ChosenReservationChanged.InvokeAsync(reservation);
+        ChosenReservation = reservation;
+        UpdateChosenReservationInParentObject(ChosenReservation);
     }
-    [Parameter]
-    public List<Reservation> ListOfReservations { get; set; }
+
 
 
 

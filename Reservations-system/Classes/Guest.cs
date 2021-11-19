@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Reservations_system.Classes
 {
-    //ændre navn
-    public class Guest : Client
+   
+    public class Guest : Renter
     {
-        //stuff
+      
         public Guest(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson) :
                 base(name, phoneNumber, mail, address, contactPerson)
         {
