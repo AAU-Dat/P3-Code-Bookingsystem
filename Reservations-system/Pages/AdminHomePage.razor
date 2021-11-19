@@ -1,18 +1,27 @@
 ﻿@page "/admin"
 
+<CascadingValue Value="chosenReservation" Name="chosenReservation">
+</CascadingValue>
+
+<CascadingValue Value="editMode" Name="EditMode">
+</CascadingValue>
+
+<CascadingValue Value="dummyData" Name="dummyData">
+</CascadingValue>
+
 <table>
     <tr>
-        @if (!EditMode)
+        <td>
+            <ReservationLog>
+
+            </ReservationLog>
+        </td>
+
+        @if (!editMode)
         {
             <td>
-                <ReservationLog ListOfReservations="xxxDummyData.ListOfReservations" @bind-ChosenReservation="Res">
 
-                </ReservationLog>
-            </td>
-
-            <td>
-
-                <ShowAReservation ShowThis="Res" @bind-EditMode="EditMode">
+                <ShowAReservation>
 
                 </ShowAReservation>
             </td>
@@ -20,7 +29,7 @@
         else
         {
             <td>
-                <EditReservation @bind-Res="Res" @bind-EditMode="EditMode">
+                <EditReservation>
 
                 </EditReservation>
             </td>
@@ -29,6 +38,22 @@
 </table>
 
 @code {
-    Reservation Res;
-    public bool EditMode = false;
+    Reservation chosenReservation;
+    public bool editMode = false;
+    List<Reservation> dummyData = xxxDummyData.ListOfReservations;
+
+    private void UpdateRes(Reservation R)
+    {
+        chosenReservation = R;
+    }
+
+    private void UpdateRes(bool E)
+    {
+        editMode = E;
+    }
+
+    private void UpdateRes(List<Reservation> Lst)
+    {
+        dummyData = Lst;
+    }
 }

@@ -20,18 +20,20 @@ namespace Reservations_system.Classes
         new Reservation(Guests[1], new DateTime(2021, 11, 24), new DateTime(2021, 11, 25)),
         new Reservation(Guests[2], new DateTime(2021, 11, 30), new DateTime(2021, 11, 30)),
         };
-
+        /*
         public static List<DateTime> RDates()
         {
+            int i = 0;
             List<DateTime> lst = new List<DateTime>();
             foreach (Reservation item in ListOfReservations)
             {
-                foreach (DateTime date in item.ReservedDates)
+                while (item.StartDate.AddDays(i) != item.EndDate.AddDays(1))
                 {
-                    lst.Add(date);
+                    lst.Add(item.StartDate.AddDays(i));
+                    i ++;
                 }
             }
             return lst;
-        }
+        }*/
     }
 }

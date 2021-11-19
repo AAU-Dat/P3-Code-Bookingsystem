@@ -1,17 +1,17 @@
 ﻿@inject IJSRuntime JSRuntime
 
 <h4>Gæsteinfo</h4>
-@if (ShowThis != null)
+@if (ShowThisRes != null)
 {
     <div>
         <p>
-            Navn: @ShowThis.Guest.Name
+            Navn: @ShowThisRes.Guest.Name
         </p>
         <p>
-            TelefonNummer: @ShowThis.Guest.PhoneNumber
+            TelefonNummer: @ShowThisRes.Guest.PhoneNumber
         </p>
         <p>
-            Mail: @ShowThis.Guest.Mail
+            Mail: @ShowThisRes.Guest.Mail
         </p>
     </div>
     <h4>
@@ -22,10 +22,10 @@
             Reservations periode
         </p>
         <p>
-            @ShowThis.ReservationPeriod()
+            @ShowThisRes.ReservationPeriod()
         </p>
     </div>
-        @if (ShowThis.Confirmed == false)
+        @if (ShowThisRes.Confirmed == false)
         {
             <p>
                 <button class="btn btn-primary" @onclick="Confirme">Bekræft</button>
@@ -33,7 +33,7 @@
         }
 
         <p>
-            <button class="btn btn-primary" @onclick="DeleteReservation">@(ShowThis.Confirmed == true? "Slet":"Annuller")</button>
+            <button class="btn btn-primary" @onclick="DeleteReservation">@(ShowThisRes.Confirmed == true? "Slet":"Annuller")</button>
             <button class="btn btn-primary" @onclick="ChangeEditMode">Rediger</button>
         </p>
 }
@@ -50,31 +50,39 @@
         await EditModeChanged.InvokeAsync(!EditMode);
     }
 
+    [Parameter]
+    public Reservation ShowThisRes { get; set; }
 
     [Parameter]
-    public Reservation ShowThis { get; set; }
+    public EventCallback<Reservation> ShowThisResChanged { get; set; }
 
     [Parameter]
-    public EventCallback<Reservation> ShowThisChanged { get; set; }
+    public List<Reservation> Reservations { get; set; }
+
+    [Parameter]
+    public EventCallback<List<Reservation>> ReservationsChanged { get; set; }
 
     async Task DeleteReservation()
     {
         if (!await JSRuntime.InvokeAsync<bool>("confirm", "Er du sikker på at du vil slette denne reservation?"))
             return;
-
-        ShowThis = null;
-        //Delete from DB
-        await ShowThisChanged.InvokeAsync(ShowThis);
-
+        ShowThisRes.Guest.Name = "haha";
+        ShowThisRes.StartDate = new DateTime(2021, 1, 1);
+        //Reservations.Remove(ShowThisRes);
+        ////ShowThisRes = null;
+        ////Delete from DB
+        //await ShowThisResChanged.InvokeAsync(null);
+        //await ReservationsChanged.InvokeAsync(Reservations);
     }
 
     async Task Confirme()
     {
         if (!await JSRuntime.InvokeAsync<bool>("confirm", "Er du sikker på at du vil bekræfte denne reservation?"))
             return;
-
-        ShowThis.Confirmed = true;
-        await ShowThisChanged.InvokeAsync(ShowThis);
-
+        int i = Reservations.FindIndex(s => s == ShowThisRes);
+        ShowThisRes.Confirmed = true;
+        Reservations[i]=ShowThisRes;
+        await ReservationsChanged.InvokeAsync(Reservations);
+        await ShowThisResChanged.InvokeAsync(ShowThisRes);
     }
 }

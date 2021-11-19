@@ -24,20 +24,18 @@
 
     <div class="form-group">
         <label for="startDato">StartDato</label>
-        <InputDate placeholder="@Res.GetStartDate()" @bind-Value="StartDate" class="form-control" />
+        <InputDate placeholder="@Res.StartDate" @bind-Value="Res.StartDate" class="form-control" />
     </div>
 
     <div class="form-group">
         <label for="finishDato">FinishDato</label>
-        <InputDate placeholder="@Res.GetEndDate()" @bind-Value="EndDate" class="form-control" />
+        <InputDate placeholder="@Res.EndDate" @bind-Value="Res.EndDate" class="form-control" />
     </div>
 
     <button type="submit" @onclick="ChangeCurrentReservation" class="btn btn-primary">Gem</button>
 </EditForm>
 
 @code {
-    private DateTime StartDate;
-    private DateTime EndDate;
     [Parameter]
     public Reservation Res { get; set; }
 
@@ -53,8 +51,6 @@
 
     public async Task ChangeCurrentReservation()
     {
-        Res.SetStartDate(StartDate);
-        Res.SetEndDate(EndDate);
         //Skal ændre reservationen i databasen
         await ResChanged.InvokeAsync(Res);
         await EditModeChanged.InvokeAsync(!EditMode);

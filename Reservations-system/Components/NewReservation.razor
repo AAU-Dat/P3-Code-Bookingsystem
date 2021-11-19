@@ -7,17 +7,17 @@
     <ValidationSummary />
     <div class="form-group">
         <label for="fornavn">Fornavn</label>
-        <InputText placeholder="Fornavn" @bind-Value="Res.Guest.Name" class="form-control" />
+        <InputText placeholder="Fulde navn" @bind-Value="Res.Guest.Name" class="form-control" />
     </div>
 
     <div class="form-group">
         <label for="telefonnummer">Telefonnummer</label>
-        <InputText placeholder="telefonnummer" @bind-Value="Res.Guest.PhoneNumber" class="form-control" />
+        <InputText placeholder="Telefonnummer" @bind-Value="Res.Guest.PhoneNumber" class="form-control" />
     </div>
 
     <div class="form-group">
         <label for="mail">Mail</label>
-        <InputText placeholder="mail" @bind-Value="Res.Guest.Mail" class="form-control" />
+        <InputText placeholder="Mail" @bind-Value="Res.Guest.Mail" class="form-control" />
     </div>
 
     <div class="form-group">
@@ -27,7 +27,7 @@
 
     <div class="form-group">
         <label for="finishDato">FinishDato</label>
-        <InputDate placeholder="FinishDato" @bind-Value="EndDate" class="form-control" />
+        <InputDate placeholder="SlutDato" @bind-Value="EndDate" class="form-control" />
     </div>
 
     <button type="submit" @onclick="SendToMobilePay" class="btn btn-primary">Send formularen</button>
@@ -50,8 +50,6 @@
     public void SendToMobilePay()
     {
         //send Res til DB
-        Res.SetStartDate(StartDate);
-        Res.SetEndDate(EndDate);
         xxxDummyData.ListOfReservations.Add(Res);
 
         if (MobilePayOn == true)
