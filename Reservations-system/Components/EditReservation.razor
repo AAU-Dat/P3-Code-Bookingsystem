@@ -5,39 +5,38 @@
         <ValidationSummary />*@
     <div class="form-group">
         <label for="fornavn">Fornavn</label>
-        <InputText placeholder="@containerAdminHomePage.chosenReservation.Guest.Name" @bind-Value="PlaceHolderReservation.Guest.Name" class="form-control" />
+        <InputText @bind-Value="containerAdminHomePage.chosenReservation.Guest.Name" class="form-control" />
     </div>
 
     <div class="form-group">
         <label for="telefonnummer">Telefonnummer</label>
-        <InputText placeholder="@containerAdminHomePage.chosenReservation.Guest.PhoneNumber" @bind-Value="PlaceHolderReservation.Guest.PhoneNumber" class="form-control" />
+        <InputText @bind-Value="containerAdminHomePage.chosenReservation.Guest.PhoneNumber" class="form-control" />
     </div>
     <div class="form-group">
         <label for="mail">Mail</label>
-        <InputText placeholder="@containerAdminHomePage.chosenReservation.Guest.Mail" @bind-Value="PlaceHolderReservation.Guest.Mail" class="form-control" />
+        <InputText @bind-Value="containerAdminHomePage.chosenReservation.Guest.Mail" class="form-control" />
     </div>
 
     <div class="form-group">
         <label for="address">Address</label>
-        <InputText placeholder="@containerAdminHomePage.chosenReservation.Guest.Address" @bind-Value="PlaceHolderReservation.Guest.Address" class="form-control" />
+        <InputText @bind-Value="containerAdminHomePage.chosenReservation.Guest.Address" class="form-control" />
     </div>
 
     <div class="form-group">
         <label for="startDato">StartDato</label>
-        <InputDate placeholder="@containerAdminHomePage.chosenReservation.StartDate" @bind-Value="PlaceHolderReservation.StartDate" class="form-control" />
+        <InputDate @bind-Value="containerAdminHomePage.chosenReservation.StartDate" class="form-control" />
     </div>
 
     <div class="form-group">
         <label for="finishDato">FinishDato</label>
-        <InputDate placeholder="@containerAdminHomePage.chosenReservation.EndDate" @bind-Value="PlaceHolderReservation.EndDate" class="form-control" />
+        <InputDate @bind-Value="containerAdminHomePage.chosenReservation.EndDate" class="form-control" />
     </div>
 
-    <button type="submit" @onclick="(() => containerAdminHomePage.EditChosenReservation(PlaceHolderReservation))" class="btn btn-primary">Gem</button>
+    <button type="submit" @onclick="(() => containerAdminHomePage.ChangeEditMode())" class="btn btn-primary">Gem</button>
 </EditForm>
 
 @code {
     [CascadingParameter]
     public AdminHomePage containerAdminHomePage { get; set; } //Contains all admin home page functions and properties 
 
-    public Reservation PlaceHolderReservation = new Reservation();
     }
