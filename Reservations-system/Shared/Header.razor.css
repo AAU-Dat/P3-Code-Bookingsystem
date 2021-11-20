@@ -1,0 +1,8 @@
+﻿header {
+    background-color: steelblue;
+    padding-bottom: 50px;
+}
+header * {
+    display: block;
+    text-align: center;
+}

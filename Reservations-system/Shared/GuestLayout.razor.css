@@ -1,0 +1,17 @@
+﻿.main {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 500px 500px;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "left right"
+}
+
+.item-a {
+    grid-area: left;
+}
+.item-b {
+    grid-area: right;
+}
