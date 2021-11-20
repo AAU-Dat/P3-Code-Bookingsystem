@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Reservations_system.Classes
 {
@@ -17,7 +18,7 @@ namespace Reservations_system.Classes
         {
             Guest = guest;
             StartDate = start;
-                EndDate = end;
+            EndDate = end;
             Confirmed = false;
             
         }
@@ -32,23 +33,44 @@ namespace Reservations_system.Classes
             get { return _guest; }
             set { _guest = value; }
         }
-        
+
         public bool Confirmed
         {
             get { return _confirmed; }
             set { _confirmed = value; }
         }
-        
+        [Required]
         public DateTime StartDate
         {
             get { return _startDate; }
-            set { _startDate = value; }
-        }
+            set { 
+                //Ved ikke om vi kommer til at have brug for at tjekke om stardatoen er mindre end .Now (skal kalenderen have tekstfelt?)
+                _startDate = value;
+                if(_startDate < DateTime.Now)
+                {
+                    throw new ArgumentOutOfRangeException("DateTime StartDate is earlier than DateTime.Now");
+                }
 
+                
+            }
+        }
+        [Required]
         public DateTime EndDate
         {
             get { return _endDate; }
-            set { _endDate = value; }
+            set { 
+                _endDate = value; 
+                  if (_endDate < StartDate)
+                {
+                    throw new ArgumentOutOfRangeException("DateTime EndDate is earlier than StartDate");
+                }
+                if (StartDate > _endDate)
+                {
+                    throw new ArgumentOutOfRangeException("DateTime StartDate is later than EndDate");
+                }
+
+                //hvor mange dage må man booke ad gangen
+            }
         }
 
         public string ReservationPeriod()
