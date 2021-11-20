@@ -1,17 +1,17 @@
 ﻿@inject IJSRuntime JSRuntime
 
 <h4>Gæsteinfo</h4>
-@if (ShowThisRes != null)
+@if (ChosenReservation != null)
 {
     <div>
         <p>
-            Navn: @ShowThisRes.Guest.Name
+            Navn: @ChosenReservation.Guest.Name
         </p>
         <p>
-            TelefonNummer: @ShowThisRes.Guest.PhoneNumber
+            TelefonNummer: @ChosenReservation.Guest.PhoneNumber
         </p>
         <p>
-            Mail: @ShowThisRes.Guest.Mail
+            Mail: @ChosenReservation.Guest.Mail
         </p>
     </div>
     <h4>
@@ -22,52 +22,36 @@
             Reservations periode
         </p>
         <p>
-            @ShowThisRes.ReservationPeriod()
+            @ChosenReservation.ReservationPeriod()
         </p>
     </div>
-        @if (ShowThisRes.Confirmed == false)
-        {
-            <p>
-                <button class="btn btn-primary" @onclick="Confirme">Bekræft</button>
-            </p>
-        }
-
+    @if (ChosenReservation.Confirmed == false)
+    {
         <p>
-            <button class="btn btn-primary" @onclick="DeleteReservation">@(ShowThisRes.Confirmed == true? "Slet":"Annuller")</button>
-            <button class="btn btn-primary" @onclick="ChangeEditMode">Rediger</button>
+            <button class="btn btn-primary" @onclick="Confirm">Bekræft</button>
         </p>
+    }
+
+    <p>
+        <button class="btn btn-primary" @onclick="DeleteReservation">@(ChosenReservation.Confirmed == true ? "Slet" : "Annuller")</button>
+        <button class="btn btn-primary" @onclick="(() => editMode = !editMode)">Rediger</button>
+    </p>
 }
 
 @code {
-    [Parameter]
-    public bool EditMode { get; set; }
 
-    [Parameter]
-    public EventCallback<bool> EditModeChanged { get; set; }
+    [CascadingParameter(Name = "chosenReservation")]
+    public Reservation ChosenReservation { get; set; }
 
-    public async Task ChangeEditMode()
-    {
-        await EditModeChanged.InvokeAsync(!EditMode);
-    }
-
-    [Parameter]
-    public Reservation ShowThisRes { get; set; }
-
-    [Parameter]
-    public EventCallback<Reservation> ShowThisResChanged { get; set; }
-
-    [Parameter]
-    public List<Reservation> Reservations { get; set; }
-
-    [Parameter]
-    public EventCallback<List<Reservation>> ReservationsChanged { get; set; }
+    [CascadingParameter(Name = "editMode")]
+    public bool editMode { get; set; } //This is dummy data but should be changed when DB is set up
 
     async Task DeleteReservation()
     {
         if (!await JSRuntime.InvokeAsync<bool>("confirm", "Er du sikker på at du vil slette denne reservation?"))
             return;
-        ShowThisRes.Guest.Name = "haha";
-        ShowThisRes.StartDate = new DateTime(2021, 1, 1);
+        ChosenReservation.Guest.Name = "Deleted";
+        ChosenReservation.StartDate = new DateTime(2021, 1, 1);
         //Reservations.Remove(ShowThisRes);
         ////ShowThisRes = null;
         ////Delete from DB
@@ -75,14 +59,33 @@
         //await ReservationsChanged.InvokeAsync(Reservations);
     }
 
-    async Task Confirme()
+    async Task Confirm()
     {
         if (!await JSRuntime.InvokeAsync<bool>("confirm", "Er du sikker på at du vil bekræfte denne reservation?"))
             return;
-        int i = Reservations.FindIndex(s => s == ShowThisRes);
-        ShowThisRes.Confirmed = true;
-        Reservations[i]=ShowThisRes;
-        await ReservationsChanged.InvokeAsync(Reservations);
-        await ShowThisResChanged.InvokeAsync(ShowThisRes);
     }
+
+
+    //[Parameter]
+    //public bool EditMode { get; set; }
+    //
+    //[Parameter]
+    //public EventCallback<bool> EditModeChanged { get; set; }
+    //
+    //public async Task ChangeEditMode()
+    //{
+    //    await EditModeChanged.InvokeAsync(!EditMode);
+    //}
+    //
+    //[Parameter]
+    //public Reservation ShowThisRes { get; set; }
+    //
+    //[Parameter]
+    //public EventCallback<Reservation> ShowThisResChanged { get; set; }
+    //
+    //[Parameter]
+    //public List<Reservation> Reservations { get; set; }
+    //
+    //[Parameter]
+    //public EventCallback<List<Reservation>> ReservationsChanged { get; set; }
 }

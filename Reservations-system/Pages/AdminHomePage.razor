@@ -1,59 +1,51 @@
-﻿@page "/admin"
-
-<CascadingValue Value="chosenReservation" Name="chosenReservation">
-</CascadingValue>
-
-<CascadingValue Value="editMode" Name="EditMode">
-</CascadingValue>
+﻿@page "/"
 
 <CascadingValue Value="dummyData" Name="dummyData">
+    <CascadingValue Value="chosenReservation" Name="chosenReservation">
+        <CascadingValue Value="editMode" Name="editMode">
+            <table>
+                <tr>
+                    <td>
+                        <ReservationLog>
+
+                        </ReservationLog>
+                    </td>
+
+                    @if (!editMode)
+                    {
+                        <td>
+
+                            <ShowAReservation>
+
+                            </ShowAReservation>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <EditReservation>
+
+                            </EditReservation>
+                        </td>
+                    }
+                </tr>
+            </table>
+        </CascadingValue>
+    </CascadingValue>
 </CascadingValue>
-
-<table>
-    <tr>
-        <td>
-            <ReservationLog>
-
-            </ReservationLog>
-        </td>
-
-        @if (!editMode)
-        {
-            <td>
-
-                <ShowAReservation>
-
-                </ShowAReservation>
-            </td>
-        }
-        else
-        {
-            <td>
-                <EditReservation>
-
-                </EditReservation>
-            </td>
-        }
-    </tr>
-</table>
 
 @code {
     Reservation chosenReservation;
     public bool editMode = false;
     List<Reservation> dummyData = xxxDummyData.ListOfReservations;
 
-    private void UpdateRes(Reservation R)
+    private void ChangeEditMode() //Flips edit mode between true or false
     {
-        chosenReservation = R;
+        editMode = !editMode;
     }
 
-    private void UpdateRes(bool E)
+    private void UpdateReservationList(List<Reservation> List) //Sets new reservation list based on paramater
     {
-        editMode = E;
-    }
-
-    private void UpdateRes(List<Reservation> Lst)
-    {
-        dummyData = Lst;
+        dummyData = List;
     }
 }
