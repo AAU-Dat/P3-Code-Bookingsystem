@@ -1,32 +1,41 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Reservations_system.Classes
 {
-    public class Member : Guest
+    public class Member : Renter
     {
-        public Member(string firstName, string lastName, string phoneNumber, string mail, string address, string accountNumber,
-            string registrationNumber, bool isOver18) : base(firstName, lastName, phoneNumber, mail, address, accountNumber, registrationNumber, isOver18)
+        private string _userName;
+        private string _password;
+        private string _email;
+
+        public Member(string userName, string password, string email)
         {
+            Email = email;
+            Password = password;
+            UserName = userName;
         }
 
-        public void citizenHouseDelivered()
+        public string Email
         {
-            throw new NotImplementedException();
+            get { return _email; }
+            set { _email = value; }
         }
 
-        public void citizenHouseRetrieved()
+
+        public string Password
         {
-            throw new NotImplementedException();
+            get { return _password; }
+            set { _password = value; }
         }
 
-        public void reservationCancelled()
+        public string UserName
         {
-            throw new NotImplementedException();
+            get { return _userName; }
+            set { _userName = value; }
         }
-
-        public Reservation sendReservation()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

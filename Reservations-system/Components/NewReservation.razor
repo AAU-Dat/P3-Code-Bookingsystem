@@ -1,0 +1,60 @@
+﻿@inject NavigationManager NavigationManager
+
+<h3>Book en reservation</h3>
+<EditForm Model="@Res">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="fornavn">Fornavn</label>
+        <InputText placeholder="Fulde navn" @bind-Value="Res.Guest.Name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="telefonnummer">Telefonnummer</label>
+        <InputText placeholder="Telefonnummer" @bind-Value="Res.Guest.PhoneNumber" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="mail">Mail</label>
+        <InputText placeholder="Mail" @bind-Value="Res.Guest.Mail" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="startDato">StartDato</label>
+        <InputDate placeholder="StartDato" @bind-Value="StartDate" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="finishDato">FinishDato</label>
+        <InputDate placeholder="SlutDato" @bind-Value="EndDate" class="form-control" />
+    </div>
+
+    <button type="submit" @onclick="SendToMobilePay" class="btn btn-primary">Send formularen</button>
+</EditForm>
+
+@code {
+
+    private static Reservation Res = new Reservation();
+    private DateTime StartDate;
+    private DateTime EndDate;
+
+    [Parameter]
+    public bool MobilePayOn { get; set; } = true;
+
+    [Parameter]
+    public List<Reservation> ListOfReservations { get; set; }
+
+
+
+    public void SendToMobilePay()
+    {
+        //send Res til DB
+        xxxDummyData.ListOfReservations.Add(Res);
+
+        if (MobilePayOn == true)
+        {
+            NavigationManager.NavigateTo("/betal-depositum");
+
+        }
+    }
+}

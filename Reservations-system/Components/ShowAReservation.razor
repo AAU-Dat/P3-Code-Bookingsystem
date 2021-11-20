@@ -1,19 +1,17 @@
 ﻿@inject IJSRuntime JSRuntime
+
 <h4>Gæsteinfo</h4>
-@if (ShowThis.CitizenGuest.FirstName != null)
+@if (containerAdminHomePage.chosenReservation != null)
 {
     <div>
         <p>
-            Navn: @ShowThis.CitizenGuest.FirstName @ShowThis.CitizenGuest.LastName
+            Navn: @containerAdminHomePage.chosenReservation.Guest.Name
         </p>
         <p>
-            TelefonNummer: @ShowThis.CitizenGuest.PhoneNumber
+            TelefonNummer: @containerAdminHomePage.chosenReservation.Guest.PhoneNumber
         </p>
         <p>
-            Mail: @ShowThis.CitizenGuest.Mail
-        </p>
-        <p>
-            Konto og Registrerings nummer: @ShowThis.CitizenGuest.AccountNumber + @ShowThis.CitizenGuest.RegistrationNumber
+            Mail: @containerAdminHomePage.chosenReservation.Guest.Mail
         </p>
     </div>
     <h4>
@@ -24,71 +22,38 @@
             Reservations periode
         </p>
         <p>
-            Fra @ShowThis.StartDate.ToShortDateString() til @ShowThis.FinishDate.ToShortDateString()
+            @containerAdminHomePage.chosenReservation.ReservationPeriod()
         </p>
-        <p>
-            Jeg er over 18 <input type="checkbox" checked="@ShowThis.CitizenGuest.IsOver18" onclick="return false;">
-        </p>
-        <p>
-            Jeg gør selv rent <input type="checkbox" checked="@ShowThis.Cleaning" onclick="return false;">
-        </p>
-        <h5>Yderligere information</h5>
-        <p>
-            @ShowThis.OtherInfo
-        </p>
-        @if (ShowThis.Confirmed == false)
-        {
-            <p>
-                <button class="btn btn-primary" @onclick="Confirme">Bekræft</button>
-            </p>
-        }
-
-        <p>
-            <button class="btn btn-primary" @onclick="DeleteReservation">@(ShowThis.Confirmed == true? "Slet":"Annuller")</button>
-            <button class="btn btn-primary" @onclick="ChangeEditMode">Rediger</button>
-        </p>
-
-
     </div>
+    @if (containerAdminHomePage.chosenReservation.Confirmed == false)
+    {
+        <p>
+            <button class="btn btn-primary" @onclick="Confirm">Bekræft</button>
+        </p>
+    }
+
+    <p>
+        <button class="btn btn-primary" @onclick="DeleteReservation">@(containerAdminHomePage.chosenReservation.Confirmed == true ? "Slet" : "Annuller")</button>
+        <button class="btn btn-primary" @onclick="(() => containerAdminHomePage.ChangeEditMode())">Rediger</button>
+    </p>
 }
 
 @code {
-    [Parameter]
-    public bool EditMode { get; set; }
+    [CascadingParameter]
+    public AdminHomePage containerAdminHomePage { get; set; } //Contains all admin home page functions and properties
 
-    [Parameter]
-    public EventCallback<bool> EditModeChanged { get; set; }
-
-    public async Task ChangeEditMode()
-    {
-        await EditModeChanged.InvokeAsync(!EditMode);
-    }
-
-
-    [Parameter]
-    public Reservation ShowThis { get; set; }
-
-    [Parameter]
-    public EventCallback<Reservation> ShowThisChanged { get; set; }
-
-    async Task DeleteReservation()
+    async Task DeleteReservation() //Alert user, remove reservation from the list, and de-selects a chosen reservation
     {
         if (!await JSRuntime.InvokeAsync<bool>("confirm", "Er du sikker på at du vil slette denne reservation?"))
             return;
-
-        ShowThis = new Reservation();
-        //Delete from DB
-        await ShowThisChanged.InvokeAsync(ShowThis);
-
+        containerAdminHomePage.RemoveReservationFromReservationList(containerAdminHomePage.chosenReservation);
+        containerAdminHomePage.UpdateChosenReservation(null);
     }
 
-    async Task Confirme()
+    async Task Confirm() //Alerts user and confirms a reservation
     {
         if (!await JSRuntime.InvokeAsync<bool>("confirm", "Er du sikker på at du vil bekræfte denne reservation?"))
             return;
-
-        ShowThis.Confirmed = true;
-        await ShowThisChanged.InvokeAsync(ShowThis);
-
+        containerAdminHomePage.ConfirmReservation(containerAdminHomePage.chosenReservation);
     }
 }

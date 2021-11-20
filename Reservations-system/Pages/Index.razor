@@ -1,13 +1,11 @@
-﻿@page "/"
+﻿@page "/index"
 
-<ShowAReservation @bind-ShowThis="Res">
-</ShowAReservation>
 <Kalender ReservedDates="days" @bind-ChosenDateP ="chosendate" CurrentlyChosen="chosendate"></Kalender>
 <h1>@chosendate.ToShortDateString()</h1>
 <h1>@Res.Confirmed</h1>
-<h1>@Res.CitizenGuest.FirstName</h1>
+<h1>@Res.Guest.Name</h1>
 @code{
-    Reservation Res = new Reservation("Brown", "Watson", "2000000", "this@yahoo.com", "Aalborg" , "12345680", "9050", false, new DateTime(2022, 7, 23), new DateTime(2022, 7, 25), true, "haha", 1);
-    DateTime[] days = new DateTime[] { new DateTime (2021, 11, 23), new DateTime(2021, 11, 11)};
+    Reservation Res = xxxDummyData.ListOfReservations[0];
+    List<DateTime> days = new List<DateTime>() { new DateTime(2021, 11, 20), new DateTime(2021, 11, 22) };
     DateTime chosendate;
 }
