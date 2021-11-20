@@ -1,7 +1,5 @@
-﻿@page "/"
+﻿@page "/index"
 
-<ShowAReservation @bind-ShowThisRes="Res">
-</ShowAReservation>
 <Kalender ReservedDates="days" @bind-ChosenDateP ="chosendate" CurrentlyChosen="chosendate"></Kalender>
 <h1>@chosendate.ToShortDateString()</h1>
 <h1>@Res.Confirmed</h1>
