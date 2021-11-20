@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace Reservations_system.Classes
 {
@@ -30,17 +31,20 @@ namespace Reservations_system.Classes
         {
         }
         [Required]
-        [StringLength(50, ErrorMessage ="Det indtastede navn er for langt")]
+        [StringLength(50, ErrorMessage = "Det indtastede navn er for langt")]
         public string Name
         {
             get { return _name; }
             set
             {
-                if (String.IsNullOrEmpty(_name))
-                {
-                    throw new ArgumentNullException("String Name is null or missing");
-                }
-                if (_name.Any(char.IsDigit))
+                //                if (String.IsNullOrEmpty(_name))
+                //                {
+                //                    throw new ArgumentNullException("String Name is null or missing");
+                //                }
+                _name = char.ToUpper(value[0]) + value.Substring(1);
+
+
+                if ((Regex.IsMatch(_name, @"\d")))
                 {
                     throw new ArgumentException("String Name must not contain digits");
                 }
@@ -48,7 +52,6 @@ namespace Reservations_system.Classes
                 {
                     throw new ArgumentOutOfRangeException("String Name's length is invalid");
                 }
-                _name = char.ToUpper(value[0]) + value.Substring(1);
             }
         }
 
@@ -58,8 +61,11 @@ namespace Reservations_system.Classes
             get { return _phoneNumber; }
             set
             {
+                _phoneNumber = value;
+
                 if (_phoneNumber.Length != 8)
                 {
+                    Console.WriteLine(_phoneNumber);
                     throw new ArgumentOutOfRangeException("String PhoneNumber's length is invalid");
                 }
 
@@ -68,12 +74,11 @@ namespace Reservations_system.Classes
                     throw new ArgumentNullException("String PhoneNumber is null or missing");
                 }
 
-                if (_phoneNumber.Any(char.IsLetter))
-                {
-                    throw new ArgumentException("String Phonenumber contains a letter");
-                }
+                //               if (_phoneNumber.Any(char.IsLetter))
+                //               {
+                //                   throw new ArgumentException("String Phonenumber contains a letter");
+                //               }
 
-                _phoneNumber = value;
 
             }
         }
@@ -84,15 +89,17 @@ namespace Reservations_system.Classes
             get { return _mail; }
             set
             {
+                _mail = value;
                 if (String.IsNullOrEmpty(_mail))
                 {
                     throw new ArgumentNullException("String Mail is null or misisng");
                 }
 
 
-                if (ValidateMailAdressFormat(_mail))
+                if ((ValidateMailAdressFormat(_mail) == false))
                 {
-                    _mail = value;
+                    Console.WriteLine(_mail);
+                    throw new ArgumentException("Invalid mail");
                 }
 
             }
@@ -102,21 +109,15 @@ namespace Reservations_system.Classes
         //Perhaps put the function in another file
         bool ValidateMailAdressFormat(string mailToBeValidated)
         {
-            try
+
+            MailAddress m = new MailAddress(mailToBeValidated);
+            //Det er så forfærdeligt
+            if (m.User != null)
             {
-                MailAddress m = new MailAddress(mailToBeValidated);
-                //Det er så forfærdeligt
-                if (m.User != null)
+                if (m.Host == "gmail.com" || m.Host == "yahoo.com" || m.Host == "student.aau.dk")
                 {
-                    if (m.Host == "gmail.com" || m.Host == "yahoo.com" || m.Host == "student.aau.dk")
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-            }
-            catch
-            {
-                return false;
             }
             return false;
         }
@@ -128,11 +129,11 @@ namespace Reservations_system.Classes
             //Det handler om den egentlige prototype>>
             //>>Vi mangler at implementere validering her senere hen (en addresse indeholder by, vejnr, vejnavn, og alt muligt)
             {
+                _address = value;
                 if (String.IsNullOrEmpty(_address))
                 {
                     throw new ArgumentNullException("String Address is null or missing");
                 }
-                _address = value;
 
             }
         }

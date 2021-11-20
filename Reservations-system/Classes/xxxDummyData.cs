@@ -9,14 +9,14 @@ namespace Reservations_system.Classes
     {
         public static List<Guest> Guests = new List<Guest>()
         {
-            new Guest("Mike Hunt", "88888888", "veryLongEmail@long.com", "my cunt", new ContactPerson()),
+            new Guest("Mike Hunt", "88888888", "veryLongEmail@gmail.com", "my cunt", new ContactPerson()),
             new Guest("biggus Dickus", "22222222", "veryShortEmail@Short.com", "bigdickus", new ContactPerson()),
             new Guest("Name", "PhoneNumber", "Mail", "Address", new ContactPerson())
         };
 
         public static List<Reservation> ListOfReservations = new List<Reservation>()
         {
-        new Reservation(Guests[0], new DateTime(2021, 11, 20), new DateTime(2021, 11, 22)),
+        new Reservation(Guests[0], new DateTime(2021, 11, 21), new DateTime(2021, 11, 22)),
         new Reservation(Guests[1], new DateTime(2021, 11, 24), new DateTime(2021, 11, 25)),
         new Reservation(Guests[2], new DateTime(2021, 11, 30), new DateTime(2021, 11, 30)),
         };
