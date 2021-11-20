@@ -93,23 +93,23 @@
         return (int)Date1.DayOfWeek == 0 ? 7 : (int)Date1.DayOfWeek;
     }
 
-    private bool IsInArray(DateTime ADate, DateTime[] ReservedDates)
+    private bool IsInArray(DateTime ADate, List<DateTime> ReservedDates)
     {
-        bool isNotInLst = false;
+        bool isInLst = false;
         foreach (DateTime RDate in ReservedDates)
         {
             if (ADate.Year == RDate.Year && ADate.Month == RDate.Month && ADate.Day == RDate.Day)
             {
-                isNotInLst = true;
+                isInLst = true;
                 break;
             }
         }
 
-        return isNotInLst;
+        return isInLst;
     }
 
     [Parameter]
-    public DateTime[] ReservedDates { get; set; }
+    public List<DateTime> ReservedDates { get; set; }
 
     [Parameter]
     public DateTime CurrentlyChosen { get; set; }
