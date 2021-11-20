@@ -1,19 +1,15 @@
-﻿@foreach (Reservation reservation in listOfReservation)
+﻿@foreach (Reservation reservation in containerAdminHomePage.dummyData)
 {<tr>
-    <td>
-        <button class="btn btn-primary" type="submit" @onclick="(() => ChosenReservation = reservation)">
-            Bekræftet: @(reservation.Confirmed == true ? "Ja" : "Nej") <br />
-            Tidspunkt: @reservation.ReservationPeriod() <br />
-        </button>
-    </td>
-</tr>
+        <td>
+            <button class="btn btn-primary" type="submit" @onclick="(() => containerAdminHomePage.UpdateChosenReservation(reservation))">
+                Bekræftet: @(reservation.Confirmed == true ? "Ja" : "Nej") <br />
+                Tidspunkt: @reservation.ReservationPeriod() <br />
+            </button>
+        </td>
+    </tr>
 }
 
-
 @code {
-    [CascadingParameter(Name = "chosenReservation")]
-    public Reservation ChosenReservation { get; set; } 
-    
-    [CascadingParameter(Name = "dummyData")]
-    public List<Reservation> listOfReservation { get; set; } //This is dummy data but should be changed when DB is set up
+    [CascadingParameter]
+    public AdminHomePage containerAdminHomePage { get; set; } //Contains all admin home page functions
 }

@@ -1,59 +1,61 @@
 ﻿@page "/"
 
-            <table>
-                <tr>
-                    <td>
-                        <CascadingValue Value="dummyData" Name="dummyData">
-                            <CascadingValue Value="chosenReservation" Name="chosenReservation">
-                                <ReservationLog>
+<CascadingValue Value="this">
+    <table>
+        <tr>
+            <td>
+                <ReservationLog />
+            </td>
 
-                                </ReservationLog>
-                            </CascadingValue>
-                        </CascadingValue>
-                    </td>
-
-                    @if (!editMode)
-                    {
+            @if (!editMode)
+            {
                 <td>
-                    <CascadingValue Value="chosenReservation" Name="chosenReservation">
-                        <CascadingValue Value="editMode" Name="editMode">
-                            <ShowAReservation>
-
-                            </ShowAReservation>
-                        </CascadingValue>
-                    </CascadingValue>
+                    <ShowAReservation />
                 </td>
-                    }
-                    else
-                    {
+            }
+            else
+            {
                 <td>
-                    <CascadingValue Value="dummyData" Name="dummyData">
-                        <CascadingValue Value="chosenReservation" Name="chosenReservation">
-                            <CascadingValue Value="editMode" Name="editMode">
-                                <EditReservation>
-
-                                </EditReservation>
-                            </CascadingValue>
-                        </CascadingValue>
-                    </CascadingValue>
+                    <EditReservation />
                 </td>
-                    }
-                </tr>
-            </table>
+            }
+        </tr>
+    </table>
+</CascadingValue>
 
 
 @code {
-    Reservation chosenReservation;
+    public Reservation chosenReservation;
     public bool editMode = false;
-    List<Reservation> dummyData = xxxDummyData.ListOfReservations;
+    public List<Reservation> dummyData = xxxDummyData.ListOfReservations;
 
-    private void ChangeEditMode() //Flips edit mode between true or false
+    public void ChangeEditMode() //Flips edit mode between true or false
     {
         editMode = !editMode;
+        StateHasChanged();
     }
 
-    private void UpdateReservationList(List<Reservation> List) //Sets new reservation list based on paramater
+    public void UpdateReservationList(List<Reservation> List) //Sets new reservation list based on paramater
     {
         dummyData = List;
+        StateHasChanged();
+    }
+
+    public void UpdateChosenReservation(Reservation reservation) //Sets a slected reservation as the new "chosen reservation"
+    {
+        chosenReservation = reservation;
+        StateHasChanged();
+    }
+
+    public void RemoveReservationFromReservationList(Reservation reservation) //Removes a reservation from the list of reservations
+    {
+        dummyData.Remove(reservation);
+        StateHasChanged();
+    }
+
+    public void ConfirmReservation(Reservation reservation) //Confirms a reservations
+    {
+        reservation.Confirmed = true;
+        StateHasChanged();
     }
 }
