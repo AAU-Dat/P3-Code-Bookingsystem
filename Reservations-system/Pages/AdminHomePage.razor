@@ -1,38 +1,46 @@
 ﻿@page "/"
 
-<CascadingValue Value="dummyData" Name="dummyData">
-    <CascadingValue Value="chosenReservation" Name="chosenReservation">
-        <CascadingValue Value="editMode" Name="editMode">
             <table>
                 <tr>
                     <td>
-                        <ReservationLog>
+                        <CascadingValue Value="dummyData" Name="dummyData">
+                            <CascadingValue Value="chosenReservation" Name="chosenReservation">
+                                <ReservationLog>
 
-                        </ReservationLog>
+                                </ReservationLog>
+                            </CascadingValue>
+                        </CascadingValue>
                     </td>
 
                     @if (!editMode)
                     {
-                        <td>
-
+                <td>
+                    <CascadingValue Value="chosenReservation" Name="chosenReservation">
+                        <CascadingValue Value="editMode" Name="editMode">
                             <ShowAReservation>
 
                             </ShowAReservation>
-                        </td>
+                        </CascadingValue>
+                    </CascadingValue>
+                </td>
                     }
                     else
                     {
-                        <td>
-                            <EditReservation>
+                <td>
+                    <CascadingValue Value="dummyData" Name="dummyData">
+                        <CascadingValue Value="chosenReservation" Name="chosenReservation">
+                            <CascadingValue Value="editMode" Name="editMode">
+                                <EditReservation>
 
-                            </EditReservation>
-                        </td>
+                                </EditReservation>
+                            </CascadingValue>
+                        </CascadingValue>
+                    </CascadingValue>
+                </td>
                     }
                 </tr>
             </table>
-        </CascadingValue>
-    </CascadingValue>
-</CascadingValue>
+
 
 @code {
     Reservation chosenReservation;
