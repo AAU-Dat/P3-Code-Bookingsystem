@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Reservations_system.Classes
 {
@@ -28,7 +29,8 @@ namespace Reservations_system.Classes
         protected Renter()
         {
         }
-
+        [Required]
+        [StringLength(50, ErrorMessage ="Det indtastede navn er for langt")]
         public string Name
         {
             get { return _name; }
@@ -40,7 +42,7 @@ namespace Reservations_system.Classes
                 }
                 if (_name.Any(char.IsDigit))
                 {
-                    throw new ArgumentException("String Name contains digits");
+                    throw new ArgumentException("String Name must not contain digits");
                 }
                 if (_name.Length > 40 && _name.Length < 2)
                 {
@@ -50,6 +52,7 @@ namespace Reservations_system.Classes
             }
         }
 
+        [Required]
         public string PhoneNumber
         {
             get { return _phoneNumber; }
@@ -75,30 +78,63 @@ namespace Reservations_system.Classes
             }
         }
 
+        [Required]
         public string Mail
         {
             get { return _mail; }
-            set {
+            set
+            {
                 if (String.IsNullOrEmpty(_mail))
                 {
                     throw new ArgumentNullException("String Mail is null or misisng");
                 }
 
-                if(ValidateMailAdressFormat(_mail))
+
+                if (ValidateMailAdressFormat(_mail))
                 {
                     _mail = value;
                 }
 
             }
         }
-        public bool ValidateMailAdressFormat(string mailToBeValidated)
+
+
+        //Perhaps put the function in another file
+        bool ValidateMailAdressFormat(string mailToBeValidated)
         {
-            MailAddress m = MailAddress(mailToBeValidated);
+            try
+            {
+                MailAddress m = new MailAddress(mailToBeValidated);
+                //Det er så forfærdeligt
+                if (m.User != null)
+                {
+                    if (m.Host == "gmail.com" || m.Host == "yahoo.com" || m.Host == "student.aau.dk")
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return false;
         }
+        [Required]
         public string Address
         {
             get { return _address; }
-            set { _address = value; }
+            set
+            //Det handler om den egentlige prototype>>
+            //>>Vi mangler at implementere validering her senere hen (en addresse indeholder by, vejnr, vejnavn, og alt muligt)
+            {
+                if (String.IsNullOrEmpty(_address))
+                {
+                    throw new ArgumentNullException("String Address is null or missing");
+                }
+                _address = value;
+
+            }
         }
 
         public ContactPerson ContactPerson
