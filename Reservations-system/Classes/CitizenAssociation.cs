@@ -10,7 +10,7 @@ namespace Reservations_system.Classes
         private string _phoneNumber;
         private string _mail;
 
-        public string Phonenumber
+        public string PhoneNumber
         {
             get { return _phoneNumber; }
             set { _phoneNumber = value; }

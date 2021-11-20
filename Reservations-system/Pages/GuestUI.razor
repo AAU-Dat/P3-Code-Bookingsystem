@@ -7,11 +7,11 @@
 </div>
 
 <div class="item-b">
-    <ReservationFormular MobilePayOn="false" />
+    <NewReservation MobilePayOn="false" />
 </div>
 
 
 
 @code {
-    DateTime[] days = new DateTime[] { new DateTime(2021, 11, 23), new DateTime(2021, 11, 11) };
+    List<DateTime> days = new() { new DateTime(2021, 11, 23), new DateTime(2021, 11, 11) };
 }
