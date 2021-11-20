@@ -1,0 +1,17 @@
+﻿@layout GuestLayout
+@page "/guest"
+
+
+<div class="item-a">
+    <Kalender ReservedDates="days" />
+</div>
+
+<div class="item-b">
+    <ReservationFormular MobilePayOn="false" />
+</div>
+
+
+
+@code {
+    DateTime[] days = new DateTime[] { new DateTime(2021, 11, 23), new DateTime(2021, 11, 11) };
+}

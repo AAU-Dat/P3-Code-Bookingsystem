@@ -1,8 +1,6 @@
 ﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">Reservations-system</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand" href="">Østrup Borgerforening</a>
+
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
@@ -14,17 +12,7 @@
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="/indstillinger" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Indstillinger
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="/opretReservation" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Opret Reservation
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="/home" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Reservationsoversigt
+                <span class="oi oi-wrench" aria-hidden="true"></span> Indstillinger
             </NavLink>
         </li>
     </ul>
