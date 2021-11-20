@@ -1,28 +1,15 @@
-﻿@foreach (var reservationID in ListOfReservations)
+﻿@foreach (Reservation reservation in containerAdminHomePage.listOfReservations)
 {<tr>
-        <button class="btn btn-primary" type="submit" @onclick="(e => UpdateChosenReservation(reservationID))">
-            Reservations ID @reservationID.ID <br />
-            Bekræftet: @(reservationID.Confirmed == true ? "Ja" : "Nej") <br />
-            Tidspunkt: @reservationID.ReservationFormatDates() <br />
-        </button>
+        <td>
+            <button class="btn btn-primary" type="submit" @onclick="(() => containerAdminHomePage.UpdateChosenReservation(reservation))">
+                Bekræftet: @(reservation.Confirmed == true ? "Ja" : "Nej") <br />
+                Tidspunkt: @reservation.ReservationPeriod() <br />
+            </button>
+        </td>
     </tr>
 }
 
-
 @code {
-    [Parameter]
-    public Reservation ChosenReservation { get; set; }
-
-    [Parameter]
-    public EventCallback<Reservation> ChosenReservationChanged { get; set; }
-
-    private async Task UpdateChosenReservation(Reservation reservation)
-    {
-        await ChosenReservationChanged.InvokeAsync(reservation);
-    }
-    [Parameter]
-    public List<Reservation> ListOfReservations { get; set; }
-
-
-
+    [CascadingParameter]
+    public AdminHomePage containerAdminHomePage { get; set; } //Contains all admin home page functions and properties
 }

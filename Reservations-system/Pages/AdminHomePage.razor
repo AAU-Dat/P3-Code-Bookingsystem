@@ -1,0 +1,55 @@
+﻿@page "/"
+
+<CascadingValue Value="this">
+    <table>
+        <tr>
+            <td>
+                <ReservationLog />
+            </td>
+
+            @if (!editMode)
+            {
+                <td>
+                    <ShowAReservation />
+                </td>
+            }
+            else
+            {
+                <td>
+                    <EditReservation />
+                </td>
+            }
+        </tr>
+    </table>
+</CascadingValue>
+
+
+@code {
+    public Reservation chosenReservation;
+    public bool editMode = false;
+    public List<Reservation> listOfReservations = xxxDummyData.ListOfReservations; //List of reservations, should be changed when DB is setup
+
+    public void ChangeEditMode() //Flips edit mode between true or false
+    {
+        editMode = !editMode;
+        StateHasChanged();
+    }
+
+    public void UpdateChosenReservation(Reservation reservation) //Sets a slected reservation as the new "chosen reservation"
+    {
+        chosenReservation = reservation;
+        StateHasChanged();
+    }
+
+    public void RemoveReservationFromReservationList(Reservation reservation) //Removes a reservation from the list of reservations
+    {
+        listOfReservations.Remove(reservation);
+        StateHasChanged();
+    }
+
+    public void ConfirmReservation(Reservation reservation) //Confirms a reservations
+    {
+        reservation.Confirmed = true;
+        StateHasChanged();
+    }
+}
