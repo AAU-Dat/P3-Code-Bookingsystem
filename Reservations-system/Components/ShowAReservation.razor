@@ -1,17 +1,17 @@
 ﻿@inject IJSRuntime JSRuntime
 
 <h4>Gæsteinfo</h4>
-@if (ShowThisRes != null)
+@if (containerAdminHomePage.chosenReservation != null)
 {
     <div>
         <p>
-            Navn: @ShowThisRes.Guest.Name
+            Navn: @containerAdminHomePage.chosenReservation.Guest.Name
         </p>
         <p>
-            TelefonNummer: @ShowThisRes.Guest.PhoneNumber
+            TelefonNummer: @containerAdminHomePage.chosenReservation.Guest.PhoneNumber
         </p>
         <p>
-            Mail: @ShowThisRes.Guest.Mail
+            Mail: @containerAdminHomePage.chosenReservation.Guest.Mail
         </p>
     </div>
     <h4>
@@ -22,67 +22,62 @@
             Reservations periode
         </p>
         <p>
-            @ShowThisRes.ReservationPeriod()
+            @containerAdminHomePage.chosenReservation.ReservationPeriod()
         </p>
     </div>
-        @if (ShowThisRes.Confirmed == false)
-        {
-            <p>
-                <button class="btn btn-primary" @onclick="Confirme">Bekræft</button>
-            </p>
-        }
-
+    @if (containerAdminHomePage.chosenReservation.Confirmed == false)
+    {
         <p>
-            <button class="btn btn-primary" @onclick="DeleteReservation">@(ShowThisRes.Confirmed == true? "Slet":"Annuller")</button>
-            <button class="btn btn-primary" @onclick="ChangeEditMode">Rediger</button>
+            <button class="btn btn-primary" @onclick="Confirm">Bekræft</button>
         </p>
+    }
+
+    <p>
+        <button class="btn btn-primary" @onclick="DeleteReservation">@(containerAdminHomePage.chosenReservation.Confirmed == true ? "Slet" : "Annuller")</button>
+        <button class="btn btn-primary" @onclick="(() => containerAdminHomePage.editMode = !containerAdminHomePage.editMode)">Rediger</button>
+    </p>
 }
 
 @code {
-    [Parameter]
-    public bool EditMode { get; set; }
+    [CascadingParameter]
+    public AdminHomePage containerAdminHomePage { get; set; } //Contains all admin home page functions and properties
 
-    [Parameter]
-    public EventCallback<bool> EditModeChanged { get; set; }
-
-    public async Task ChangeEditMode()
-    {
-        await EditModeChanged.InvokeAsync(!EditMode);
-    }
-
-    [Parameter]
-    public Reservation ShowThisRes { get; set; }
-
-    [Parameter]
-    public EventCallback<Reservation> ShowThisResChanged { get; set; }
-
-    [Parameter]
-    public List<Reservation> Reservations { get; set; }
-
-    [Parameter]
-    public EventCallback<List<Reservation>> ReservationsChanged { get; set; }
-
-    async Task DeleteReservation()
+    async Task DeleteReservation() //Alert user, remove reservation from the list, and de-selects a chosen reservation
     {
         if (!await JSRuntime.InvokeAsync<bool>("confirm", "Er du sikker på at du vil slette denne reservation?"))
             return;
-        ShowThisRes.Guest.Name = "haha";
-        ShowThisRes.StartDate = new DateTime(2021, 1, 1);
-        //Reservations.Remove(ShowThisRes);
-        ////ShowThisRes = null;
-        ////Delete from DB
-        //await ShowThisResChanged.InvokeAsync(null);
-        //await ReservationsChanged.InvokeAsync(Reservations);
+        containerAdminHomePage.RemoveReservationFromReservationList(containerAdminHomePage.chosenReservation);
+        containerAdminHomePage.UpdateChosenReservation(null);
     }
 
-    async Task Confirme()
+    async Task Confirm() //Alerts user and confirms a reservation
     {
         if (!await JSRuntime.InvokeAsync<bool>("confirm", "Er du sikker på at du vil bekræfte denne reservation?"))
             return;
-        int i = Reservations.FindIndex(s => s == ShowThisRes);
-        ShowThisRes.Confirmed = true;
-        Reservations[i]=ShowThisRes;
-        await ReservationsChanged.InvokeAsync(Reservations);
-        await ShowThisResChanged.InvokeAsync(ShowThisRes);
+        containerAdminHomePage.ConfirmReservation(containerAdminHomePage.chosenReservation);
     }
+
+
+    //[Parameter]
+    //public bool EditMode { get; set; }
+    //
+    //[Parameter]
+    //public EventCallback<bool> EditModeChanged { get; set; }
+    //
+    //public async Task ChangeEditMode()
+    //{
+    //    await EditModeChanged.InvokeAsync(!EditMode);
+    //}
+    //
+    //[Parameter]
+    //public Reservation ShowThisRes { get; set; }
+    //
+    //[Parameter]
+    //public EventCallback<Reservation> ShowThisResChanged { get; set; }
+    //
+    //[Parameter]
+    //public List<Reservation> Reservations { get; set; }
+    //
+    //[Parameter]
+    //public EventCallback<List<Reservation>> ReservationsChanged { get; set; }
 }
