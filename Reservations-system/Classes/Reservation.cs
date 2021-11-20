@@ -18,7 +18,7 @@ namespace Reservations_system.Classes
         {
             Guest = guest;
             StartDate = start;
-                EndDate = end;
+            EndDate = end;
             Confirmed = false;
             
         }
@@ -51,11 +51,7 @@ namespace Reservations_system.Classes
                     throw new ArgumentOutOfRangeException("DateTime StartDate is earlier than DateTime.Now");
                 }
 
-                if(_startDate > EndDate)
-                {
-                    throw new ArgumentOutOfRangeException("DateTime StartDate is later than EndDate");
-                }
-
+                
             }
         }
         [Required]
@@ -68,6 +64,11 @@ namespace Reservations_system.Classes
                 {
                     throw new ArgumentOutOfRangeException("DateTime EndDate is earlier than StartDate");
                 }
+                if (StartDate > _endDate)
+                {
+                    throw new ArgumentOutOfRangeException("DateTime StartDate is later than EndDate");
+                }
+
                 //hvor mange dage må man booke ad gangen
             }
         }
