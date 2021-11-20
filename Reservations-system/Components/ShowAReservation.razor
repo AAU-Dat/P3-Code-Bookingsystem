@@ -34,7 +34,7 @@
 
     <p>
         <button class="btn btn-primary" @onclick="DeleteReservation">@(containerAdminHomePage.chosenReservation.Confirmed == true ? "Slet" : "Annuller")</button>
-        <button class="btn btn-primary" @onclick="(() => containerAdminHomePage.editMode = !containerAdminHomePage.editMode)">Rediger</button>
+        <button class="btn btn-primary" @onclick="(() => containerAdminHomePage.ChangeEditMode())">Rediger</button>
     </p>
 }
 
@@ -56,28 +56,4 @@
             return;
         containerAdminHomePage.ConfirmReservation(containerAdminHomePage.chosenReservation);
     }
-
-
-    //[Parameter]
-    //public bool EditMode { get; set; }
-    //
-    //[Parameter]
-    //public EventCallback<bool> EditModeChanged { get; set; }
-    //
-    //public async Task ChangeEditMode()
-    //{
-    //    await EditModeChanged.InvokeAsync(!EditMode);
-    //}
-    //
-    //[Parameter]
-    //public Reservation ShowThisRes { get; set; }
-    //
-    //[Parameter]
-    //public EventCallback<Reservation> ShowThisResChanged { get; set; }
-    //
-    //[Parameter]
-    //public List<Reservation> Reservations { get; set; }
-    //
-    //[Parameter]
-    //public EventCallback<List<Reservation>> ReservationsChanged { get; set; }
 }

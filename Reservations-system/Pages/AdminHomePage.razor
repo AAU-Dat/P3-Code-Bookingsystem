@@ -27,17 +27,11 @@
 @code {
     public Reservation chosenReservation;
     public bool editMode = false;
-    public List<Reservation> dummyData = xxxDummyData.ListOfReservations;
+    public List<Reservation> listOfReservations = xxxDummyData.ListOfReservations; //List of reservations, should be changed when DB is setup
 
     public void ChangeEditMode() //Flips edit mode between true or false
     {
         editMode = !editMode;
-        StateHasChanged();
-    }
-
-    public void UpdateReservationList(List<Reservation> List) //Sets new reservation list based on paramater
-    {
-        dummyData = List;
         StateHasChanged();
     }
 
@@ -49,7 +43,7 @@
 
     public void RemoveReservationFromReservationList(Reservation reservation) //Removes a reservation from the list of reservations
     {
-        dummyData.Remove(reservation);
+        listOfReservations.Remove(reservation);
         StateHasChanged();
     }
 
