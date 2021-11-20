@@ -12,7 +12,8 @@ namespace Reservations_system.Classes
         private string _phoneNumber;
         private string _mail;
         private string _address;
-        private ContactPerson _contactPerson;
+        private ContactPerson _contactPerson; //Håndter korrekt
+
 
         protected Renter(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson)
         {

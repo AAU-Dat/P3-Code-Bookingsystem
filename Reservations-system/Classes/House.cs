@@ -14,15 +14,5 @@ namespace Reservations_system.Classes
             get { return _isInUse; }
             set { _isInUse = value; }
         }
-
-        public void HouseIsNotInUse()
-        {
-            IsInUse = false;
-        }
-
-        public void HouseIsInUse()
-        {
-            IsInUse = false;
-        }
     }
 }

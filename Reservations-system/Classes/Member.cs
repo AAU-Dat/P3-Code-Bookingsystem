@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Reservations_system.Classes
 {
-    public class Member
+    public class Member : Renter
     {
         private string _userName;
         private string _password;

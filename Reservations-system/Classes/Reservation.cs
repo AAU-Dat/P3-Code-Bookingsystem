@@ -8,12 +8,12 @@ namespace Reservations_system.Classes
 
     public class Reservation
     {
-        private Guest _guest;
+        private Renter _guest;
         private bool _confirmed;
         private DateTime _startDate;
         private DateTime _endDate;
 
-        public Reservation(Guest guest, DateTime start, DateTime end)
+        public Reservation(Renter guest, DateTime start, DateTime end)
         {
             Guest = guest;
             StartDate = start;
@@ -27,7 +27,7 @@ namespace Reservations_system.Classes
             Guest = new Guest();
         }
 
-        public Guest Guest
+        public Renter Guest
         {
             get { return _guest; }
             set { _guest = value; }
