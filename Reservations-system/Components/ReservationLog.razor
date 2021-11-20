@@ -1,4 +1,4 @@
-﻿@foreach (Reservation reservation in containerAdminHomePage.dummyData)
+﻿@foreach (Reservation reservation in containerAdminHomePage.listOfReservations)
 {<tr>
         <td>
             <button class="btn btn-primary" type="submit" @onclick="(() => containerAdminHomePage.UpdateChosenReservation(reservation))">
@@ -11,5 +11,5 @@
 
 @code {
     [CascadingParameter]
-    public AdminHomePage containerAdminHomePage { get; set; } //Contains all admin home page functions
+    public AdminHomePage containerAdminHomePage { get; set; } //Contains all admin home page functions and properties
 }
