@@ -1,0 +1,36 @@
+﻿@code
+{
+    [Fact]
+    public void AdminHomePageRendersCorrect()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+
+        // Act
+        var cut = ctx.Render(@<AdminHomePage />);
+
+        // Assert
+        //cut.MarkupMatches();
+    }
+
+    [Fact]
+    public void IsInArrayWorks()
+    {
+        Kalender kal = new Kalender();
+        kal.ReservedDates = new List<DateTime>()
+        {
+            DateTime.Now.AddDays(1),
+            DateTime.Now.AddDays(3),
+            DateTime.Now.AddDays(7)
+        };
+
+    DateTime date = DateTime.Now.AddDays(5);
+
+        bool result;
+        result = kal.IsInArray(date);
+        bool expected = false;
+
+        Assert.Equal(expected, result);
+    }
+}
+}

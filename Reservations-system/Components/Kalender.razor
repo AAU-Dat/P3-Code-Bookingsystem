@@ -33,7 +33,7 @@
                         <BindDateTimeButton Title="@datePrinter"
                                             Css="@(Date2 == CurrentlyChosen ? "btn btn-primary" : "")"
                                             ThisDate="Date2"
-                                            IsDisabled="IsInArray(Date2, ReservedDates)"
+                                            IsDisabled="IsInArray(Date2)"
                                             @bind-ChosenDate="ChosenDate">
                         </BindDateTimeButton>
                     </td>
@@ -88,12 +88,12 @@
         }
     }
 
-    private int DayOfWeek(DateTime Date)
+    public int DayOfWeek(DateTime Date)
     {
         return (int)Date1.DayOfWeek == 0 ? 7 : (int)Date1.DayOfWeek;
     }
 
-    private bool IsInArray(DateTime ADate, List<DateTime> ReservedDates)
+    public bool IsInArray(DateTime ADate)
     {
         bool isInLst = false;
         foreach (DateTime RDate in ReservedDates)
