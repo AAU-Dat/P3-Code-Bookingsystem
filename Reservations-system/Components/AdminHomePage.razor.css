@@ -1,0 +1,24 @@
+﻿.grid-container {
+    display: grid;
+    margin: 50px 50px;
+    justify-content: center;
+    justify-items: left;
+    grid-template-columns: 400px 600px 400px;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "top top top"
+        "left middle right"
+        "bottom bottom bottom"
+}
+
+.reservation-list {
+    grid-area: left;
+}
+
+.reservation-details {
+    grid-area: middle;
+}
+
+.calender-view {
+    grid-area: right;
+}

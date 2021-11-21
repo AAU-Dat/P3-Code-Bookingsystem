@@ -1,0 +1,65 @@
+﻿
+
+<div class="header">
+    <button class="oi oi-caret-left" @onclick="PreviousMonth"> </button>
+    <h4>
+        @(firstDayOfSelectedMonth.ToString("MMMM yyyy"))
+    </h4>
+    <button class="oi oi-caret-right" @onclick="NextMonth"></button>
+
+</div>
+
+<table>
+    <tr>
+        @foreach (var Day in WeekDays)
+        {
+            <th>@Day</th>
+        }
+    </tr>
+    @for (int i = 0; i < 6; i++)
+    {
+        <tr>
+            @for (int j = 0; j < 7; j++)
+            {
+                DateTime calendarDay = firstDayOfSelectedMonth.AddDays(j + (i * 7) - (int)(firstDayOfSelectedMonth.DayOfWeek) + 1);
+
+                <td>
+                    @if (calendarDay.Month == firstDayOfSelectedMonth.Month)
+                    {
+                        Reservation result = Reservationer.Find(x => x.StartDate.Date == calendarDay.Date);
+                        <button Disabled="@(result is not null || calendarDay < DateTime.Now ? true : false)" @onclick="(e => SelectionDateChanged.InvokeAsync(calendarDay))">
+                            @calendarDay.Day 
+                        </button> 
+                        // Tilføj controller i sidste ende
+                    }
+                </td>
+            }
+        </tr>
+    }
+</table>
+
+
+@code {
+    [Parameter]
+    public List<Reservation> Reservationer { get; set; }
+
+    [Parameter]
+    public DateTime SelectionDate { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> SelectionDateChanged { get; set; }
+
+    private string[] WeekDays = { "man", "tir", "ons", "tor", "fre", "lør", "søn" };
+    private DateTime firstDayOfSelectedMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+
+    private void NextMonth()
+    {
+        firstDayOfSelectedMonth = firstDayOfSelectedMonth.AddMonths(1);
+    }
+
+    private void PreviousMonth()
+    {
+        firstDayOfSelectedMonth = firstDayOfSelectedMonth.AddMonths(-1);
+    }
+
+}

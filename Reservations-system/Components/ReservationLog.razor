@@ -1,14 +1,20 @@
-﻿<h4>Reservationer</h4>
+﻿@inject IJSRuntime jsRuntime
+
+<h4>Reservationer</h4>
+
+
 @foreach (Reservation reservation in containerAdminHomePage.listOfReservations)
-{<tr>
-        <td>
-            <button class="btn btn-primary" type="submit" @onclick="(() => containerAdminHomePage.UpdateChosenReservation(reservation))">
-                Bekræftet: @(reservation.Confirmed == true ? "Ja" : "Nej") <br />
-                Tidspunkt: @reservation.ReservationPeriod() <br />
-            </button>
-        </td>
-    </tr>
+{
+    <div class="list-item" type="submit" @onclick="(() => containerAdminHomePage.UpdateChosenReservation(reservation))">
+        Bekræftet: @(reservation.Confirmed == true ? "Ja" : "Nej") <br />
+        Tidspunkt: @reservation.ReservationPeriod() <br />
+    </div>
+    <span class="fade-effect"></span>
+
 }
+
+
+
 
 @code {
     [CascadingParameter]

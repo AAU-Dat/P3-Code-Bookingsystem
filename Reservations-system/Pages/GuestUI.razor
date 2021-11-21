@@ -1,17 +1,36 @@
 ﻿@layout GuestLayout
 @page "/guest"
 
+<div class="current-selection">
+    <h4>@(SelectedDate.ToString("MMMM dd"))</h4>
+</div>
 
 <div class="item-a">
-    <Kalender ReservedDates="days" />
+    <Calendar Reservationer="reservations" @bind-SelectionDate="SelectedDate" />
 </div>
 
 <div class="item-b">
-    <NewReservation MobilePayOn="false" />
+    <NewReservation Reservation=reservation MobilePayOn="false" />
+</div>
+
+<div class="item-c">
+    <button class="btn btn-primary" @onclick="CreateReservation">Reserver</button>
 </div>
 
 
-
 @code {
+    public DateTime SelectedDate { get; set; } = DateTime.Today; //Bind to Calendar
+
+    List<Reservation> reservations = xxxDummyData.ListOfReservations; // Send to Calendar
+
+    Reservation reservation = new Reservation(); // Bind to NewReservation
+
     List<DateTime> days = new() { new DateTime(2021, 11, 23), new DateTime(2021, 11, 11) };
+
+    public void CreateReservation()
+    {
+        reservation.StartDate = SelectedDate;
+        reservation.EndDate = SelectedDate;
+        reservations.Add(reservation);
+    }
 }
