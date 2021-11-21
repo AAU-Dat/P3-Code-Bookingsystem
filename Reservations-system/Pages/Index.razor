@@ -1,11 +1,3 @@
-﻿@page "/index"
+﻿@page "/"
 
-<Kalender ReservedDates="days" @bind-ChosenDateP ="chosendate" CurrentlyChosen="chosendate"></Kalender>
-<h1>@chosendate.ToShortDateString()</h1>
-<h1>@Res.Confirmed</h1>
-<h1>@Res.Guest.Name</h1>
-@code{
-    Reservation Res = xxxDummyData.ListOfReservations[0];
-    List<DateTime> days = new List<DateTime>() { new DateTime(2021, 11, 20), new DateTime(2021, 11, 22) };
-    DateTime chosendate;
-}
+<AdminHomePage />

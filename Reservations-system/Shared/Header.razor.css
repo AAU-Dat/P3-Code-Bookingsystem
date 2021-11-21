@@ -1,4 +1,6 @@
 ﻿header {
+    margin: 0 auto;
+    width: 1000px;
     background-color: steelblue;
     padding-bottom: 50px;
 }

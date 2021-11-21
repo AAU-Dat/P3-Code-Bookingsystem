@@ -1,54 +1,61 @@
 ﻿
-<button class="btn btn-primary" @onclick="PreviusMonth">Forrige måned</button>
-<button class="btn btn-primary" @onclick="NextMonth">Næste måned</button>
 
-<h3>
-    @Months[(ShowMonth.Month + monthCounter - 1)]
-    @(ShowMonth.Year + yearCounter)
-</h3>
+<div class="centering-container">
+    <div class="header">
+        <button class="oi oi-caret-left" @onclick="PreviusMonth"> </button>
+        <h4>
+            @(ShowMonth.ToString("MMMM yyyy"))
+        </h4>
+        <button class="oi oi-caret-right" @onclick="NextMonth"></button>
 
-<table>
-    <tr>
-        @foreach (var Day in WeekDays)
-        {
-            <th>@Day</th>
-            dayCounter = 0;
-        }
-    </tr>
+    </div>
 
-    @for (int i = 0; i < 6; i++)
-    {
+
+
+    <table>
         <tr>
-            @for (int j = 0; j < 7; j++)
+            @foreach (var Day in WeekDays)
             {
-                Date1 = new DateTime(ShowMonth.Year + yearCounter, ShowMonth.Month + monthCounter, 1);
-
-                if (Date1.AddDays(Date1.Day - DayOfWeek(Date1) + dayCounter).Month == Date1.Month)
-                {
-                    Date2 = new DateTime(Date1.Year, Date1.Month, Date1.AddDays(Date1.Day - DayOfWeek(Date1) + dayCounter).Day);
-
-                    datePrinter = Date1.AddDays(Date1.Day - DayOfWeek(Date1) + dayCounter).Day.ToString();
-
-                    <td>
-                        <BindDateTimeButton Title="@datePrinter"
-                                            Css="@(Date2 == CurrentlyChosen ? "btn btn-primary" : "")"
-                                            ThisDate="Date2"
-                                            IsDisabled="IsInArray(Date2, ReservedDates)"
-                                            @bind-ChosenDate="ChosenDate">
-                        </BindDateTimeButton>
-                    </td>
-                }
-                else
-                {
-                    <td></td>
-                }
-
-                dayCounter++;
+                <th>@Day</th>
+                dayCounter = 0;
             }
         </tr>
-    }
-</table>
-<button class="btn btn-primary" @onclick="UpdateChosenTimespan">Reserver dag</button>
+
+        @for (int i = 0; i < 6; i++)
+        {
+            <tr>
+                @for (int j = 0; j < 7; j++)
+                {
+                    Date1 = new DateTime(ShowMonth.Year + yearCounter, ShowMonth.Month + monthCounter, 1);
+
+                    if (Date1.AddDays(Date1.Day - DayOfWeek(Date1) + dayCounter).Month == Date1.Month)
+                    {
+                        Date2 = new DateTime(Date1.Year, Date1.Month, Date1.AddDays(Date1.Day - DayOfWeek(Date1) + dayCounter).Day);
+
+                        datePrinter = Date1.AddDays(Date1.Day - DayOfWeek(Date1) + dayCounter).Day.ToString();
+
+                        <td>
+                            @*<BindDateTimeButton Title="@datePrinter"
+                                                    Css="@(Date2 == CurrentlyChosen ? "btn btn-primary" : "")"
+                                                    ThisDate="Date2"
+                                                    IsDisabled="IsInArray(Date2, ReservedDates)"
+                                                    @bind-ChosenDate="ChosenDate">
+                                </BindDateTimeButton>*@
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+
+                    dayCounter++;
+                }
+            </tr>
+        }
+    </table>
+
+</div>
+
 
 
 
@@ -67,6 +74,11 @@
     private int monthCounter = 0;
     private int yearCounter = 0;
     private string datePrinter;
+
+    public void SetDate()
+    {
+
+    }
 
     private void NextMonth()
     {
@@ -90,7 +102,7 @@
 
     private int DayOfWeek(DateTime Date)
     {
-        return (int)Date1.DayOfWeek == 0 ? 7 : (int)Date1.DayOfWeek;
+        return (int)Date.DayOfWeek == 0 ? 7 : (int)Date.DayOfWeek;
     }
 
     private bool IsInArray(DateTime ADate, List<DateTime> ReservedDates)

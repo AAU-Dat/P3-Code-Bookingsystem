@@ -1,26 +1,31 @@
-﻿@page "/"
+﻿<CascadingValue Value="this">
 
-<CascadingValue Value="this">
-    <table>
-        <tr>
-            <td>
-                <ReservationLog />
-            </td>
+    <div class="grid-container">
+        <div class="reservation-list">
+            <ReservationLog />
+
+        </div>
+
+        <div class="reservation-details">
 
             @if (!editMode)
             {
-                <td>
-                    <ShowAReservation />
-                </td>
+
+                <ShowAReservation />
+
             }
             else
             {
-                <td>
-                    <EditReservation />
-                </td>
+
+                <EditReservation />
+
             }
-        </tr>
-    </table>
+        </div>
+        <div class="calender-view">
+            <Calendar Reservationer="listOfReservations"/>
+        </div>
+    </div>
+
 </CascadingValue>
 
 
