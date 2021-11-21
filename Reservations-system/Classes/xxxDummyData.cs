@@ -7,6 +7,11 @@ namespace Reservations_system.Classes
 {
     public class xxxDummyData
     {
+        private static DateTime firstDate = DateTime.Now.AddDays(1);
+        private static DateTime secondDate = DateTime.Now.AddDays(3);
+        private static DateTime thirdDate = DateTime.Now.AddDays(7);
+
+
         public static List<Guest> Guests = new List<Guest>()
         {
             new Guest("Mike Hunt", "88888888", "veryLongEmail@gmail.com", "my cunt", new ContactPerson()),
@@ -16,9 +21,9 @@ namespace Reservations_system.Classes
 
         public static List<Reservation> ListOfReservations = new List<Reservation>()
         {
-        new Reservation(Guests[0], new DateTime(2021, 11, 21), new DateTime(2021, 11, 22)),
-        new Reservation(Guests[1], new DateTime(2021, 11, 24), new DateTime(2021, 11, 25)),
-        new Reservation(Guests[2], new DateTime(2021, 11, 30), new DateTime(2021, 12, 20)),
+        new Reservation(Guests[0], firstDate, firstDate),
+        new Reservation(Guests[1], secondDate, secondDate),
+        new Reservation(Guests[2], thirdDate, thirdDate),
         };
         /*
         public static List<DateTime> RDates()
