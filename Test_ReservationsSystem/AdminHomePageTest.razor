@@ -14,7 +14,7 @@
     }
 
     [Fact]
-    public void IsInArrayWorks()
+    public void IsInArrayGivesTrueOnDayInList()
     {
         Kalender kal = new Kalender();
         kal.ReservedDates = new List<DateTime>()
@@ -24,13 +24,31 @@
             DateTime.Now.AddDays(7)
         };
 
-    DateTime date = DateTime.Now.AddDays(5);
+        DateTime date = DateTime.Now.AddDays(1);
 
-        bool result;
-        result = kal.IsInArray(date);
+        bool actual = kal.IsInArray(date);
+        bool expected = true;
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void IsInArrayGivesFalseOnDayNotInList()
+    {
+        Kalender kal = new Kalender();
+        kal.ReservedDates = new List<DateTime>()
+        {
+            DateTime.Now.AddDays(1),
+            DateTime.Now.AddDays(3),
+            DateTime.Now.AddDays(7)
+        };
+
+        DateTime date = DateTime.Now.AddDays(5);
+
+        bool actual = kal.IsInArray(date);
         bool expected = false;
 
-        Assert.Equal(expected, result);
+        Assert.Equal(expected, actual);
     }
 }
 }
