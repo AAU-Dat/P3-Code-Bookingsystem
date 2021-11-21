@@ -20,7 +20,7 @@ namespace Reservations_system.Classes
             StartDate = start;
             EndDate = end;
             Confirmed = false;
-            
+
         }
 
         public Reservation()
@@ -43,32 +43,34 @@ namespace Reservations_system.Classes
         public DateTime StartDate
         {
             get { return _startDate; }
-            set { 
+            set
+            {
                 //Ved ikke om vi kommer til at have brug for at tjekke om stardatoen er mindre end .Now (skal kalenderen have tekstfelt?)
-                _startDate = value;
-                if(_startDate < DateTime.Now)
-                {
-                    throw new ArgumentOutOfRangeException("DateTime StartDate is earlier than DateTime.Now");
-                }
 
-                
+                if (value < DateTime.Now)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), $"DateTime {nameof(value)} is earlier than DateTime.Now");
+                }
+                _startDate = value;
+
             }
         }
         [Required]
         public DateTime EndDate
         {
             get { return _endDate; }
-            set { 
-                _endDate = value; 
-                  if (_endDate < StartDate)
+            set
+            {
+
+                if (value < StartDate)
                 {
                     throw new ArgumentOutOfRangeException("DateTime EndDate is earlier than StartDate");
                 }
-                if (StartDate > _endDate)
+                if (StartDate > value)
                 {
                     throw new ArgumentOutOfRangeException("DateTime StartDate is later than EndDate");
                 }
-
+                _endDate = value;
                 //hvor mange dage må man booke ad gangen
             }
         }
