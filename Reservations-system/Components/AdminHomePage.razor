@@ -1,27 +1,23 @@
 ﻿<CascadingValue Value="this">
 
     <div class="grid-container">
-        <div class="reservation-list">
+        <div class="container-left">
             <ReservationLog />
 
         </div>
 
-        <div class="reservation-details">
+        <div class="container-middle">
 
             @if (!editMode)
             {
-
                 <ShowAReservation />
-
             }
             else
             {
-
                 <EditReservation />
-
             }
         </div>
-        <div class="calender-view">
+        <div class="container-right">
             <Calendar Reservationer="listOfReservations"/>
         </div>
     </div>

@@ -1,0 +1,32 @@
+﻿@page "/reserver"
+
+<div class="grid-container">
+    <div class="container-left">
+        <Calendar Reservationer="reservations" @bind-SelectionDate="SelectedDate" />
+    </div>
+
+    <div class="container-middle">
+        <NewReservation Reservation=reservation MobilePayOn="false" />
+    </div>
+
+    <div class="container-bottom">
+        <button class="btn btn-primary" @onclick="CreateReservationAdmin">Reserver</button>
+    </div>
+</div>
+
+@code {
+    public DateTime SelectedDate { get; set; } = DateTime.Today; //Bind to Calendar
+
+    List<Reservation> reservations = xxxDummyData.ListOfReservations; // Send to Calendar
+
+    Reservation reservation = new Reservation(); // Bind to NewReservation
+
+    List<DateTime> days = new() { new DateTime(2021, 11, 23), new DateTime(2021, 11, 11) };
+
+    public void CreateReservationAdmin()
+    {
+        reservation.StartDate = SelectedDate;
+        reservation.EndDate = SelectedDate;
+        reservations.Add(reservation);
+    }
+}

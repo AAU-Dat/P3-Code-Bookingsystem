@@ -4,38 +4,44 @@
 @if (containerAdminHomePage.chosenReservation != null)
 {
     <div>
-        <p>
-            Navn: @containerAdminHomePage.chosenReservation.Guest.Name
-        </p>
-        <p>
-            TelefonNummer: @containerAdminHomePage.chosenReservation.Guest.PhoneNumber
-        </p>
-        <p>
-            Mail: @containerAdminHomePage.chosenReservation.Guest.Mail
-        </p>
+        <b>Navn:</b> @containerAdminHomePage.chosenReservation.Guest.Name
     </div>
-    <h4>
-        Reservations info
-    </h4>
-    <div>
-        <p>
-            Reservations periode
-        </p>
-        <p>
-            @containerAdminHomePage.chosenReservation.ReservationPeriod()
-        </p>
-    </div>
-    @if (containerAdminHomePage.chosenReservation.Confirmed == false)
-    {
-        <p>
-            <button class="btn btn-primary" @onclick="Confirm">Bekræft</button>
-        </p>
-    }
 
-    <p>
-        <button class="btn btn-primary" @onclick="DeleteReservation">@(containerAdminHomePage.chosenReservation.Confirmed == true ? "Slet" : "Annuller")</button>
+    <div>
+        <b>Telefonnummer:</b> @containerAdminHomePage.chosenReservation.Guest.PhoneNumber
+    </div>
+    <div>
+        <b>E-mail:</b> @containerAdminHomePage.chosenReservation.Guest.Mail
+    </div>
+    <div>
+        <b>Adresse:</b> @containerAdminHomePage.chosenReservation.Guest.Address
+    </div>
+   
+    <div>
+        <b>Startdato:</b> @containerAdminHomePage.chosenReservation.StartDate.ToString("dd MMM yyyy")
+    </div>
+
+    <div>
+        <b>Slutdato:</b> @containerAdminHomePage.chosenReservation.EndDate.ToString("dd MMM yyyy")
+
+    </div>
+
+
+    <div class="button-row">
+        @if (containerAdminHomePage.chosenReservation.Confirmed == false)
+        {
+            <button class="btn btn-primary" @onclick="Confirm">Bekræft</button>
+
+        }
         <button class="btn btn-primary" @onclick="(() => containerAdminHomePage.ChangeEditMode())">Rediger</button>
-    </p>
+        <button class="btn btn-primary" @onclick="DeleteReservation">@(containerAdminHomePage.chosenReservation.Confirmed == true ? "Slet" : "Annuller")</button>
+    </div>
+
+
+
+
+
+
 }
 
 @code {
