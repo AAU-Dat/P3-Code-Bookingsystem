@@ -26,6 +26,13 @@ a, .btn-link {
     color: #0366d6;
 }
 
+.button-row{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;

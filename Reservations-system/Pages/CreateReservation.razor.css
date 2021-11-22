@@ -1,0 +1,27 @@
+﻿.grid-container {
+    display: grid;
+    margin: 50px 50px;
+    justify-content: left;
+    justify-items: left;
+    grid-template-columns: 400px 600px;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "top top"
+        "left middle"
+        "bottom bottom"
+}
+
+.container-left {
+    grid-area: left;
+}
+
+.container-middle {
+    grid-area: middle;
+}
+
+
+.container-bottom {
+    justify-self: center;
+    
+    grid-area: bottom;
+}
