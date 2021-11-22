@@ -12,18 +12,18 @@ namespace Reservations_system.Classes
         private static DateTime thirdDate = DateTime.Now.AddDays(7);
 
 
-        public static List<Guest> Guests = new List<Guest>()
+        public static List<Guest> guests = new()
         {
-            new Guest("Mike Hunt", "88888888", "veryLongEmail@gmail.com", "my cunt", new ContactPerson()),
-            new Guest("biggus Dickus", "22222222", "veryShortEmail@gmail.com", "bigdickus", new ContactPerson()),
-            new Guest("Name", "12345678", "Mail@yahoo.com", "Address", new ContactPerson())
+            new Guest("Mike Mazowsky", "88888888", "verylongemailhere@gmail.com", "Torsvej 12", new ContactPerson()),
+            new Guest("John Wiener", "22222222", "shortmail@gmail.com", "Larspogade 19", new ContactPerson()),
+            new Guest("Ukendt", "12345678", "mail@yahoo.com", "Ukendt Adresse", new ContactPerson())
         };
 
-        public static List<Reservation> ListOfReservations = new List<Reservation>()
+        public static List<Reservation> ListOfReservations = new()
         {
-        new Reservation(Guests[0], firstDate, firstDate),
-        new Reservation(Guests[1], secondDate, secondDate),
-        new Reservation(Guests[2], thirdDate, thirdDate),
+        new Reservation(guests[0], firstDate, firstDate),
+        new Reservation(guests[1], secondDate, secondDate),
+        new Reservation(guests[2], thirdDate, thirdDate),
         };
         /*
         public static List<DateTime> RDates()
