@@ -1,22 +1,18 @@
-﻿@layout GuestLayout
-@page "/guest"
+﻿@page "/reserver"
 
-<div class="current-selection">
-    <h4>@(SelectedDate.ToString("MMMM dd"))</h4>
+<div class="grid-container">
+    <div class="container-left">
+        <Calendar Reservationer="reservations" @bind-SelectionDate="SelectedDate" />
+    </div>
+
+    <div class="container-middle">
+        <NewReservation Reservation=reservation MobilePayOn="false" />
+    </div>
+
+    <div class="container-bottom">
+        <button class="btn btn-primary" @onclick="CreateReservationAdmin">Reserver</button>
+    </div>
 </div>
-
-<div class="item-a">
-    <Calendar Reservationer="reservations" @bind-SelectionDate="SelectedDate" />
-</div>
-
-<div class="item-b">
-    <NewReservation Reservation=reservation MobilePayOn="false" />
-</div>
-
-<div class="item-c">
-    <button class="btn btn-primary" @onclick="CreateReservation">Reserver</button>
-</div>
-
 
 @code {
     public DateTime SelectedDate { get; set; } = DateTime.Today; //Bind to Calendar
@@ -27,7 +23,7 @@
 
     List<DateTime> days = new() { new DateTime(2021, 11, 23), new DateTime(2021, 11, 11) };
 
-    public void CreateReservation()
+    public void CreateReservationAdmin()
     {
         reservation.StartDate = SelectedDate;
         reservation.EndDate = SelectedDate;

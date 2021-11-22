@@ -77,7 +77,7 @@ namespace Reservations_system.Classes
 
         public string ReservationPeriod()
         {
-            return $"{StartDate.ToShortDateString()} - {EndDate.ToShortDateString()}";
+            return $"{StartDate:dd MMM yyyy} - {EndDate:dd MMM yyyy}";
         }
     }
 }

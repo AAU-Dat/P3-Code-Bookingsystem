@@ -13,10 +13,10 @@ td, th {
     justify-content: space-between;
 }
 
-.header button {
-    border:none;
-    background: none;
-}
+    .header button {
+        border: none;
+        background: none;
+    }
 
 
 
