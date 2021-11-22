@@ -11,14 +11,17 @@
         "bottom bottom bottom"
 }
 
-.reservation-list {
+.container-left {
     grid-area: left;
 }
 
-.reservation-details {
+.container-middle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     grid-area: middle;
 }
 
-.calender-view {
+.container-right {
     grid-area: right;
 }

@@ -26,7 +26,7 @@
                 <td>
                     @if (calendarDay.Month == firstDayOfSelectedMonth.Month)
                     {
-                        Reservation result = Reservationer.Find(x => x.StartDate.Date == calendarDay.Date);
+                        Reservation result = Reservationer.Find(x => x.StartDate.Date <= calendarDay.Date && x.EndDate.Date >= calendarDay.Date);
                         <button Disabled="@(result is not null || calendarDay < DateTime.Now ? true : false)" @onclick="(e => SelectionDateChanged.InvokeAsync(calendarDay))">
                             @calendarDay.Day 
                         </button> 

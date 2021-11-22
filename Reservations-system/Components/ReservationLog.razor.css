@@ -1,4 +1,4 @@
-﻿.fade-effect {
+﻿.fade-line {
     display: block;
     margin: 5px;
     border: none;
@@ -6,8 +6,4 @@
     height: 1px;
     background: black;
     background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(#000), to(#fff));
-}
-
-.list-item:{
-    border: dotted;
 }
