@@ -19,7 +19,7 @@
 
 
 @code {
-    public DateTime SelectedDate { get; set; } = DateTime.Today; //Bind to Calendar
+    public DateTime SelectedDate { get; set; } //Bind to Calendar
 
     List<Reservation> reservations = xxxDummyData.ListOfReservations; // Send to Calendar
 
@@ -32,5 +32,7 @@
         reservation.StartDate = SelectedDate;
         reservation.EndDate = SelectedDate;
         reservations.Add(reservation);
+        reservation = new Reservation();
+        SelectedDate = DateTime.Now.AddDays(-1);
     }
 }
