@@ -1,0 +1,28 @@
+﻿@inject IReservationData _db
+@page "/test2"
+
+<h3>Database Test</h3>
+
+@if (reservations is null)
+{
+    <p>loading...</p>
+}
+else
+{
+    @foreach (ReservationModel item in reservations)
+    {
+        <h4>@item.StartDate.ToString()</h4>
+        <p>@item.EndDate.ToString()</p>
+    }
+
+}
+
+@code {
+    private IEnumerable<ReservationModel> reservations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        reservations = await _db.GetReservations();
+    }
+
+}

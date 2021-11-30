@@ -12,5 +12,8 @@
   <ItemGroup>
     <Folder Include="Interfaces\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+  </ItemGroup>
 
 </Project>
