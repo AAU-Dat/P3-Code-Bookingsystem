@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using DataAccess.Models;
 
 namespace Reservations_system.Classes
 {
@@ -21,6 +22,11 @@ namespace Reservations_system.Classes
             EndDate = end;
             Confirmed = false;
 
+        }
+
+        public Reservation(ReservationModel ResModel, GuestModel guestModel)
+        {
+            
         }
 
         public Reservation()
