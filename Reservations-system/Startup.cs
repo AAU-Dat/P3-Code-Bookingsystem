@@ -25,6 +25,7 @@ namespace Reservations_system
             services.AddServerSideBlazor();
             services.AddTransient<ISqlDbAccess, SqlDbAccess>();
             services.AddTransient<IReservationData, ReservationData>();
+            services.AddTransient<IGuestData, GuestData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
