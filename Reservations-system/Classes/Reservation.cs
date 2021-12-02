@@ -11,7 +11,7 @@ namespace Reservations_system.Classes
     public class Reservation
     {
         private Renter _guest;
-        private bool _confirmed;
+        private DateTime _confirmed;
         private DateTime _startDate;
         private DateTime _endDate;
 
@@ -22,11 +22,6 @@ namespace Reservations_system.Classes
             EndDate = end;
             Confirmed = false;
 
-        }
-
-        public Reservation(ReservationModel ResModel, GuestModel guestModel)
-        {
-            
         }
 
         public Reservation()

@@ -10,24 +10,44 @@ namespace Reservations_system.Data
     public class DataManager
     {
         private readonly IReservationData reservationDataAccess;
+        private readonly IGuestData guestDataAccess;
         public IEnumerable<Reservation> reservations { get; set; }
-        //private IEnumerable<Reservation> _reservations { get; set; }
 
-        public DataManager(IReservationData reservationDataAccess)
-        {
-            this.reservationDataAccess = reservationDataAccess;
-        }
-        public void GetReservations() //Creates object of reservations from DB, might need better name
-        {
-            reservations = (IEnumerable<Reservation>)reservationDataAccess.GetReservations();
-        }
+        //public DataManager(IReservationData reservationDataAccess)
+        //{
+        //    this.reservationDataAccess = reservationDataAccess;
+        //}
+
+        //public void GetReservations() //Creates object of reservations from DB, might need better name, and maybe a return type
+        //{
+        //    reservations = (IEnumerable<Reservation>)reservationDataAccess.GetReservations();
+        //}
 
         public void AddReservation(Reservation reservation)
         {
+            guestDataAccess.InsertGuest(new GuestModel()
+            {
+                Name = reservation.Guest.Name,
+                Address = reservation.Guest.Address,
+                Phone = reservation.Guest.PhoneNumber,
+                Email = reservation.Guest.Mail,
+                AccountNumber = reservation.Guest.AccountNumber
+            });
+            reservationDataAccess.InsertReservation(new ReservationModel()
+            {
+                GuestId = reservation.Guest.Id,
+                StartDate = reservation.StartDate,
+                EndDate = reservation.EndDate
+            });
             List<Reservation> list = reservations.ToList();
             list.Add(reservation);
             reservations = list;
         }
+
+        //public void AddGuest(Guest guest) //Måske en hjælpe funktion til AddReservation?
+        //{
+        //
+        //}
     }
 }
 //Create list of reservations with guests in

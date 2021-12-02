@@ -11,20 +11,24 @@ namespace Reservations_system.Classes
 
     public abstract class Renter
     {
+        public int Id { get; set; }
         private string _name;
         private string _phoneNumber;
         private string _mail;
         private string _address;
+        private string _accountNumber;
         private ContactPerson _contactPerson; //Håndter korrekt
 
 
-        protected Renter(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson)
+        protected Renter(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson, string accountNumber, int id)
         {
+            Id = id;
             Name = name;
             PhoneNumber = phoneNumber;
             Mail = mail;
             Address = address;
             ContactPerson = contactPerson;
+            AccountNumber = accountNumber;
         }
 
         protected Renter()
@@ -104,6 +108,18 @@ namespace Reservations_system.Classes
 
             }
         }
+        public string AccountNumber
+        {
+            get
+            {
+                return _accountNumber;
+            }
+            set
+            {
+                value = _accountNumber;
+            }
+        }
+
 
 
         //Perhaps put the function in another file
