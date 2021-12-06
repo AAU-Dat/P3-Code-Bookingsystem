@@ -42,5 +42,19 @@ namespace DataAccess.Data
         {
             return _db.SaveData("dbo.spGuest_Delete", new { Id = id });
         }
+
+        public Task InsertGuestWithReservation(GuestModel guest, ReservationModel reservation)
+        {
+            return _db.SaveData("dbo.spReservationGuest_Insert", new
+            {
+                guest.Name,
+                guest.Address,
+                guest.Email,
+                guest.Phone,
+                guest.AccountNumber,
+                reservation.StartDate,
+                reservation.EndDate
+            });
+        }
     }
 }
