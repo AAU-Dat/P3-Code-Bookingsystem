@@ -28,13 +28,13 @@
 
 
     <div class="button-row">
-        @if (containerAdminHomePage.chosenReservation.Confirmed == false)
+        @if (containerAdminHomePage.chosenReservation.Confirmed != null)
         {
             <button class="btn btn-primary" @onclick="Confirm">Bekræft</button>
 
         }
         <button class="btn btn-primary" @onclick="(() => containerAdminHomePage.ChangeEditMode())">Rediger</button>
-        <button class="btn btn-primary" @onclick="DeleteReservation">@(containerAdminHomePage.chosenReservation.Confirmed == true ? "Slet" : "Annuller")</button>
+        <button class="btn btn-primary" @onclick="DeleteReservation">@(containerAdminHomePage.chosenReservation.Confirmed != null ? "Slet" : "Annuller")</button>
     </div>
 
 

@@ -8,7 +8,7 @@ namespace Reservations_system.Classes
     public class ContactPerson : Guest
     {
        
-        public ContactPerson(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson) : base(name, phoneNumber, mail, address, contactPerson)
+        public ContactPerson(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson, string accountNumber) : base(name, phoneNumber, mail, address, contactPerson, accountNumber)
         {
         }
 

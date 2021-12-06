@@ -20,9 +20,8 @@ namespace Reservations_system.Classes
         private ContactPerson _contactPerson; //Håndter korrekt
 
 
-        protected Renter(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson, string accountNumber, int id)
+        protected Renter(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson, string accountNumber)
         {
-            Id = id;
             Name = name;
             PhoneNumber = phoneNumber;
             Mail = mail;

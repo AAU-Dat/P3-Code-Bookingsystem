@@ -52,7 +52,7 @@
 
     public void ConfirmReservation(Reservation reservation) //Confirms a reservations
     {
-        reservation.Confirmed = true;
+        reservation.Confirmed = DateTime.Now;
         StateHasChanged();
     }
 }

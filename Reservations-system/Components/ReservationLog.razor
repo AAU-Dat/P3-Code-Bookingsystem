@@ -7,7 +7,7 @@
 {
     <div class="list-item" type="submit" @onclick="(() => containerAdminHomePage.UpdateChosenReservation(reservation))">
         Navn: @reservation.Guest.Name <br />
-        Bekræftet: @(reservation.Confirmed == true ? "Ja" : "Nej") <br />
+        Bekræftet: @(reservation.Confirmed != null ? "Ja" : "Nej") <br />
         @reservation.ReservationPeriod() <br />
     </div>
     <span class="fade-line"></span>

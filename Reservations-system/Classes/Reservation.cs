@@ -10,8 +10,9 @@ namespace Reservations_system.Classes
 
     public class Reservation
     {
+        private int _id;
         private Renter _guest;
-        private DateTime _confirmed;
+        private DateTime? _confirmed;
         private DateTime _startDate;
         private DateTime _endDate;
 
@@ -20,22 +21,29 @@ namespace Reservations_system.Classes
             Guest = guest;
             StartDate = start;
             EndDate = end;
-            Confirmed = false;
-
         }
 
         public Reservation()
         {
             Guest = new Guest();
         }
-
+        public int Id {
+            get
+            {
+                return _id;
+                    }
+            set
+            {
+                value = _id;
+                    }
+        }
         public Renter Guest
         {
             get { return _guest; }
             set { _guest = value; }
         }
 
-        public bool Confirmed
+        public DateTime? Confirmed
         {
             get { return _confirmed; }
             set { _confirmed = value; }
