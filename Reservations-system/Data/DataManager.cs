@@ -143,7 +143,7 @@ namespace Reservations_system.Data
             }
             return reservations;
         }
-        public async Task<List<Reservation>> ReservationDataFromDBAsync() //Returns a list of all reservations and creates the local list of guests to be used by other functions
+        public async Task<List<Reservation>> ReservationsDataFromDBAsync() //Returns a list of all reservations and creates the local list of guests to be used by other functions
         {
             _guests = await GetGuestsFromDBAsync();
             _reservations = await GetReservationsFromDBAsync();
