@@ -11,5 +11,6 @@ namespace DataAccess.Data
         Task<IEnumerable<GuestModel>> GetGuests();
         Task InsertGuest(GuestModel guest);
         Task UpdateGuest(GuestModel guest);
+        Task InsertGuestWithReservation(GuestModel guest, ReservationModel reservation);
     }
 }

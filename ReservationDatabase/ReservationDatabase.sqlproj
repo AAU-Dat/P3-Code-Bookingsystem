@@ -73,6 +73,7 @@
     <Build Include="dbo\StoredProcedures\spGuest_Delete.sql" />
     <Build Include="dbo\StoredProcedures\spGuest_Insert.sql" />
     <Build Include="dbo\StoredProcedures\spGuest_Update.sql" />
+    <Build Include="dbo\StoredProcedures\spReservationGuest_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
