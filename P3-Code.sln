@@ -14,6 +14,11 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ReservationDatabase", "Rese
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{099CF09C-9797-40A3-ABC9-755B9A5713EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessTest", "DataAccessTest\DataAccessTest.csproj", "{116FDABF-AEAE-42BD-B6B6-73D948AAFD09}"
+	ProjectSection(ProjectDependencies) = postProject
+		{099CF09C-9797-40A3-ABC9-755B9A5713EC} = {099CF09C-9797-40A3-ABC9-755B9A5713EC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +43,10 @@ Global
 		{099CF09C-9797-40A3-ABC9-755B9A5713EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{099CF09C-9797-40A3-ABC9-755B9A5713EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{099CF09C-9797-40A3-ABC9-755B9A5713EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{116FDABF-AEAE-42BD-B6B6-73D948AAFD09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{116FDABF-AEAE-42BD-B6B6-73D948AAFD09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{116FDABF-AEAE-42BD-B6B6-73D948AAFD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{116FDABF-AEAE-42BD-B6B6-73D948AAFD09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
