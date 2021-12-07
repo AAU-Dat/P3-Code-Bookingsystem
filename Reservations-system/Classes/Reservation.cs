@@ -12,7 +12,6 @@ namespace Reservations_system.Classes
     {
         private int _id;
         private Renter _guest;
-        private DateTime? _confirmed;
         private DateTime _startDate;
         private DateTime _endDate;
 
@@ -22,11 +21,11 @@ namespace Reservations_system.Classes
             StartDate = start;
             EndDate = end;
         }
-
         public Reservation()
         {
             Guest = new Guest();
         }
+
         public int Id
         {
             get
@@ -43,16 +42,13 @@ namespace Reservations_system.Classes
             get { return _guest; }
             set { _guest = value; }
         }
-
-        public DateTime? Confirmed
-        {
-            get { return _confirmed; }
-            set { _confirmed = value; }
-        }
         [Required]
         public DateTime StartDate
         {
-            get { return _startDate; }
+            get
+            {
+                return _startDate;
+            }
             set
             {
                 _startDate = value;
@@ -61,12 +57,20 @@ namespace Reservations_system.Classes
         [Required]
         public DateTime EndDate
         {
-            get { return _endDate; }
+            get
+            {
+                return _endDate;
+            }
             set
             {
                 _endDate = value;
             }
         }
+        public DateTime? Confirmed { get; set; }
+        public DateTime? DepositPaid { get; set; }
+        public DateTime? RentPaid { get; set; }
+        public DateTime? DepositRefunded { get; set; }
+        public DateTime? Cancelled { get; set; }
 
         public string ReservationPeriod()
         {

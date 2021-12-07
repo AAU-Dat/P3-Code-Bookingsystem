@@ -11,7 +11,7 @@ namespace Reservations_system.Data
         void DeleteReservation(Reservation reservation);
         Reservation GetReservationFromLocalList(int reservationId);
         Task<List<Reservation>> ReservationsDataFromDBAsync();
-        void UpdateGuest(Guest guest);
+        void UpdateGuest(Renter guest);
         void UpdateReservation(Reservation reservation);
     }
 }

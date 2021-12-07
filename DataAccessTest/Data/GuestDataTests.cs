@@ -157,7 +157,7 @@ namespace DataAccessTest
         [Fact]
         public void InsertGuestWithReservationSuccesful()
         {
-            GuestModel guest1 = new() { Name = "test1"};
+            GuestModel guest1 = new() { Name = "test1" };
             GuestModel guest2 = new() { Name = "test2" };
             ReservationModel reservation = new();
 

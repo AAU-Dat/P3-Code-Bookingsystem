@@ -28,7 +28,7 @@
 
 
     <div class="button-row">
-        @if (containerAdminHomePage.chosenReservation.Confirmed != null)
+        @if (containerAdminHomePage.chosenReservation.Confirmed == null)
         {
             <button class="btn btn-primary" @onclick="Confirm">Bekræft</button>
 
