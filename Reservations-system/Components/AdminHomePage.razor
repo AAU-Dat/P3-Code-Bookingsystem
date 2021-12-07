@@ -49,7 +49,6 @@
 
 	public void RemoveReservationFromReservationList(Reservation reservation) //Removes a reservation from the list of reservations
 	{
-		//reservations.Remove(reservation);
 		_dm.DeleteReservation(reservation);
 		StateHasChanged();
 	}
