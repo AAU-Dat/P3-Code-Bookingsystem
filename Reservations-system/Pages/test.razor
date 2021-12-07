@@ -1,4 +1,5 @@
 ﻿@inject IReservationData _db
+@inject IDataManager _dm
 @page "/test2"
 
 <h3>Database Test</h3>
@@ -9,20 +10,19 @@
 }
 else
 {
-    @foreach (ReservationModel item in reservations)
+    @foreach (Reservation reservation in reservations)
     {
-        <h4>@item.StartDate.ToString()</h4>
-        <p>@item.EndDate.ToString()</p>
+        <h4>@reservation.StartDate.ToString()</h4>
+        <p>@reservation.EndDate.ToString()</p>
+        <p>@reservation.Guest.Name</p>
     }
-
 }
 
 @code {
-    private IEnumerable<ReservationModel> reservations;
+    List<Reservation> reservations;
 
     protected override async Task OnInitializedAsync()
     {
-        reservations = await _db.GetReservations();
+        reservations = await _dm.ReservationsDataFromDBAsync();
     }
-
 }

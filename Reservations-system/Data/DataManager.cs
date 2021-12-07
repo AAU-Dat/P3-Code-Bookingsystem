@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Reservations_system.Data
 {
-    public class DataManager
+    public class DataManager : IDataManager
     {
         private readonly IReservationData _reservationDataAccess;
         private readonly IGuestData _guestDataAccess;
@@ -21,19 +21,14 @@ namespace Reservations_system.Data
             _guestDataAccess = guestData;
         }
 
-        public List<Reservation> Reservations {
+        public List<Reservation> Reservations
+        {
             get
             {
                 return _reservations;
             }
         }
-        public List<Guest> Guests
-        {
-            get
-            {
-                return _guests;
-            }
-        }
+
         public void AddReservation(Reservation reservation) //Adds a reservation to DB and list
         {
             _guestDataAccess.InsertGuestWithReservation(new GuestModel()
@@ -52,24 +47,38 @@ namespace Reservations_system.Data
 
             Reservations.Add(reservation);
         }
+
         public void DeleteReservation(Reservation reservation) //Removes a reservation from DB and local list
         {
             _reservationDataAccess.DeleteReservation(reservation.Id);
             Reservations.Remove(reservation);
         }
-        public void UpdateReservation(Reservation reservation) //Updates a reservation in list til be given reservation. matches by ID
+
+        public void UpdateReservation(Reservation reservation) //Updates a reservation in list to be given reservation. matches by ID
         {
             _reservationDataAccess.UpdateReservation(ReservationToReservationModel(reservation));
-            List<Reservation> list = Reservations.ToList();
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < _reservations.Count; i++)
             {
-                if (list[i].Id.Equals(reservation.Id))
+                if (_reservations[i].Id.Equals(reservation.Id))
                 {
-                    list[i] = reservation;
+                    _reservations[i] = reservation;
                 }
             }
         }
-        public GuestModel GuestToGuestModel(Guest guest) //Converts guest obejct to guest model object
+
+        public void UpdateGuest(Guest guest) //Updates a guest in list to be given guest. matches by ID
+        {
+            _guestDataAccess.UpdateGuest(GuestToGuestModel(guest));
+            for (int i = 0; i < _guests.Count; i++)
+            {
+                if (_guests[i].Id.Equals(guest.Id))
+                {
+                    _guests[i] = guest;
+                }
+            }
+        }
+
+        private GuestModel GuestToGuestModel(Guest guest) //Converts guest obejct to guest model object
         {
             GuestModel guestModel = new()
             {
@@ -80,7 +89,8 @@ namespace Reservations_system.Data
             };
             return guestModel;
         }
-        public ReservationModel ReservationToReservationModel(Reservation reservation) //Coverts reservation object to reservation model object
+
+        private ReservationModel ReservationToReservationModel(Reservation reservation) //Coverts reservation object to reservation model object
         {
             ReservationModel reservationModel = new()
             {
@@ -90,42 +100,48 @@ namespace Reservations_system.Data
             };
             return reservationModel;
         }
-        public Reservation ReservationModelToReservation(ReservationModel reservationModel) //Coverts reservation model object to reservation object
+
+        private Reservation ReservationModelToReservation(ReservationModel reservationModel) //Coverts reservation model object to reservation object
         {
             Reservation reservation = new()
             {
                 StartDate = reservationModel.StartDate,
                 EndDate = reservationModel.EndDate,
-                Guest = GetGuestWithMatchingID(reservationModel.GuestId)
+                Guest = GetGuestWithMatchingID(reservationModel.GuestId),
+                Id = reservationModel.Id
             };
             return reservation;
         }
-        public Guest GuestModelToGuest(GuestModel guestModel) //Converts a guest model object to a guest object
+
+        private Guest GuestModelToGuest(GuestModel guestModel) //Converts a guest model object to a guest object
         {
             Guest guest = new()
             {
                 Name = guestModel.Name,
                 Address = guestModel.Address,
                 Mail = guestModel.Email,
-                AccountNumber = guestModel.AccountNumber
+                AccountNumber = guestModel.AccountNumber,
+                Id = guestModel.Id
             };
             return guest;
         }
-        public Guest GetGuestWithMatchingID(int id) //Searches through list of guests to find guest with mathcing given ID
+
+        private Guest GetGuestWithMatchingID(int id) //Searches through list of guests to find guest with mathcing given ID
         {
-            foreach (Guest guest in Guests)
+            foreach (Guest guest in _guests)
             {
                 if (guest.Id.Equals(id))
                 {
-                    return  guest;
+                    return guest;
                 }
             }
             return null;
         }
-        public async Task<List<Guest>> GetGuestsFromDBAsync() //Async mehtod that returns all guests in DB
+
+        private async Task<List<Guest>> GetGuestsFromDBAsync() //Async mehtod that returns all guests in DB
         {
             List<Guest> guests = new();
-            IEnumerable < GuestModel> guestModelsFromDB = await _guestDataAccess.GetGuests();
+            IEnumerable<GuestModel> guestModelsFromDB = await _guestDataAccess.GetGuests();
 
             foreach (GuestModel guestModel in guestModelsFromDB)
             {
@@ -133,7 +149,20 @@ namespace Reservations_system.Data
             }
             return guests;
         }
-        public async Task<List<Reservation>> GetReservationsFromDBAsync() //Async method that returns all reservations in DB
+
+        private Guest GetGuestFromLocalList(int guestId)
+        {
+            foreach (Guest guest in _guests)
+            {
+                if (guest.Id.Equals(guestId))
+                {
+                    return guest;
+                }
+            }
+            return null;
+        }
+
+        private async Task<List<Reservation>> GetReservationsFromDBAsync() //Async method that returns all reservations in DB
         {
             List<Reservation> reservations = new();
             IEnumerable<ReservationModel> reservationModelsFromDB = await _reservationDataAccess.GetReservations();
@@ -143,6 +172,19 @@ namespace Reservations_system.Data
             }
             return reservations;
         }
+
+        public Reservation GetReservationFromLocalList(int reservationId)
+        {
+            foreach (Reservation reservation in _reservations)
+            {
+                if (reservation.Id.Equals(reservationId))
+                {
+                    return reservation;
+                }
+            }
+            return null;
+        }
+
         public async Task<List<Reservation>> ReservationsDataFromDBAsync() //Returns a list of all reservations and creates the local list of guests to be used by other functions
         {
             _guests = await GetGuestsFromDBAsync();

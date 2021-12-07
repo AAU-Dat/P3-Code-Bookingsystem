@@ -11,12 +11,19 @@ namespace Reservations_system.Classes
 
     public abstract class Renter
     {
-        public int Id { get; set; }
         private string _name;
         private string _phoneNumber;
         private string _mail;
         private string _address;
         private string _accountNumber;
+        private int _id;
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         private ContactPerson _contactPerson; //Håndter korrekt
 
 
@@ -40,21 +47,7 @@ namespace Reservations_system.Classes
             get { return _name; }
             set
             {
-                //                if (String.IsNullOrEmpty(_name))
-                //                {
-                //                    throw new ArgumentNullException("String Name is null or missing");
-                //                }
-                _name = char.ToUpper(value[0]) + value.Substring(1);
-
-
-                if ((Regex.IsMatch(_name, @"\d")))
-                {
-                    throw new ArgumentException("String Name must not contain digits");
-                }
-                if (_name.Length > 40 && _name.Length < 2)
-                {
-                    throw new ArgumentOutOfRangeException("String Name's length is invalid");
-                }
+                _name = value;
             }
         }
 
@@ -65,24 +58,6 @@ namespace Reservations_system.Classes
             set
             {
                 _phoneNumber = value;
-
-                if (_phoneNumber.Length != 8)
-                {
-                    Console.WriteLine(_phoneNumber);
-                    throw new ArgumentOutOfRangeException("String PhoneNumber's length is invalid");
-                }
-
-                if (String.IsNullOrEmpty(_phoneNumber))
-                {
-                    throw new ArgumentNullException("String PhoneNumber is null or missing");
-                }
-
-                //               if (_phoneNumber.Any(char.IsLetter))
-                //               {
-                //                   throw new ArgumentException("String Phonenumber contains a letter");
-                //               }
-
-
             }
         }
 
@@ -93,18 +68,6 @@ namespace Reservations_system.Classes
             set
             {
                 _mail = value;
-                if (String.IsNullOrEmpty(_mail))
-                {
-                    throw new ArgumentNullException("String Mail is null or misisng");
-                }
-
-
-                if ((ValidateMailAdressFormat(_mail) == false))
-                {
-                    Console.WriteLine(_mail);
-                    throw new ArgumentException("Invalid mail");
-                }
-
             }
         }
         public string AccountNumber
@@ -115,40 +78,19 @@ namespace Reservations_system.Classes
             }
             set
             {
-                value = _accountNumber;
+                _accountNumber = value ;
             }
-        }
-
-
-
-        //Perhaps put the function in another file
-        bool ValidateMailAdressFormat(string mailToBeValidated)
-        {
-
-            MailAddress m = new MailAddress(mailToBeValidated);
-            //Det er så forfærdeligt
-            if (m.User != null)
-            {
-                if (m.Host == "gmail.com" || m.Host == "yahoo.com" || m.Host == "student.aau.dk")
-                {
-                    return true;
-                }
-            }
-            return false;
         }
         [Required]
         public string Address
         {
-            get { return _address; }
+            get
+            {
+                return _address;
+            }
             set
-            //Det handler om den egentlige prototype>>
-            //>>Vi mangler at implementere validering her senere hen (en addresse indeholder by, vejnr, vejnavn, og alt muligt)
             {
                 _address = value;
-                if (String.IsNullOrEmpty(_address))
-                {
-                    throw new ArgumentNullException("String Address is null or missing");
-                }
 
             }
         }

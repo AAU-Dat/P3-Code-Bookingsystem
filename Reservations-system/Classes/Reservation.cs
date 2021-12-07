@@ -27,15 +27,16 @@ namespace Reservations_system.Classes
         {
             Guest = new Guest();
         }
-        public int Id {
+        public int Id
+        {
             get
             {
                 return _id;
-                    }
+            }
             set
             {
-                value = _id;
-                    }
+                _id = value;
+            }
         }
         public Renter Guest
         {
@@ -54,14 +55,7 @@ namespace Reservations_system.Classes
             get { return _startDate; }
             set
             {
-                //Ved ikke om vi kommer til at have brug for at tjekke om stardatoen er mindre end .Now (skal kalenderen have tekstfelt?)
-
-                if (value < DateTime.Now)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), $"DateTime {nameof(value)} is earlier than DateTime.Now");
-                }
                 _startDate = value;
-
             }
         }
         [Required]
@@ -70,17 +64,7 @@ namespace Reservations_system.Classes
             get { return _endDate; }
             set
             {
-
-                if (value < StartDate)
-                {
-                    throw new ArgumentOutOfRangeException("DateTime EndDate is earlier than StartDate");
-                }
-                if (StartDate > value)
-                {
-                    throw new ArgumentOutOfRangeException("DateTime StartDate is later than EndDate");
-                }
                 _endDate = value;
-                //hvor mange dage må man booke ad gangen
             }
         }
 
