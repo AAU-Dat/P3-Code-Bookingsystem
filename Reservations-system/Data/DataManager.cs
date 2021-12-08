@@ -114,7 +114,6 @@ namespace Reservations_system.Data
                 Id=reservation.Id,
                 StartDate = reservation.StartDate,
                 EndDate = reservation.EndDate,
-                GuestId = reservation.Guest.Id,
                 Approved = reservation.Confirmed,
                 RentPaid = reservation.RentPaid,
                 DepositPaid = reservation.DepositPaid,

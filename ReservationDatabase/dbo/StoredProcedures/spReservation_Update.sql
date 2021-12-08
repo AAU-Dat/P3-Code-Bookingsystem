@@ -6,7 +6,8 @@
 	@DepositPaid date = NULL,
 	@RentPaid date = NULL,
 	@DepositRefunded date = NULL,
-	@Cancelled date = NULL
+	@Cancelled date = NULL,
+	@GuestId int  
 AS
 BEGIN
 	UPDATE [dbo].[Reservation]

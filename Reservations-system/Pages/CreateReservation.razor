@@ -30,6 +30,8 @@
 		reservation.StartDate = SelectedDate;
 		reservation.EndDate = SelectedDate;
 		_dm.AddReservation(reservation);
+		reservation = new();
+		SelectedDate = DateTime.Today;
 	}
 	protected override async Task OnInitializedAsync()
 	{
