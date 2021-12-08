@@ -71,6 +71,8 @@ namespace Reservations_system.Classes
         public DateTime? RentPaid { get; set; }
         public DateTime? DepositRefunded { get; set; }
         public DateTime? Cancelled { get; set; }
+        [Required]
+        public string Information { get; set; }
 
         public string ReservationPeriod()
         {

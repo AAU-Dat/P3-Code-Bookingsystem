@@ -13,6 +13,6 @@ namespace DataAccess.Models
         public DateTime? RentPaid { get; set; }
         public DateTime? DepositRefunded { get; set; }
         public DateTime? Cancelled { get; set; }
-
+        public string Information { get; set; }
     }
 }

@@ -7,7 +7,8 @@
 	@RentPaid date = NULL,
 	@DepositRefunded date = NULL,
 	@Cancelled date = NULL,
-	@GuestId int  
+	@GuestId int,
+	@Information nvarchar(256) = NULL
 AS
 BEGIN
 	UPDATE [dbo].[Reservation]
@@ -17,6 +18,7 @@ BEGIN
 		[DepositPaid] = ISNULL(@DepositPaid, [DepositPaid]),
 		[RentPaid] = ISNULL(@RentPaid, [RentPaid]),
 		[DepositRefunded] = ISNULL(@DepositRefunded, [DepositRefunded]),
-		[Cancelled] = ISNULL(@Cancelled, [Cancelled])
+		[Cancelled] = ISNULL(@Cancelled, [Cancelled]),
+		[Information] = ISNULL(@Information, [Information])
 	WHERE Id = @Id
 END

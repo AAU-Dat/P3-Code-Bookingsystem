@@ -53,7 +53,8 @@ namespace DataAccess.Data
                 guest.Phone,
                 guest.AccountNumber,
                 reservation.StartDate,
-                reservation.EndDate
+                reservation.EndDate,
+                reservation.Information
             });
         }
     }

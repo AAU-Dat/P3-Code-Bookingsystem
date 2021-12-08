@@ -118,7 +118,8 @@ namespace Reservations_system.Data
                 RentPaid = reservation.RentPaid,
                 DepositPaid = reservation.DepositPaid,
                 DepositRefunded = reservation.DepositRefunded,
-                Cancelled = reservation.Cancelled
+                Cancelled = reservation.Cancelled,
+                Information = reservation.Information
             };
             return reservationModel;
         }
@@ -135,7 +136,8 @@ namespace Reservations_system.Data
                 RentPaid = reservationModel.RentPaid,
                 DepositPaid = reservationModel.DepositPaid,
                 DepositRefunded = reservationModel.DepositRefunded,
-                Cancelled = reservationModel.Cancelled
+                Cancelled = reservationModel.Cancelled,
+                Information= reservationModel.Information
             };
             return reservation;
         }

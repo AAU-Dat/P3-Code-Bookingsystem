@@ -14,5 +14,5 @@ BEGIN
         (DATEADD(day, 30, CURRENT_TIMESTAMP), DATEADD(day, 30, CURRENT_TIMESTAMP), 4)
     SELECT CURRENT_TIMESTAMP as Day1
     SELECT CURRENT_TIMESTAMP as Day2
-    EXEC spReservationGuest_Insert 'Daniel Petersen', 'Gammelgade 1', 'daniel@mail.com', '12 23 34 45', '0001-0000654321', '2021-12-7', '2021-12-7'
+    EXEC spReservationGuest_Insert 'Daniel Petersen', 'Gammelgade 1', 'daniel@mail.com', '12 23 34 45', '0001-0000654321', '2021-12-7', '2021-12-7', 'This is a test description'
 END
