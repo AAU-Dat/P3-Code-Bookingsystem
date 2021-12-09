@@ -1,4 +1,5 @@
-﻿using Reservations_system.Classes;
+﻿using DataAccess.Models;
+using Reservations_system.Classes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,5 +14,7 @@ namespace Reservations_system.Data
         Task<List<Reservation>> ReservationsDataFromDBAsync();
         void UpdateGuest(Renter guest);
         void UpdateReservation(Reservation reservation);
+        Task<CitizenAssociationModel> GetAssociationInformation();
+        void UpdateAssociationInformation(CitizenAssociationModel association);
     }
 }

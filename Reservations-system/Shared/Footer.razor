@@ -1,15 +1,17 @@
-﻿<footer>
+﻿@inject IDataManager _dm
+<footer>
     <p>Kontakt os på:</p>
-    <p>Mail: <a href="mailto:@Organization.Mail">@Organization.Mail</a></p>
-    <p>Telefon: <a href="tel:@Organization.PhoneNumber">@Organization.PhoneNumber</a></p>
+    <p>Mail: <a href="mailto:@Association.Email">@Association.Email</a></p>
+    <p>Telefon: <a href="tel:@Association.Phone">@Association.Phone</a></p>
+    <p>Adresse: <a href="http://maps.google.com/?q=@Association.Address">@Association.Address</a></p>
 </footer>
 
 @code {
-    public CitizenAssociation Organization { get; set; } = new ()
-    {
-        Mail = "Østrupborgerforening@gmail.dk",
-        PhoneNumber = "88 88 88 88"
-    };
+    public CitizenAssociationModel Association { get; set; } = new();
 
+    protected override async Task OnInitializedAsync()
+    {
+        Association = await _dm.GetAssociationInformation();
+    }
 
 }

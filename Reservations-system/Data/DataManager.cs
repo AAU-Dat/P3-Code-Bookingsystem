@@ -12,13 +12,15 @@ namespace Reservations_system.Data
     {
         private readonly IReservationData _reservationDataAccess;
         private readonly IGuestData _guestDataAccess;
+        private readonly IAssociationData _associationData;
         private List<Reservation> _reservations;
         private List<Renter> _guests;
 
-        public DataManager(IReservationData reservationData, IGuestData guestData)
+        public DataManager(IReservationData reservationData, IGuestData guestData, IAssociationData associationData)
         {
             _reservationDataAccess = reservationData;
             _guestDataAccess = guestData;
+            _associationData = associationData;
         }
 
         public List<Reservation> Reservations
@@ -170,6 +172,17 @@ namespace Reservations_system.Data
             _guests = await GetGuestsFromDBAsync();
             _reservations = await GetReservationsFromDBAsync();
             return _reservations;
+        }
+
+        public async Task<CitizenAssociationModel> GetAssociationInformation()
+        {
+            CitizenAssociationModel association = await _associationData.GetAssociation(1);
+            return association;
+        }
+
+        public void UpdateAssociationInformation(CitizenAssociationModel association)
+        {
+            _associationData.UpdateAssociation(association);
         }
     }
 }

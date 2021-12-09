@@ -36,8 +36,8 @@
         reservation = new Reservation();
         SelectedDate = DateTime.Today;
     }
-    	protected override async Task OnInitializedAsync()
-	{
-		reservations = await _dm.ReservationsDataFromDBAsync();
-	}
+    protected override async Task OnInitializedAsync()
+    {
+        reservations = await _dm.ReservationsDataFromDBAsync();
+    }
 }

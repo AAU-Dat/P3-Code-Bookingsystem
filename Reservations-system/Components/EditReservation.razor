@@ -1,8 +1,6 @@
 ﻿<h3>Rediger reservationen</h3>
 
 <EditForm Model="@containerAdminHomePage.chosenReservation">
-    @*<DataAnnotationsValidator />
-        <ValidationSummary />*@
     <div class="form-group">
         <label for="fornavn">Navn</label>
         <InputText @bind-Value="containerAdminHomePage.chosenReservation.Guest.Name" class="form-control" />

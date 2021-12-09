@@ -27,6 +27,7 @@ namespace Reservations_system
             services.AddTransient<ISqlDbAccess, SqlDbAccess>();
             services.AddTransient<IReservationData, ReservationData>();
             services.AddTransient<IGuestData, GuestData>();
+            services.AddTransient<IAssociationData, AssociationData>();
             services.AddTransient<IDataManager, DataManager>();
         }
 
