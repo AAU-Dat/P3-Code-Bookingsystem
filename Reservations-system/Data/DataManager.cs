@@ -27,25 +27,15 @@ namespace Reservations_system.Data
             {
                 return _reservations;
             }
+            set
+            {
+                _reservations = value;
+            }
         }
 
         public void AddReservation(Reservation reservation) //Adds a reservation to DB and list
         {
-            //_guestDataAccess.InsertGuestWithReservation(new GuestModel()
-            //{
-            //    Name = reservation.Guest.Name,
-            //    Address = reservation.Guest.Address,
-            //    Phone = reservation.Guest.PhoneNumber,
-            //    Email = reservation.Guest.Mail,
-            //    AccountNumber = reservation.Guest.AccountNumber,
-            //},
-            //new ReservationModel()
-            //{
-            //    StartDate = reservation.StartDate,
-            //    EndDate = reservation.EndDate
-            //});
             _guestDataAccess.InsertGuestWithReservation(GuestToGuestModel(reservation.Guest), ReservationToReservationModel(reservation));
-
             Reservations.Add(reservation);
         }
 
@@ -55,28 +45,14 @@ namespace Reservations_system.Data
             Reservations.Remove(reservation);
         }
 
-        public void UpdateReservation(Reservation reservation) //NOT YET WORKING Updates a reservation in list to be given reservation. matches by ID 
+        public void UpdateReservation(Reservation reservation) //Updates a reservation in DB to be given reservation. matches by ID 
         {
             _reservationDataAccess.UpdateReservation(ReservationToReservationModel(reservation));
-            for (int i = 0; i < _reservations.Count; i++)
-            {
-                if (_reservations[i].Id.Equals(reservation.Id))
-                {
-                    _reservations[i] = reservation;
-                }
-            }
         }
 
-        public void UpdateGuest(Renter guest) //Updates a guest in list to be given guest. matches by ID
+        public void UpdateGuest(Renter guest) //Updates a guest in DB to be given guest. matches by ID
         {
             _guestDataAccess.UpdateGuest(GuestToGuestModel(guest));
-            for (int i = 0; i < _guests.Count; i++)
-            {
-                if (_guests[i].Id.Equals(guest.Id))
-                {
-                    _guests[i] = guest;
-                }
-            }
         }
 
         private GuestModel GuestToGuestModel(Renter guest) //Converts guest obejct to guest model object
