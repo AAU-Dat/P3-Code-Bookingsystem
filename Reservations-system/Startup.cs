@@ -30,6 +30,7 @@ namespace Reservations_system
             services.AddTransient<IGuestData, GuestData>();
             services.AddTransient<IAssociationData, AssociationData>();
             services.AddTransient<IDataManager, DataManager>();
+            services.AddTransient<ISendMail, SendMail>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

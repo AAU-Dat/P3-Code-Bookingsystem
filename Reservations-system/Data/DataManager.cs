@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MailService;
 
 namespace Reservations_system.Data
 {
@@ -13,14 +14,16 @@ namespace Reservations_system.Data
         private readonly IReservationData _reservationDataAccess;
         private readonly IGuestData _guestDataAccess;
         private readonly IAssociationData _associationData;
+        private readonly ISendMail _mail;
         private List<Reservation> _reservations;
         private List<Renter> _guests;
 
-        public DataManager(IReservationData reservationData, IGuestData guestData, IAssociationData associationData)
+        public DataManager(IReservationData reservationData, IGuestData guestData, IAssociationData associationData, ISendMail mail)
         {
             _reservationDataAccess = reservationData;
             _guestDataAccess = guestData;
             _associationData = associationData;
+            _mail = mail;
         }
 
         public List<Reservation> Reservations
@@ -38,6 +41,7 @@ namespace Reservations_system.Data
         public void AddReservation(Reservation reservation) //Adds a reservation to DB and list
         {
             _guestDataAccess.InsertGuestWithReservation(GuestToGuestModel(reservation.Guest), ReservationToReservationModel(reservation));
+            _mail.SendMailAsync("Reservation", "din reservation er modtaget", reservation.Guest.Mail);
             Reservations.Add(reservation);
         }
 
