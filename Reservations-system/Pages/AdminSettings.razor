@@ -1,25 +1,42 @@
-﻿@page "/indstillinger"
-<h3>Konktaktoplysninger:</h3>
-@*sheeeesh*@
+﻿@inject IDataManager _dm
+@page "/indstillinger"
 
-<p>
-    Telefonnummer: @TelephoneNumber
-</p>
-<p>
-    E-mail: @EmailAdress
-</p>
-<p>
-    Placering: @Location
-</p>
+<div class="grid-container">
+    <div class="container-left">
+        <h4>Konktaktoplysninger:</h4>
+        <EditForm Model="Association">
+            <div class="form-group">
+                <InputText placeholder="Navn" @bind-Value="Association.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <InputText placeholder="Adresse" @bind-Value="Association.Address" class="form-control" />
+            </div>
+            <div class="form-group">
+                <InputText placeholder="Email" @bind-Value="Association.Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <InputText placeholder="Telefon" @bind-Value="Association.Phone" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Information til gæsten</label>
+                <InputTextArea placeholder="Forklarende tekst til gæster som skal reservere" @bind-Value="Association.InformationForGuests" class="form-control" />
+            </div>
+        </EditForm>
+        <button class="btn btn-primary" @onclick="UpdateAssociationInformation">Gem ændringer</button>
+
+    </div>
+</div>
 
 @code {
-    [Parameter]
-    public string TelephoneNumber { get; set; }
+    public CitizenAssociationModel Association { get; set; } = new();
 
-    [Parameter]
-    public string EmailAdress { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Association = await _dm.GetAssociationInformation();
+    }
+    private void UpdateAssociationInformation()
+    {
+        _dm.UpdateAssociationInformation(Association);
+    }
 
-    [Parameter]
-    public string Location { get; set; }
-    //Indstillinger som borgerforeningen kan samt at gæsterne kan bruge dem.
 }

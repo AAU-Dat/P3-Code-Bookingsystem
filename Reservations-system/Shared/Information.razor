@@ -1,9 +1,9 @@
 ﻿@inject IDataManager _dm
 
-<header>
-    <h1>@Association.Name</h1>
-    <h3>Opret Reservation</h3>
-</header>
+<div class="Information-box">
+    <h2>Læs før du reserverer</h2>
+    <p>@Association.InformationForGuests</p>
+</div>
 
 @code {
     public CitizenAssociationModel Association { get; set; } = new();

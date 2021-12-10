@@ -1,58 +1,66 @@
-﻿@inject IReservationData _db
+﻿@inject IDataManager _dm
 
 <CascadingValue Value="this">
 
-    <div class="grid-container">
-        <div class="container-left">
-            <ReservationLog />
+	<div class="grid-container">
+		<div class="container-left">
+			<ReservationLog />
 
-        </div>
+		</div>
 
-        <div class="container-middle">
+		<div class="container-middle">
 
-            @if (!editMode)
-            {
-                <ShowAReservation />
-            }
-            else
-            {
-                <EditReservation />
-            }
-        </div>
-        <div class="container-right">
-            <Calendar Reservationer="listOfReservations" />
-        </div>
-    </div>
+			@if (!editMode)
+			{
+				<ShowAReservation />
+			}
+			else
+			{
+				<EditReservation />
+			}
+		</div>
+		<div class="container-right">
+			<Calendar Reservationer="listOfReservations" />
+		</div>
+	</div>
 
 </CascadingValue>
 
 
 @code {
-    public Reservation chosenReservation;
-    public bool editMode = false;
-    public List<Reservation> listOfReservations = xxxDummyData.ListOfReservations; //List of reservations, should be changed when DB is setup
+	public Reservation chosenReservation;
+	public bool editMode = false;
+	public List<Reservation> listOfReservations = new(); //List of reservations, should be changed when DB is setup
 
-    public void ChangeEditMode() //Flips edit mode between true or false
-    {
-        editMode = !editMode;
-        StateHasChanged();
-    }
+	public void ChangeEditMode() //Flips edit mode between true or false
+	{
+		editMode = !editMode;
+		_dm.UpdateGuest(chosenReservation.Guest);
+		_dm.UpdateReservation(chosenReservation);
+		StateHasChanged();
+	}
 
-    public void UpdateChosenReservation(Reservation reservation) //Sets a slected reservation as the new "chosen reservation"
-    {
-        chosenReservation = reservation;
-        StateHasChanged();
-    }
+	public void UpdateChosenReservation(Reservation reservation) //Sets a slected reservation as the new "chosen reservation"
+	{
+		chosenReservation = reservation;
+		StateHasChanged();
+	}
 
-    public void RemoveReservationFromReservationList(Reservation reservation) //Removes a reservation from the list of reservations
-    {
-        listOfReservations.Remove(reservation);
-        StateHasChanged();
-    }
+	public void RemoveReservationFromReservationList(Reservation reservation) //Removes a reservation from the list of reservations
+	{
+		_dm.DeleteReservation(reservation);
+		StateHasChanged();
+	}
 
-    public void ConfirmReservation(Reservation reservation) //Confirms a reservations
-    {
-        reservation.Confirmed = true;
-        StateHasChanged();
-    }
+	public void ConfirmReservation(Reservation reservation) //Confirms a reservations
+	{
+		reservation.Confirmed = DateTime.Now;
+		_dm.UpdateReservation(reservation);
+		StateHasChanged();
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		listOfReservations = await _dm.ReservationsDataFromDBAsync();
+	}
 }

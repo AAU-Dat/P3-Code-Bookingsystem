@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Reservations_system.Data;
 
 namespace Reservations_system
 {
@@ -27,7 +28,8 @@ namespace Reservations_system
             services.AddTransient<ISqlDbAccess, SqlDbAccess>();
             services.AddTransient<IReservationData, ReservationData>();
             services.AddTransient<IGuestData, GuestData>();
-            services.AddTransient<ISendMail, SendMail> ();
+            services.AddTransient<IAssociationData, AssociationData>();
+            services.AddTransient<IDataManager, DataManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

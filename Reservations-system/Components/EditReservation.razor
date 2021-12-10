@@ -1,8 +1,6 @@
 ﻿<h3>Rediger reservationen</h3>
 
 <EditForm Model="@containerAdminHomePage.chosenReservation">
-    @*<DataAnnotationsValidator />
-        <ValidationSummary />*@
     <div class="form-group">
         <label for="fornavn">Navn</label>
         <InputText @bind-Value="containerAdminHomePage.chosenReservation.Guest.Name" class="form-control" />
@@ -21,6 +19,11 @@
     <div class="form-group">
         <label for="address">Adresse</label>
         <InputText @bind-Value="containerAdminHomePage.chosenReservation.Guest.Address" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Informatio">Formål med reservation</label>
+        <InputText @bind-Value="containerAdminHomePage.chosenReservation.Information" class="form-control" />
     </div>
 
     <div class="form-group">

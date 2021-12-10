@@ -74,11 +74,19 @@
     <Build Include="dbo\StoredProcedures\spGuest_Insert.sql" />
     <Build Include="dbo\StoredProcedures\spGuest_Update.sql" />
     <Build Include="dbo\StoredProcedures\spReservationGuest_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spAssociation_Get.sql" />
+    <Build Include="dbo\StoredProcedures\spAssociation_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spAssociation_Update.sql" />
+    <Build Include="dbo\StoredProcedures\spAssociation_Delete.sql" />
+    <Build Include="dbo\tables\Association.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReservationDatabase.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="ReservationDatabase.refactorlog" />
   </ItemGroup>
 </Project>

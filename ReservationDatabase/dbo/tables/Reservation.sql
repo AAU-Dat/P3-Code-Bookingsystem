@@ -8,6 +8,7 @@
     [RentPaid] DATE NULL, 
     [DepositRefunded] DATE NULL, 
     [Cancelled] DATE NULL, 
+    [Information] NVARCHAR(256) NULL,
     [GuestId] INT NOT NULL, 
     CONSTRAINT [PK_Reservation] PRIMARY KEY ([Id]),
     CONSTRAINT [FK_Reservation_Guest] FOREIGN KEY ([GuestId]) REFERENCES [Guest]([Id]), 

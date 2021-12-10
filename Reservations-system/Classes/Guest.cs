@@ -9,8 +9,8 @@ namespace Reservations_system.Classes
     public class Guest : Renter
     {
       
-        public Guest(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson) :
-                base(name, phoneNumber, mail, address, contactPerson)
+        public Guest(string name, string phoneNumber, string mail, string address, ContactPerson contactPerson, string accountNumber) :
+                base(name, phoneNumber, mail, address, contactPerson, accountNumber)
         {
         }
 

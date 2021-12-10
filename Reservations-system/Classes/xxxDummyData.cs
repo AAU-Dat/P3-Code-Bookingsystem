@@ -14,9 +14,9 @@ namespace Reservations_system.Classes
 
         public static List<Guest> guests = new()
         {
-            new Guest("Mike Mazowsky", "88888888", "verylongemailhere@gmail.com", "Torsvej 12", new ContactPerson()),
-            new Guest("John Wiener", "22222222", "shortmail@gmail.com", "Larspogade 19", new ContactPerson()),
-            new Guest("Ukendt", "12345678", "mail@yahoo.com", "Ukendt Adresse", new ContactPerson())
+            new Guest("Mike Mazowsky", "88888888", "verylongemailhere@gmail.com", "Torsvej 12", new ContactPerson(), "980321890132"),
+            new Guest("John Wiener", "22222222", "shortmail@gmail.com", "Larspogade 19", new ContactPerson(), "0219321"),
+            new Guest("Ukendt", "12345678", "mail@yahoo.com", "Ukendt Adresse", new ContactPerson(), "38970432")
         };
 
         public static List<Reservation> ListOfReservations = new()

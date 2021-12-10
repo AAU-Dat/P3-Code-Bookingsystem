@@ -157,7 +157,7 @@ namespace DataAccessTest
         [Fact]
         public void InsertGuestWithReservationSuccesful()
         {
-            GuestModel guest1 = new() { Name = "test1"};
+            GuestModel guest1 = new() { Name = "test1" };
             GuestModel guest2 = new() { Name = "test2" };
             ReservationModel reservation = new();
 
@@ -178,7 +178,8 @@ namespace DataAccessTest
                     guest1.Phone,
                     guest1.AccountNumber,
                     reservation.StartDate,
-                    reservation.EndDate
+                    reservation.EndDate,
+                    reservation.Information
                 }).GetHashCode()),
                 "Default"), Times.Once());
             mock.Verify(x => x.SaveData(
@@ -191,7 +192,8 @@ namespace DataAccessTest
                     guest2.Phone,
                     guest2.AccountNumber,
                     reservation.StartDate,
-                    reservation.EndDate
+                    reservation.EndDate,
+                    reservation.Information
                 }).GetHashCode()),
                 "Default"), Times.Never());
             mock.Verify(x => x.SaveData(
@@ -204,7 +206,8 @@ namespace DataAccessTest
                     guest2.Phone,
                     guest2.AccountNumber,
                     reservation.StartDate,
-                    reservation.EndDate
+                    reservation.EndDate,
+                    reservation.Information
                 }).GetHashCode()),
                 "Default"), Times.Never());
         }

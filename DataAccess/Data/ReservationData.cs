@@ -30,7 +30,7 @@ namespace DataAccess.Data
         {
             return _db.SaveData(
                 "dbo.spReservation_Insert",
-                new { reservation.StartDate, reservation.EndDate, reservation.GuestId });
+                new { reservation.StartDate, reservation.EndDate, reservation.Information, reservation.GuestId});
         }
 
         public Task UpdateReservation(ReservationModel reservation)
