@@ -1,5 +1,6 @@
 using DataAccess.Data;
 using DataAccess.DbAccess;
+using MailService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +27,7 @@ namespace Reservations_system
             services.AddTransient<ISqlDbAccess, SqlDbAccess>();
             services.AddTransient<IReservationData, ReservationData>();
             services.AddTransient<IGuestData, GuestData>();
+            services.AddTransient<ISendMail, SendMail> ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
