@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "MailWorker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "SENDAPIKEY": "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",
+        "MAIL": "thorlak2nd@gmail.com"
+      },
+      "dotnetRunMessages": "true"
+    }
+  }
+}
