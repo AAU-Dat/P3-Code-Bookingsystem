@@ -1,5 +1,6 @@
 ﻿using DataAccess.Data;
 using DataAccess.Models;
+using MailService;
 using Moq;
 using Reservations_system.Classes;
 using Reservations_system.Data;
@@ -24,8 +25,10 @@ namespace Test_ReservationsSystem.Test_DataManager
 
             var guestDataMock = new Mock<IGuestData>();
             var reservationDataMock = new Mock<IReservationData>();
+            var associationDataMock = new Mock<IAssociationData>();
+            var mailDataMock = new Mock<ISendMail>();
             guestDataMock.Setup(p => p.InsertGuestWithReservation(guestModel, reservationModel));
-            DataManager controller = new(reservationDataMock.Object, guestDataMock.Object);
+            DataManager controller = new(reservationDataMock.Object, guestDataMock.Object, associationDataMock.Object, mailDataMock.Object);
 
             controller.Reservations = new List<Reservation>();
 
@@ -47,8 +50,10 @@ namespace Test_ReservationsSystem.Test_DataManager
 
             var guestDataMock = new Mock<IGuestData>();
             var reservationDataMock = new Mock<IReservationData>();
+            var associationDataMock = new Mock<IAssociationData>();
+            var mailDataMock = new Mock<ISendMail>();
             reservationDataMock.Setup(p => p.DeleteReservation(reservationModel.Id));
-            DataManager controller = new(reservationDataMock.Object, guestDataMock.Object);
+            DataManager controller = new(reservationDataMock.Object, guestDataMock.Object, associationDataMock.Object, mailDataMock.Object);
 
             controller.Reservations = new List<Reservation>();
 
@@ -78,9 +83,11 @@ namespace Test_ReservationsSystem.Test_DataManager
 
             var guestDataMock = new Mock<IGuestData>();
             var reservationDataMock = new Mock<IReservationData>();
+            var associationDataMock = new Mock<IAssociationData>();
+            var mailDataMock = new Mock<ISendMail>();
             reservationDataMock.Setup(p => p.UpdateReservation(reservationModel));
 
-            DataManager controller = new(reservationDataMock.Object, guestDataMock.Object);
+            DataManager controller = new(reservationDataMock.Object, guestDataMock.Object, associationDataMock.Object, mailDataMock.Object);
             controller.Reservations = new List<Reservation>();
 
             controller.AddReservation(reservation); //Adds the first reservation to the list
@@ -108,9 +115,11 @@ namespace Test_ReservationsSystem.Test_DataManager
 
             var guestDataMock = new Mock<IGuestData>();
             var reservationDataMock = new Mock<IReservationData>();
+            var associationDataMock = new Mock<IAssociationData>();
+            var mailDataMock = new Mock<ISendMail>();
             guestDataMock.Setup(p => p.UpdateGuest(guestModel));
 
-            DataManager controller = new(reservationDataMock.Object, guestDataMock.Object);
+            DataManager controller = new(reservationDataMock.Object, guestDataMock.Object, associationDataMock.Object, mailDataMock.Object);
             controller.Reservations = new List<Reservation>();
 
             controller.AddReservation(reservation); //Adds the first reservation to the list
