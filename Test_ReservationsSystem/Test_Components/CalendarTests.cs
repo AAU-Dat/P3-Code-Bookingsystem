@@ -33,16 +33,13 @@ namespace Test_ReservationsSystem.Test_Components
         public void TestCalendarNextMonthAndPreviousMonthButtons()
         {
             //Arrange
-            DateTime date = DateTime.Now;
             DateTime OnRenderDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
 
             using var ctx = new TestContext();
 
             //act
             var cut = ctx.RenderComponent<Calendar>(parameters => parameters
-                .Add(p => p.Reservationer, ListOfReservations)
-                .Add(p => p.SelectionDate, date)
-                );
+                .Add(p => p.Reservationer, ListOfReservations));
 
             //assert
             //tests if the component has been rendered properly for the test
