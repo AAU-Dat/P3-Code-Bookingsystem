@@ -1,4 +1,4 @@
-﻿@inject IDataManager _dm
+﻿@*@inject IDataManager _dm*@
 
 <div class="header">
     <button class="oi oi-caret-left" @onclick="PreviousMonth"> </button>
@@ -28,8 +28,8 @@
                     {
                         Reservation result = Reservationer.Find(x => x.StartDate.Date <= calendarDay.Date && x.EndDate.Date >= calendarDay.Date);
                         <button Disabled="@(result is not null || calendarDay < DateTime.Now ? true : false)" @onclick="(e => SelectionDateChanged.InvokeAsync(calendarDay))">
-                            @calendarDay.Day 
-                        </button> 
+                            @calendarDay.Day
+                        </button>
                         // Tilføj controller i sidste ende
                     }
                 </td>
